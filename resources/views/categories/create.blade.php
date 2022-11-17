@@ -37,11 +37,10 @@
                     <div class="container--category--botones">
                         <input class="btn btn-primary boton-create boton-create-category" type="reset"
                             value="Limpiar" /><br>
-                        <input class="btn btn-success boton-create boton-create-category" type="submit" value="Guardar" />
+                        <input class="btn btn-success boton-create boton-create-category" id="alert" type="submit"
+                            value="Guardar" />
                     </div>
                 </div>
-
-
 
             </div>
 
