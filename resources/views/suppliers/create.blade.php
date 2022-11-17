@@ -13,7 +13,7 @@
     <div class="contenedor-provider-create">
 
         <div class="create-header">
-            <img src="{{asset('img/icons/datos.png')}}" width="43px" class="providers-create-space">
+            <img src="{{ asset('img/icons/datos.png') }}" width="43px" class="providers-create-space">
             <h1>Datos del proveedor</h1>
         </div>
 
@@ -22,64 +22,82 @@
 
             <div class="contenedor-create-form">
                 <div class="create-form-bloque">
-                    <label for="docType"><b>Tipo de documento</b></label>
-                    <select id="docType" name="docType" class="form-control" value="{{ old('docType') }}" required="true">
+                    <label for="sup_code"><b>Código del proveedor</b></label>
+                    <input type="text" id="sup_code" name="sup_code" class="form-control mb-3" required="true"
+                        value="{{ old('sup_code') }}" />
+                    @error('sup_code')
+                        <p>* El código del proveedor es requerido</p>
+                    @enderror
+
+                    <label for="document_type_id"><b>Tipo de documento</b></label>
+                    <select id="document_type_id" name="document_type_id" class="form-control mb-3"
+                        value="{{ old('document_type_id') }}" required="true">
                         <option value="">Seleccione una opción</option>
-                        @foreach ($typeDocument as $item)
-                            
+                        @foreach ($documentType as $item)
+                            <option value="{{ $item->id }}">{{ $item->doc_name }}</option>
                         @endforeach
-                    </select><br>
-                    @error('docType')
+                    </select>
+                    @error('document_type_id')
                         <p>* El tipo de documento es requerido</p>
                     @enderror
 
-                    <label for="documentId"><b>Número de documento</b> </label>
-                    <input type="number" id="documentId" name="documentId" class="form-control" required="true"
-                        value="{{ old('documentId') }}" /><br>
+                    <label for="document_number"><b>Número de documento</b> </label>
+                    <input type="number" id="document_number" name="document_number" class="form-control mb-3"
+                        required="true" value="{{ old('document_number') }}" />
 
-                    @error('documentId')
+                    @error('document_number')
                         <p>* Número de documento es requerido</p>
                     @enderror
 
-                    <label for="email"><b>E-mail </b></label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Escriba su correo"
-                        value="{{ old('email') }}" />
+                    <label for="sup_email"><b>E-mail </b></label>
+                    <input type="email" id="sup_email" name="sup_email" class="form-control mb-3"
+                        placeholder="Escriba su correo" value="{{ old('sup_email') }}" />
+
+
+                    <label for="sup_cellphone"><b>Teléfono</b> </label>
+                    <input type="number" id="sup_cellphone" name="sup_cellphone" class="form-control mb-3"
+                        value="{{ old('sup_cellphone') }}" placeholder="Escriba su teléfono" required="true"
+                        maxlength="10" />
                 </div>
 
                 <div class="create-form-bloque">
-                    <label for="name"><b>Nombre</b> </label>
-                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
-                        placeholder="Escriba su nombre" required="true" />
-                    @error('name')
+                    <label for="sup_name"><b>Nombre</b> </label>
+                    <input type="text" id="sup_name" name="sup_name" class="form-control mb-3"
+                        value="{{ old('sup_name') }}" placeholder="Escriba su nombre" required="true" />
+                    @error('sup_name')
                         <p>* Nombre es requerido</p>
                     @enderror
 
-                    <br>
+                    <label for="sup_lastname"><b>Apellido</b> </label>
+                    <input type="text" id="sup_lastname" name="sup_lastname" class="form-control mb-3"
+                        value="{{ old('sup_lastname') }}" placeholder="Escriba su apellido" required="true" />
 
-                    <label for="address"><b>Dirección</b> </label>
-                    <input type="text" id="address" name="address" class="form-control" value="{{ old('address') }}"
-                        placeholder="Escriba su dirección" required="true" />
-                    <br>
+                    <label for="country_id"><b>Pais</b> </label>
 
-                    <label for="cellphone"><b>Teléfono</b> </label>
-                    <input type="number" id="cellphone" name="cellphone" class="form-control"
-                        value="{{ old('cellphone') }}" placeholder="Escriba su teléfono" required="true" maxlength="10" />
-                    @error('cellphone')
-                        <p>* Campo Teléfono es requerido</p>
+                    <select id="country_id" name="country_id" class="form-control mb-3">
+                        <option value="">Seleccione el pais</option>
+                        @foreach ($countries as $item)
+                            <option value="{{ $item->id }}">{{ $item->cou_name }}</option>
+                        @endforeach
+                    </select>
+
+                    <label for="sup_street"><b>Dirección</b> </label>
+                    <input type="text" id="sup_street" name="sup_street" class="form-control mb-3"
+                        value="{{ old('sup_street') }}" placeholder="Escriba su dirección" required="true" />
+                    @error('sup_street')
+                        <p>* La dirección es requerida</p>
                     @enderror
 
-                    <input type="text" id="date" name="date" readonly hidden
-                        value="<?= date('Y-m-d H:i:s') ?>" />
-
-                    <br>
                 </div>
             </div>
 
             <div style="text-align: center; padding-bottom:20px;">
                 <input class="btn btn-primary boton-create" type="reset" value="Limpiar" />
-                <input class="btn btn-success boton-create" type="submit" value="Guardar" />
+                <input class="btn btn-success boton-create" class="btn-Alert" type="submit" value="Guardar" />
             </div>
 
         </form>
     </div>
 @endsection
+
+<script src="{{ asset('js/formSupplier.js') }}"></script>

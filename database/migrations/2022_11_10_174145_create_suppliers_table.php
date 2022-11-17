@@ -25,8 +25,8 @@ class CreateSuppliersTable extends Migration
                 ->constrained('document_types')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-                
             $table->string('document_number', 10)->nullable();
+
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->string('sup_city', 40);

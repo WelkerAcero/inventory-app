@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
     <!--ALERTIFY Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+    
+    {{-- SWEET ALERT2 --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
     {{-- ALERTIFY Script --}}
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
@@ -38,6 +42,8 @@
 
     {{-- Here all Js files --}}
     <script src="{{ asset('js/buttons.js') }}"></script>
+    <script src="{{ asset('js/alerts.js') }}"></script>
+
 </head>
 
 <body>
