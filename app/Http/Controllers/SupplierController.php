@@ -20,11 +20,20 @@ class SupplierController extends Controller
         $cities = array();
         foreach ($data as $key => $value) {
             array_push($cities_id, $value['department_id']);
-            $city_name = DB::table('departments')->select('dep_name')->where('id','=', $value['department_id'])->get();
+            $city_name = DB::table('departments')->select('dep_name')->where('id', '=', $value['department_id'])->get();
             array_push($cities, $city_name);
         }
         return view('suppliers.index', compact('data'), compact('cities'));
         /* return response()->json($suppliers); */
+    }
+
+    public function departmentsByCountryId($countryId)
+    {
+        try {
+            return DB::table('departments')->where('country_id', $countryId)->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -34,10 +43,10 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $documentType = DB::table('document_types')->select('id','doc_name')->get();
-        $countries = DB::table('countries')->select('id','cou_name')->get();
-        $departments = DB::table('departments')->select('id','dep_name')->get();
-        return view('suppliers.create', compact('documentType'), compact('countries','departments'));
+        $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
+        $countries = DB::table('countries')->select('id', 'cou_name')->get();
+        $departments = DB::table('departments')->select('id', 'dep_name')->get();
+        return view('suppliers.create', compact('documentType'), compact('countries', 'departments'));
         /* return $documentType; */
     }
 

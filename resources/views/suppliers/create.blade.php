@@ -72,14 +72,22 @@
                     <input type="text" id="sup_lastname" name="sup_lastname" class="form-control mb-3"
                         value="{{ old('sup_lastname') }}" placeholder="Escriba su apellido" required="true" />
 
-                    <label for="country_id"><b>Pais</b> </label>
+                    <div id="country-section" class="w-100" >
+                        <label for="country_id"><b>Seleccione el país</b> </label>
+                        <select id="country_id" class="form-control mb-3 w-50" required="true">
+                            <option value="">Seleccione el pais</option>
+                            @foreach ($countries as $item)
+                                <option value="{{ $item->id }}">{{ $item->cou_name }}</option>
+                            @endforeach
+                        </select>
 
-                    <select id="country_id" name="country_id" class="form-control mb-3">
-                        <option value="">Seleccione el pais</option>
-                        @foreach ($countries as $item)
-                            <option value="{{ $item->id }}">{{ $item->cou_name }}</option>
-                        @endforeach
-                    </select>
+                        <div id="department-section" class="w-50">
+                            <label for="department_id"><b>Seleccione el departamento</b> </label>
+                            <select id="department_id" name="department_id" class="form-control mb-3" required="true">
+                                {{-- Se llena desde JS con JQuery --}}
+                            </select>
+                        </div>
+                    </div>
 
                     <label for="sup_street"><b>Dirección</b> </label>
                     <input type="text" id="sup_street" name="sup_street" class="form-control mb-3"
@@ -100,4 +108,6 @@
     </div>
 @endsection
 
-<script src="{{ asset('js/formSupplier.js') }}"></script>
+@push('script-create-supplier')
+    <script type="text/javascript" src="{{ asset('js/formSupplier.js') }}"></script>
+@endpush

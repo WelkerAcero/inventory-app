@@ -34,7 +34,9 @@ Route::controller(SessionController::class)->group(function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
-    
+
+    Route::get('/country/{id}/departments', [SupplierController::class, 'departmentsByCountryId']);
+
     Route::get('/', function () {
         return view('dashboard');
     });
@@ -78,7 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('purchase', 'index')->name('purchase.index');
         Route::get('purchase/create', 'create')->name('purchase.create');
     });
-    
+
     Route::controller(KardexController::class)->group(function () {
         Route::get('kardex', 'index')->name('kardex.index');
     });
@@ -93,4 +95,3 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('customer/{id}', 'destroy')->name('customer.destroy');
     });
 });
-
