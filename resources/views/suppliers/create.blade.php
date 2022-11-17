@@ -37,10 +37,7 @@
                             <option value="{{ $item->id }}">{{ $item->doc_name }}</option>
                         @endforeach
                     </select>
-                    @error('document_type_id')
-                        <p>* El tipo de documento es requerido</p>
-                    @enderror
-
+                  
                     <label for="document_number"><b>Número de documento</b> </label>
                     <input type="number" id="document_number" name="document_number" class="form-control mb-3"
                         required="true" value="{{ old('document_number') }}" />
@@ -72,14 +69,18 @@
                     <input type="text" id="sup_lastname" name="sup_lastname" class="form-control mb-3"
                         value="{{ old('sup_lastname') }}" placeholder="Escriba su apellido" required="true" />
 
-                    <label for="country_id"><b>Pais</b> </label>
+                    <label for="department_id"><b>Departamento</b> </label>
 
-                    <select id="country_id" name="country_id" class="form-control mb-3">
-                        <option value="">Seleccione el pais</option>
-                        @foreach ($countries as $item)
-                            <option value="{{ $item->id }}">{{ $item->cou_name }}</option>
+                    <select id="department_id" name="department_id" class="form-control mb-3">
+                        <option value="">Seleccione su departamento</option>
+                        @foreach ($departments as $item)
+                            <option value="{{ $item->id }}">{{ $item->dep_name }}</option>
                         @endforeach
                     </select>
+
+                    <label for="sup_city"><b>Ciudad</b> </label>
+                    <input type="text" id="sup_city" name="sup_city" class="form-control mb-3"
+                        value="{{ old('sup_city') }}" placeholder="Escriba su dirección" required="true" /> 
 
                     <label for="sup_street"><b>Dirección</b> </label>
                     <input type="text" id="sup_street" name="sup_street" class="form-control mb-3"
@@ -92,12 +93,11 @@
             </div>
 
             <div style="text-align: center; padding-bottom:20px;">
-                <input class="btn btn-primary boton-create" type="reset" value="Limpiar" />
-                <input class="btn btn-success boton-create" class="btn-Alert" type="submit" value="Guardar" />
+                <input class="btn btn-primary boton-create"  type="reset" value="Limpiar" />
+                <input class="btn btn-success boton-create"  id="btn-Alert" type="submit" value="Guardar" />
             </div>
 
         </form>
     </div>
 @endsection
 
-<script src="{{ asset('js/formSupplier.js') }}"></script>
