@@ -1,0 +1,239 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    /* border: 1px red solid; */
+}
+
+body {
+    background: linear-gradient(
+            180deg,
+            rgba(1, 0, 8, 0.7) 0%,
+            rgba(166, 166, 186, 0.5) 50%,
+            rgba(1, 15, 18, 0.7) 100%
+        ),
+        url("../img/fond.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    font-size: 17px;
+}
+
+.contenedor {
+    background: white;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    margin: 15px auto;
+    max-width: 90%;
+    border-radius: 35px;
+}
+
+.section--izq {
+    width: 90%;
+    margin: 4%;
+}
+
+.section--der {
+    width: 100%;
+    margin: 30px;
+    overflow: hidden;
+    display: flex;
+}
+
+.section--izq .text--center {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.input--login {
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: 0px 0px;
+    padding: 5px;
+}
+
+.button--login a {
+    color: black;
+    text-decoration: none;
+    background-color: #42cebd;
+    padding: 7px 50px;
+    border-radius: 15px;
+}
+
+.button--login a:hover {
+    color: #42cebd;
+    background-color: rgb(71, 70, 70);
+    border-color: #42cebd;
+}
+
+.contenedor--redes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 12%;
+}
+
+.redes {
+    width: 50%;
+    transition: transform 0.7s ease-in-out;
+}
+
+.redes:hover {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg) scale(1.3);
+}
+
+.img--der {
+    margin: auto;
+    width: 100%;
+}
+
+/* ********* ANIMACIÓN WELCOME ********* */
+
+.draw {
+    border: none;
+    outline: none;
+    color: rgb(2, 2, 2);
+    letter-spacing: 0.3rem;
+    box-shadow: 1rem 1rem 4rem #808080;
+    position: relative;
+    overflow: hidden;
+}
+
+.draw span:nth-child(1) {
+    position: absolute;
+    height: 0.2rem;
+    width: 100%;
+    background-image: linear-gradient(
+        to right,
+        rgb(0, 153, 255) 30%,
+        rgb(125, 193, 126) 40%,
+        rgb(57, 176, 255)
+    );
+    top: 0;
+    left: 0;
+    animation: line1 1s linear infinite;
+}
+
+@keyframes line1 {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.draw span:nth-child(2) {
+    position: absolute;
+    height: 100%;
+    width: 0.2rem;
+    background-image: linear-gradient(
+        to bottom,
+        rgb(0, 153, 255) 30%,
+        rgb(125, 193, 126) 40%,
+        rgb(57, 176, 255)
+    );
+    top: 0;
+    right: 0;
+    animation: line2 1s linear 1.5s infinite;
+}
+
+@keyframes line2 {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.draw span:nth-child(3) {
+    position: absolute;
+    height: 0.2rem;
+    width: 100%;
+    background-image: linear-gradient(
+        to right,
+        rgb(0, 153, 255) 30%,
+        rgb(125, 193, 126) 40%,
+        rgb(57, 176, 255)
+    );
+    bottom: 0;
+    left: 0;
+    animation: line3 1s linear infinite;
+}
+
+@keyframes line3 {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.draw span:nth-child(4) {
+    position: absolute;
+    height: 100%;
+    width: 0.2rem;
+    background-image: linear-gradient(
+        to bottom,
+        rgb(0, 153, 255) 30%,
+        rgb(125, 193, 126) 40%,
+        rgb(57, 176, 255)
+    );
+    top: 0;
+    left: 0;
+    animation: line4 1s linear 1.5s infinite;
+}
+
+.arrow-down-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.drop-arrow {
+    flex-direction: column;
+}
+
+@keyframes line4 {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .section--izq {
+        width: 100%;
+    }
+
+    .section--der {
+        display: none;
+    }
+
+    .img--der {
+        display: none;
+    }
+}
+
+form button {
+    border: none;
+}
+
+.contenedor--card:hover {
+    font-size: 20px;
+}

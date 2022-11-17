@@ -1,0 +1,16 @@
+/* ************ PÁGINA CREATE CATEGORIES ************ */
+
+.contenedor-category-create {
+    background-color: rgba(255, 255, 255, 0.855);
+    margin: auto;
+    width: 50%;
+    border: 2px solid black;
+}
+
+.container--category--botones {
+    display: flex;
+}
+
+.boton-create-category {
+    margin: 0px auto 40px;
+}

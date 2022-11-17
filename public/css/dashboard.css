@@ -1,0 +1,67 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    /* border: 1px red solid; */
+}
+
+/********************* MENÚ *******************/
+
+.menu--logo {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    margin: 30px 150px;
+}
+
+.menu-dimension{
+    margin: 20px;
+}
+
+.nav-item{
+    border-bottom: 1px solid black;
+}
+
+
+.contenedor--menu__up {
+    background-image: url("../img/fondo-user.jpg");
+    background-size: cover;
+    height: 240px;
+}
+
+.offcanvas {
+    background: linear-gradient(180deg, rgba(251, 251, 251, 0.912),rgba(251, 251, 251, 0.912), #B9EBFD);
+    /* filter: blur(1px); */
+}
+
+.contenedor--menu__user {
+    text-align: center
+}
+
+/* ******************** DASHBOARD ******************** */
+
+.contenedor--dashboard {
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contenedor--card {
+    margin: 20px;
+    width: 370px;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    padding: 20px;
+    background: conic-gradient(from 180.65deg at 50% 50%, #D3FAFD 0deg, rgba(251, 255, 252, 0.6) 360deg);
+    border: 1px solid #000000;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 10px;
+}
+
+.draw{
+    padding: 5px; 
+    margin-left:180px;
+}
