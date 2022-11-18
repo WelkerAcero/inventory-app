@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Http\Requests\SupplierRequest;
 
 class SupplierController extends Controller
 {
@@ -56,8 +57,9 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SupplierRequest $request)
     {
+        
         $supplier = Supplier::create($request->all());
         return redirect()->route('supplier.index');
     }
