@@ -43,6 +43,7 @@
     {{-- Here all Js files --}}
     <script src="{{ asset('js/buttons.js') }}"></script>
     <script src="{{ asset('js/alerts.js') }}"></script>
+    <script src="{{ asset('js/alertLogin.js') }}"></script>
     @stack('script-create-supplier')
 
 </head>

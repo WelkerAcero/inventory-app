@@ -59,7 +59,7 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $supplier = Supplier::create($request->all());
-        return redirect()->route('suppliers.show', $supplier->id);
+        return redirect()->route('supplier.index');
     }
 
     /**

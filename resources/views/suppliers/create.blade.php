@@ -37,10 +37,7 @@
                             <option value="{{ $item->id }}">{{ $item->doc_name }}</option>
                         @endforeach
                     </select>
-                    @error('document_type_id')
-                        <p>* El tipo de documento es requerido</p>
-                    @enderror
-
+                  
                     <label for="document_number"><b>Número de documento</b> </label>
                     <input type="number" id="document_number" name="document_number" class="form-control mb-3"
                         required="true" value="{{ old('document_number') }}" />
@@ -100,8 +97,8 @@
             </div>
 
             <div style="text-align: center; padding-bottom:20px;">
-                <input class="btn btn-primary boton-create" type="reset" value="Limpiar" />
-                <input class="btn btn-success boton-create" class="btn-Alert" type="submit" value="Guardar" />
+                <input class="btn btn-primary boton-create"  type="reset" value="Limpiar" />
+                <input class="btn btn-success boton-create"  id="btn-Alert" type="submit" value="Guardar" />
             </div>
 
         </form>
