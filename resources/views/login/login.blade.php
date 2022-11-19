@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="text--center button--login">
-                    <button submit="submit" class="btn btn-success" id="alert-Login">Iniciar sesión</button>
+                    <button type="button" class="btn btn-success" id="alert-Login">Iniciar sesión</button>
                 </div>
 
             </form>
