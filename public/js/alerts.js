@@ -20,7 +20,7 @@ $(document).ready(function () {
             }
         });
 
-        alert('Revisa el console');
+        // alert('Revisa el console');
         console.log(dataName);
         console.log(hasRequired);
         console.log(nameValues);
@@ -40,7 +40,7 @@ $(document).ready(function () {
 
             swalWithBootstrapButtons
                 .fire({
-                    title: "¿Está seguro de guardar el proveedor?",
+                    title: "¿Está seguro de guardar el registro?",
                     type: "question",
                     icon: 'question',
                     showCancelButton: true,
