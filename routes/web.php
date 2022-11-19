@@ -29,13 +29,16 @@ Route::controller(SessionController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
     Route::post('/dashboard', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
-    Route::get('signup', 'logout')->name('logout');
+
 });
 
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/country/{id}/departments', [SupplierController::class, 'departmentsByCountryId']);
+    Route::get('/country/{id}/departments', [SupplierController::class, 'jsCreateEvent']);
+    Route::get('/supplier/{id}/department/{dep_id}/edit', [SupplierController::class, 'jsEditEvent']);
+
+    Route::get('logout', [SupplierController::class, 'logout'])->name('logout');
 
     Route::get('/', function () {
         return view('dashboard');
@@ -50,7 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('supplier/create', 'create')->name('supplier.create');
         Route::post('supplier', 'store')->name('supplier.store');
 
-        Route::get('supplier/{id}/edit', 'edit')->name('supplier.edit');
+        Route::get('supplier/{id}/department/{dep_id}/edit', 'edit')->name('supplier.edit');
         Route::put('supplier/{data}', 'update')->name('supplier.update');
         Route::delete('supplier/{id}', 'destroy')->name('supplier.destroy');
     });

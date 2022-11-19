@@ -28,10 +28,19 @@ class SupplierController extends Controller
         /* return response()->json($suppliers); */
     }
 
-    public function departmentsByCountryId($countryId)
+    public function jsCreateEvent($countryId)
     {
         try {
             return DB::table('departments')->where('country_id', $countryId)->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function jsEditEvent($country_id)
+    {
+        try {
+            return DB::table('departments')->where('country_id', $country_id)->get();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -82,10 +91,17 @@ class SupplierController extends Controller
      * @param  \App\Models\Provider  $provider
      * @return \Illuminate\Http\Response
      */
-    public function edit($supplier)
+    public function edit($supplier, $dep_id)
     {
+        $documentType = DB::table('document_types')->get();
+        $countries = DB::table('countries')->get();
+        $defaultCountry = DB::table('countries')
+            ->join('departments', 'departments.country_id', '=', 'countries.id')
+            ->where('departments.id', '=', $dep_id)
+            ->select('countries.id', 'countries.cou_name')
+            ->get();
         $data = Supplier::find($supplier);
-        return view('suppliers.edit', ['data' => $data]);
+        return view('suppliers.edit', compact('data', 'documentType','countries','defaultCountry'));
     }
 
     /**

@@ -44,8 +44,7 @@
     <script src="{{ asset('js/buttons.js') }}"></script>
     <script src="{{ asset('js/alerts.js') }}"></script>
     <script src="{{ asset('js/alertLogin.js') }}"></script>
-    @stack('script-create-supplier')
-
+    @stack('script-event-supplier')
 </head>
 
 <body>

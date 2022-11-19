@@ -118,6 +118,6 @@
     </div>
 @endsection
 
-@push('script-create-supplier')
-    <script type="text/javascript" src="{{ asset('js/formSupplier.js') }}"></script>
+@push('script-event-supplier')
+    <script type="text/javascript" src="{{ asset('js/form-event-supplier.js') }}"></script>
 @endpush

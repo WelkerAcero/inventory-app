@@ -17,13 +17,13 @@
             <thead class="providers-table-title table-dark">
                 {{-- <th>key</th> --}}
                 <th>Código proveedor</th>
-                <th>Documento</th>
+                <th>Tipo Documento</th>
                 <th>Nro documento</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Teléfono</th>
                 <th>Email</th>
-                <th>Pais</th>
+                <th>Departamento_id</th>
                 <th>Ciudad</th>
                 <th>Calle</th>
                 <th>Fecha creación</th>
@@ -49,7 +49,7 @@
                     <td class="providers-index-center">{{ $item->updated_at }}</td>
 
                     <td style="text-align: center">
-                        <a href="{{ route('supplier.edit', $item->id) }}">
+                        <a href="{{ route('supplier.edit', [$item->id, $item->department_id]) }}">
                             <abbr title="Editar información" style="cursor: pointer">
                                 <img src="{{ asset('img/icons/editar.png') }}" width="25px">
                             </abbr>

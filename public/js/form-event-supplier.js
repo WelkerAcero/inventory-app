@@ -3,11 +3,13 @@ $('document').ready(function () {
 
     $('#country_id').on('change', function () {
         let country_id = $(this).val();
+        console.log(country_id);
         if (country_id) {
             $('#department-section').show();
 
             $.get(`/country/${country_id}/departments`,
                 function (data) {
+                    console.log(data);
                     html_select = "<option value=''>Seleccione el departamento</option>";
                     for (let i = 0; i < data.length; i++) {
                         html_select += `<option value="${data[i].id}">${data[i].dep_name}</option>`;
