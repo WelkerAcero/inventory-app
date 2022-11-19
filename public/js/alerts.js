@@ -33,7 +33,7 @@ $(document).ready(function () {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: "btn btn-success",
-                    cancelButton: "btn btn-danger",
+                    cancelButton: "btn btn-primary",
                 },
                 buttonsStyling: false,
             });
@@ -59,7 +59,7 @@ $(document).ready(function () {
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         swalWithBootstrapButtons.fire(
                             {
-                                icon: 'error',
+                                icon: 'info',
                                 title: 'Registro cancelado!',
                                 timer: 2000,
                                 timerProgressBar: true,

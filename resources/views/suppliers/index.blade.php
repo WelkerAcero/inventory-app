@@ -60,7 +60,7 @@
                         <form method="post" action="{{ route('supplier.destroy', $item->id) }}">
                             @csrf
                             @method('delete')
-                            <a type="submit">
+                            <a type="submit" id="btn-AlertDelete">
                                 <abbr title="Eliminar información" style="cursor: pointer">
                                     <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
                                 </abbr>
