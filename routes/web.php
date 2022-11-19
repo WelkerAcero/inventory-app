@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/country/{id}/departments', [SupplierController::class, 'jsCreateEvent']);
     Route::get('/supplier/{id}/department/{dep_id}/edit', [SupplierController::class, 'jsEditEvent']);
 
-    Route::get('logout', [SupplierController::class, 'logout'])->name('logout');
+    Route::get('logout', [SessionController::class, 'logout'])->name('logout');
 
     Route::get('/', function () {
         return view('dashboard');
