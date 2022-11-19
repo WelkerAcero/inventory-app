@@ -20,7 +20,7 @@ $(document).ready(function () {
             }
         });
 
-        alert('Revisa el console');
+        // alert('Revisa el console');
         console.log(dataName);
         console.log(hasRequired);
         console.log(nameValues);
@@ -33,14 +33,14 @@ $(document).ready(function () {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: "btn btn-success",
-                    cancelButton: "btn btn-danger",
+                    cancelButton: "btn btn-primary",
                 },
                 buttonsStyling: false,
             });
 
             swalWithBootstrapButtons
                 .fire({
-                    title: "¿Está seguro de guardar el proveedor?",
+                    title: "¿Está seguro de guardar el registro?",
                     type: "question",
                     icon: 'question',
                     showCancelButton: true,
@@ -59,7 +59,7 @@ $(document).ready(function () {
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         swalWithBootstrapButtons.fire(
                             {
-                                icon: 'error',
+                                icon: 'info',
                                 title: 'Registro cancelado!',
                                 timer: 2000,
                                 timerProgressBar: true,

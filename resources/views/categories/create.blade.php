@@ -28,16 +28,16 @@
             <div class="contenedor-create-form">
                 <div class="create-form-bloque">
                     <label for="nombre"><b>Nombre de la categoría</b> </label>
-                    <input type="text" id="nombre" name="name" class="form-control"
+                    <input type="text" id="nombre" name="nombre" class="form-control values"
                         placeholder="Escriba el nombre de la categoría" required="true" /><br>
-                    @error('name')
+                    @error('nombre')
                         <p>*El campo nombre de la categoría es requerido</p>
                     @enderror
 
                     <div class="container--category--botones">
                         <input class="btn btn-primary boton-create boton-create-category" type="reset"
                             value="Limpiar" /><br>
-                        <input class="btn btn-success boton-create boton-create-category"  type="submit"
+                        <input class="btn btn-success boton-create boton-create-category" id="btn-Alert" type="button"
                             value="Guardar" />
                     </div>
                 </div>
