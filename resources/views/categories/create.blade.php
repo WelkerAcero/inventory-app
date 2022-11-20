@@ -27,10 +27,10 @@
             @csrf
             <div class="contenedor-create-form">
                 <div class="create-form-bloque">
-                    <label for="nombre"><b>Nombre de la categoría</b> </label>
-                    <input type="text" id="nombre" name="nombre" class="form-control values"
+                    <label for="cat_name"><b>Nombre de la categoría</b> </label>
+                    <input type="text" id="cat_name" name="cat_name" class="form-control values"
                         placeholder="Escriba el nombre de la categoría" required="true" /><br>
-                    @error('nombre')
+                    @error('cat_name')
                         <p>*El campo nombre de la categoría es requerido</p>
                     @enderror
 

@@ -55,11 +55,11 @@
                         <form method="post" action="{{ route('category.destroy', $item->id) }}">
                             @csrf
                             @method('delete')
-                            <a type="submit" id="btn-AlertDelete">
-                                <abbr title="Eliminar información" style="cursor: pointer">
+                            <a type="button" id="btn-AlertDelete">
+                                {{-- <abbr title="Eliminar información" style="cursor: pointer"> --}}
                                     <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
-                                </abbr>
-                            </a>
+                                {{-- </abbr> --}}
+                                </a>
                         </form>
                     </td>
                 </tr>

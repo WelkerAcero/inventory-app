@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $("form #btn-AlertDelete").click(function (e) {
-        e.preventDefault();
-
+        let $form = $(this).closest("form");
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-danger",
@@ -29,16 +28,26 @@ $(document).ready(function () {
                         timer: 1700,
                         timerProgressBar: true,
                         didOpen: (toast) => {
-                          toast.addEventListener('mouseenter', Swal.stopTimer)
-                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
                         }
-                      })
-                      
-                      Toast.fire({
-                        icon: 'success',
-                        title: 'Registro eliminado'
-                      });
-                    $form.submit();
+                    })
+
+                    let identificadorTiempoDeEspera;
+
+                    (function () {
+                        identificadorTiempoDeEspera = setTimeout(funcionConRetraso, 1700);
+                    })();
+            
+                    async function funcionConRetraso() {
+                        $form.submit();
+                        
+                        await Toast.fire({
+                            icon: 'success',
+                            title: 'Registro eliminado'
+                        });
+                    }
+
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire({
                         icon: "info",

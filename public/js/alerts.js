@@ -1,33 +1,40 @@
 $(document).ready(function () {
     $("form #btn-Alert").click(function (e) {
-        let dataName = [];
+        const ATTR_NAMES = [];
 
+        //for each .values as className Get 
         $('.values').each(function () {
-            dataName.push($(this).attr("name"));
+            ATTR_NAMES.push($(this).attr("name"));
         });
 
-        hasRequired = [];
-        dataName.forEach(element => {
-            if ($(`#${element}`).attr("required") !== undefined) {
-                hasRequired.push($(`#${element}`).attr("required"));
+        const HAS_ATTR_REQUIRED = [];
+        ATTR_NAMES.forEach(element => {
+
+            if ($(`#${element}`).attr("required") !== undefined) 
+            {
+                HAS_ATTR_REQUIRED.push($(`#${element}`).attr("required"));
             }
         });
 
-        nameValues = [];
-        dataName.forEach(element => {
-            if ($(`input[name=${element}`).val() !== '' && $(`input[name=${element}`).val() !== undefined) {
-                nameValues.push($(`input[name=${element}`).val());
+        const VAL_ATTR_NAMES = [];
+        ATTR_NAMES.forEach(element => {
+            //Get the element name tag from the array 'nameValue' of the name tag
+            const INPUT_VALUE = $(`input[name=${element}`).val(); 
+
+            if (INPUT_VALUE !== '' && INPUT_VALUE !== undefined) 
+            {
+                VAL_ATTR_NAMES.push(INPUT_VALUE);
             }
         });
 
         // alert('Revisa el console');
-        console.log(dataName);
-        console.log(hasRequired);
-        console.log(nameValues);
+        console.log(ATTR_NAMES);
+        console.log(HAS_ATTR_REQUIRED);
+        console.log(VAL_ATTR_NAMES);
 
         let $form = $(this).closest("form");
 
-        if (hasRequired.length === nameValues.length) {
+        if (HAS_ATTR_REQUIRED.length === VAL_ATTR_NAMES.length) {
             e.preventDefault();
 
             const swalWithBootstrapButtons = Swal.mixin({
@@ -49,14 +56,18 @@ $(document).ready(function () {
                     reverseButtons: true,
                 })
                 .then((result) => {
-                    if (result.value) {
+                    if (result.value) 
+                    {
                         swalWithBootstrapButtons.fire(
                             "Registro guardado",
                             "Successful",
                             "success"
                         );
                         $form.submit();
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+                    } 
+                    if (result.dismiss === Swal.DismissReason.cancel) 
+                    {
                         swalWithBootstrapButtons.fire(
                             {
                                 icon: 'info',

@@ -15,7 +15,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $obj = new \stdClass();
         $data = Category::paginate();
         if (!isset($data[0]['cat_name'])) {
             $error = "No hay datos para mostrar";
@@ -46,7 +45,7 @@ class CategoryController extends Controller
     {
         
         $category = Category::create($request->all());
-        return redirect()->route('categories.index');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -67,8 +66,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
-    {
-        return view('categories.edit', ['categories' => $category::find($category)]);
+    {   
+        $data = Category::find($category);
+        /* return $data; */
+        return view('categories.edit', ['data' => $data]);
     }
 
     /**
@@ -90,9 +91,9 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $id)
     {
-        $category->delete();
-        return redirect()->route('categories.index');
+        $id->delete();
+        return redirect()->route('category.index');
     }
 }

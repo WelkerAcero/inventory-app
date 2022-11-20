@@ -76,7 +76,7 @@ class SupplierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
     public function show(Supplier $supplier)
@@ -88,7 +88,7 @@ class SupplierController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
     public function edit($supplier, $dep_id)
@@ -108,7 +108,7 @@ class SupplierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Supplier $supplier)
@@ -121,12 +121,12 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy(Supplier $id)
     {
-        $supplier->delete();
-        return redirect()->route('suppliers.index');
+        $id->delete();
+        return redirect()->route('supplier.index');
     }
 }
