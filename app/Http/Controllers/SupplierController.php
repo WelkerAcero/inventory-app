@@ -53,6 +53,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
+
         $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
         $countries = DB::table('countries')->select('id', 'cou_name')->get();
         $departments = DB::table('departments')->select('id', 'dep_name')->get();
@@ -68,9 +69,13 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-        
-        $supplier = Supplier::create($request->all());
-        return redirect()->route('supplier.index');
+
+        try {
+            $supplier = Supplier::create($request->all());
+            return redirect()->route('supplier.index');
+        } catch (\Throwable $th) {
+            return redirect('supplier.create')->withErrors($th, 'error');
+        }
     }
 
     /**
@@ -101,7 +106,7 @@ class SupplierController extends Controller
             ->select('countries.id', 'countries.cou_name')
             ->get();
         $data = Supplier::find($supplier);
-        return view('suppliers.edit', compact('data', 'documentType','countries','defaultCountry'));
+        return view('suppliers.edit', compact('data', 'documentType', 'countries', 'defaultCountry'));
     }
 
     /**
@@ -111,11 +116,15 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(SupplierRequest $request, Supplier $supplier)
     {
 
-        $supplier->update($request->all());
-        return redirect()->route('suppliers.show', $supplier->id);
+        try {
+            $supplier->update($request->all());
+            return redirect()->route('suppliers.index');
+        } catch (\Throwable $th) {
+            return redirect('supplier.edit')->withErrors($th, 'error');
+        }
     }
 
     /**

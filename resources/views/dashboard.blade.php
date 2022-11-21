@@ -6,6 +6,7 @@
     <!-- SECCIÓN DASHBOARD - CONTENT -->
 
     <x-alert>
+        <x-slot name="type">success</x-slot>
         Bienvenido al Dashboard {{ session('authenticated') }}
     </x-alert>
 

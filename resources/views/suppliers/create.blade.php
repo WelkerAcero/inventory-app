@@ -17,6 +17,13 @@
             <h1>Datos del proveedor</h1>
         </div>
 
+{{--         @error('sup_code')
+            <x-alert>
+                <x-slot name="type">error</x-slot>
+                ERROR: {{ $message }}
+            </x-alert>
+        @enderror --}}
+
         <form method="post" action="{{ route('supplier.store') }}">
             @csrf
 
@@ -26,7 +33,7 @@
                     <input type="text" id="sup_code" name="sup_code" class="form-control mb-3 values" required="true"
                         value="{{ old('sup_code') }}" placeholder="Escriba el código identificador del proveedor" />
                     @error('sup_code')
-                        <p>*{{ $message }}</p>
+                        <p style="color: red">*{{ $message }}</p>
                     @enderror
 
                     <label for="document_type_id"><b>Tipo de documento</b></label>
@@ -40,8 +47,7 @@
 
                     <label for="document_number"><b>Número de documento</b> </label>
                     <input type="number" id="document_number" name="document_number" class="form-control mb-3 values"
-                        value="{{ old('document_number') }}"
-                        placeholder="Indique el número de cédula del proveedor" />
+                        value="{{ old('document_number') }}" placeholder="Indique el número de cédula del proveedor" />
 
                     <label for="sup_email"><b>E-mail </b></label>
                     <input type="email" id="sup_email" name="sup_email" class="form-control mb-3 values"
@@ -58,7 +64,7 @@
                     <input type="text" id="sup_name" name="sup_name" class="form-control mb-3 values"
                         value="{{ old('sup_name') }}" placeholder="Escriba el nombre del proveedor" required="true" />
                     @error('sup_name')
-                        <p>* {{ $message }}</p>
+                        <p style="color: red">*{{ $message }}</p>
                     @enderror
 
                     <label for="sup_lastname"><b>Apellido</b> </label>
@@ -77,11 +83,12 @@
                         <div id="department-section" class="department-section w-100">
                             <div class="w-50  m-2">
                                 <label for="department_id"><b>Seleccione el departamento</b> </label>
-                                <select id="department_id" name="department_id" class="form-control mb-3 values" required="true">
+                                <select id="department_id" name="department_id" class="form-control mb-3 values"
+                                    required="true">
                                     {{-- Se llena desde JS con JQuery --}}
                                 </select>
                                 @error('department_id')
-                                    <p>* {{ $message }}</p>
+                                    <p style="color: red">*{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -91,7 +98,7 @@
                                     value="{{ old('sup_city') }}" placeholder="Escriba la ciudad del proveedor"
                                     required="true" />
                                 @error('sup_city')
-                                    <p>* {{ $message }}</p>
+                                    <p style="color: red">*{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -103,7 +110,7 @@
                         value="{{ old('sup_street') }}"
                         placeholder="Escriba la dirección, calle o el nro del local del proveedor" required="true" />
                     @error('sup_street')
-                        <p>* {{ $message }}</p>
+                        <p style="color: red">*{{ $message }}</p>
                     @enderror
 
                 </div>

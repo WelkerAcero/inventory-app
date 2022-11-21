@@ -32,7 +32,7 @@
                         value="{{ old('sup_code', $data->sup_code) }}"
                         placeholder="Escriba el código identificador del proveedor" />
                     @error('sup_code')
-                        <p>*{{ $message }}</p>
+                        <p style="color: red">*{{ $message }}</p>
                     @enderror
 
                     <label for="document_type_id"><b>Tipo de documento</b></label>
@@ -56,6 +56,9 @@
                     <label for="sup_email"><b>E-mail </b></label>
                     <input type="email" id="sup_email" name="sup_email" class="form-control mb-3 values"
                         placeholder="Escriba el correo del proveedor" value="{{ old('sup_email', $data->sup_email) }}" />
+                    @error('sup_email')
+                        <p style="color: red">*{{ $message }}</p>
+                    @enderror
 
                     <label for="sup_cellphone"><b>Teléfono</b> </label>
                     <input type="number" id="sup_cellphone" name="sup_cellphone" class="form-control mb-3 values"
@@ -69,7 +72,7 @@
                         value="{{ old('sup_name', $data->sup_name) }}" placeholder="Escriba el nombre del proveedor"
                         required="true" />
                     @error('sup_name')
-                        <p>* {{ $message }}</p>
+                        <p style="color: red">*{{ $message }}</p>
                     @enderror
 
                     <label for="sup_lastname"><b>Apellido</b> </label>
@@ -84,9 +87,9 @@
                             @foreach ($countries as $item)
                                 @if ($item->id === $defaultCountry[0]->id)
                                     <option value="{{ $item->id }}" selected>{{ $item->cou_name }}</option>
-                                    @else
+                                @else
                                     <option value="{{ $item->id }}">{{ $item->cou_name }}</option>
-                                @endif 
+                                @endif
                             @endforeach
                         </select>
 
@@ -98,17 +101,17 @@
                                     {{-- Se llena desde JS con JQuery --}}
                                 </select>
                                 @error('department_id')
-                                    <p>* {{ $message }}</p>
+                                    <p style="color: red">*{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div class="w-50 m-2">
                                 <label for="sup_city"><b>Ciudad del proveedor</b> </label>
                                 <input type="text" id="sup_city" name="sup_city" class="form-control mb-3 values"
-                                    value="{{ old('sup_city') }}" placeholder="Escriba la ciudad del proveedor"
-                                    required="true" />
+                                    value="{{ old('sup_city', $data->sup_city) }}"
+                                    placeholder="Escriba la ciudad del proveedor" required="true" />
                                 @error('sup_city')
-                                    <p>* {{ $message }}</p>
+                                    <p style="color: red">*{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -120,7 +123,7 @@
                         value="{{ old('sup_street', $data->sup_street) }}"
                         placeholder="Escriba la dirección, calle o el nro del local del proveedor" required="true" />
                     @error('sup_street')
-                        <p>* {{ $message }}</p>
+                        <p style="color: red">*{{ $message }}</p>
                     @enderror
 
                 </div>
