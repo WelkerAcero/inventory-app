@@ -117,7 +117,7 @@
 
                     <label for="sup_street"><b>Dirección</b> </label>
                     <input type="text" id="sup_street" name="sup_street" class="form-control mb-3 values"
-                        value="{{ old('sup_street') }}"
+                        value="{{ old('sup_street', $data->sup_street) }}"
                         placeholder="Escriba la dirección, calle o el nro del local del proveedor" required="true" />
                     @error('sup_street')
                         <p>* {{ $message }}</p>
@@ -128,7 +128,7 @@
 
             <div style="text-align: center; padding-bottom:20px;">
                 <input class="btn btn-primary boton-create" type="reset" value="Limpiar" />
-                <input class="btn btn-success boton-create" id="btn-Alert" type="submit" value="Guardar" />
+                <input class="btn btn-success boton-create" id="btn-Alert" type="button" value="Guardar" />
             </div>
 
         </form>

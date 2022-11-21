@@ -111,7 +111,7 @@
 
             <div style="text-align: center; padding-bottom:20px;">
                 <input class="btn btn-primary boton-create" type="reset" value="Limpiar" />
-                <input class="btn btn-success boton-create" id="btn-Alert" type="submit" value="Guardar" />
+                <input class="btn btn-success boton-create" id="btn-Alert" type="button" value="Guardar" />
             </div>
 
         </form>
@@ -119,5 +119,5 @@
 @endsection
 
 @push('script-event-supplier')
-    <script type="text/javascript" src="{{ asset('js/form-event-supplier.js') }}"></script>
+    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
 @endpush

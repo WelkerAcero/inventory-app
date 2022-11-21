@@ -1,29 +1,41 @@
 $('document').ready(function () {
     $('#department-section').hide();
 
-    $('#country_id').on('change', async function () {
-        let country_id = await $(this).val();
-        console.log(country_id);
+    let countryValue = $('#country_id').val();
+
+    const getData = async (country_id) => {
         if (country_id) {
-            $('#department-section').show();
-
-            $.get(`/country/${country_id}/departments`,
-                async function (data) {
-                    if (data.length > 0) {
-                        html_select = "<option value=''>Seleccione el departamento</option>";
-                        for (let i = 0; i < data.length; i++) {
-                            html_select += `<option value="${data[i].id}">${data[i].dep_name}</option>`;
-                            $('#department_id').html(html_select);
-                        }
-                    }else{
-                        html_select = "";
-                        $('#department_id').html(html_select);
-                    }
-                },
-            );
-        } else {
-            $('#department-section').hide();
+            return fetch(`/country/${country_id}/departments`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    return displaySection(data);
+                });
         }
+    }
 
+    const displaySection = async (data) => {
+        const getData = await data;
+        if (getData.length > 0) {
+            $('#department-section').show();
+            html_select = "<option value=''>Seleccione el departamento</option>";
+            for (let i = 0; i < data.length; i++) {
+                html_select += `<option value="${data[i].id}">${data[i].dep_name}</option>`;
+                await $('#department_id').html(html_select);
+            }
+        } else {
+            html_select = '';
+            html_select += `<option value="null">No hay departamento o estado</option>`;
+            await $('#department_id').html(html_select);
+        }
+    }
+
+    const idTag = document.getElementById('country_id');
+    idTag.addEventListener('change', () => {
+        const COUNTRY_VAL = $('#country_id').val();
+        getData(COUNTRY_VAL);
     })
+
+    getData(countryValue);
+
 })

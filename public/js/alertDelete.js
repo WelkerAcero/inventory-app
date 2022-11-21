@@ -3,8 +3,8 @@ $(document).ready(function () {
         let $form = $(this).closest("form");
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: "btn btn-danger",
-                cancelButton: "btn btn-primary",
+                confirmButton: "btn btn-danger m-2",
+                cancelButton: "btn btn-primary m-2",
             },
             buttonsStyling: false,
         });
