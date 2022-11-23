@@ -1,15 +1,12 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Products')
 
 @section('content')
     <x-button>
         <x-slot name="type">product</x-slot>
-
         <x-slot name="add">Agregar producto</x-slot>
-
         <x-slot name="list">Listar todos los productos</x-slot>
-
     </x-button>
 
     <div class="contenedor--products">

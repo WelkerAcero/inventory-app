@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Sales')
 

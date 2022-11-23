@@ -9,6 +9,7 @@
     <link rel="icon" href="{{asset('img/logo.png')}}">
     {{-- Css styles --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/providers.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
@@ -45,12 +46,12 @@
     <script src="{{ asset('js/alerts.js') }}"></script>
     <script src="{{ asset('js/alertLogin.js') }}"></script>
     <script src="{{ asset('js/alertDelete.js') }}"></script>
-    @stack('script-event-supplier')
+    @stack('script-suppliers-event')
+    @stack('script-users-event')
 
 </head>
 
 <body>
-
     @yield('dashboard-header')
     <br>
     @yield('content')

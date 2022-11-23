@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUser;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('id','!=', Auth::id())->get();
+/*         $instance = User::; */
+/*         dd($instance); */
+        return view('users.index', compact('users'));
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Supplier;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class SupplierRequest extends FormRequest
 {
@@ -28,10 +30,21 @@ class SupplierRequest extends FormRequest
      */
     public function rules()
     {
+
+        if ($this->isMethod('PUT')) {
+            return [
+                'sup_code' => "required|unique:suppliers",
+                'sup_email' => 'required|unique:suppliers',
+            ];
+        }
         return [
             'sup_code' => 'required|unique:suppliers',
+            'document_type_id' => [],
+            'document_number' => [],
             'sup_email' => 'unique:suppliers',
+            'sup_cellphone' => [],
             'sup_name' => 'required',
+            'sup_lastname' => [],
             'department_id' => 'required',
             'sup_city' => 'required',
             'sup_street' => 'required'
@@ -53,7 +66,7 @@ class SupplierRequest extends FormRequest
     public function messages()
     {
         return [
-            'sup_code.required.unique' => '"Código del proveedor es requerido"',
+            'sup_code.required.unique:suppliers' => '"Código del proveedor es requerido"',
             'sup_email.unique:suppliers' => '"El email del proveedor ya esapdkasd"',
             'sup_name.required' => '"El nombre del proveedor es requerido"',
             'department_id.required' => '"El departamento es requerido"',

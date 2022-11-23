@@ -11,9 +11,10 @@ class Role extends Model
 
     protected $guarded = [];
 
+    //Relación uno a muchos
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function permissions()

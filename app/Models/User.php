@@ -57,7 +57,7 @@ class User extends Authenticatable
     /* Relación muchos a muchos */
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function purchases()

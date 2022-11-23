@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Categories')
 
@@ -20,7 +20,7 @@
 
         <div class="create-header">
             <img src="{{ asset('img/icons/datos.png') }}" width="38px">
-            <h1>Información de la categoría</h1>
+            <h1 class="p-2">Añadir nueva categoría</h1>
         </div>
 
         <form method="post" action="{{ route('category.store') }}">

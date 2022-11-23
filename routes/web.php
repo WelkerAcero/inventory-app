@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\KardexController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,32 +24,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::controller(SessionController::class)->group(function () {
     Route::get('/preloader', 'loader')->name('preloader');
     Route::get('/login', 'index')->name('login');
-    Route::post('/dashboard', 'auth')->name('login.validate');
+    Route::post('/validating', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
-
 });
-
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/country/{id}/departments', [SupplierController::class, 'jsCreateEvent']);
-    Route::get('/supplier/{id}/department/{dep_id}/edit', [SupplierController::class, 'jsEditEvent']);
+    Route::get('/country/{id}/departments', [SupplierController::class, 'jsFormEvent']);
 
-    Route::get('logout', [SessionController::class, 'logout'])->name('logout');
-
-    Route::get('/', function () {
-        return view('dashboard');
-    });
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('dashboard', 'index')->name('dashboard.index');
+        Route::get('/', 'index')->name('dashboard.index');
+        Route::get('/logout', 'logout')->name('logout');
     });
 
     Route::controller(SupplierController::class)->group(function () {
@@ -56,6 +51,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('supplier/{id}/department/{dep_id}/edit', 'edit')->name('supplier.edit');
         Route::put('supplier/{data}', 'update')->name('supplier.update');
         Route::delete('supplier/{id}', 'destroy')->name('supplier.destroy');
+
+        /*         Route::resource('supplier', SupplierController::class, [
+            'names' => 'supplier',
+            'parameters' => ['blog', 'post']
+        ]); */
     });
 
     Route::controller(CategoryController::class)->group(function () {
@@ -96,5 +96,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('customer/{id}/edit', 'edit')->name('customer.edit');
         Route::put('customer/{id}', 'update')->name('customer.update');
         Route::delete('customer/{id}', 'destroy')->name('customer.destroy');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('user', 'index')->name('user.index');
+        /*
+        Route::get('customer/create', 'create')->name('customer.create');
+        Route::post('customer', 'store')->name('customer.store');
+
+        Route::get('customer/{id}/edit', 'edit')->name('customer.edit');
+        Route::put('customer/{id}', 'update')->name('customer.update');
+        Route::delete('customer/{id}', 'destroy')->name('customer.destroy'); 
+        */
     });
 });

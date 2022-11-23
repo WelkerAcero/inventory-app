@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Categories')
 
@@ -56,9 +56,9 @@
                             @csrf
                             @method('delete')
                             <a type="button" id="btn-AlertDelete">
-                                {{-- <abbr title="Eliminar información" style="cursor: pointer"> --}}
+                                <abbr title="Eliminar información" style="cursor: pointer">
                                     <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
-                                {{-- </abbr> --}}
+                                </abbr>
                                 </a>
                         </form>
                     </td>

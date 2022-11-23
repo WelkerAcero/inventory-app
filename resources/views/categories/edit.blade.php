@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Providers')
 
@@ -10,12 +10,12 @@
         <x-slot name="list">Listar categorias</x-slot>
     </x-button>
 
-    <div class="contenedor-provider-create">
+    <div class="contenedor-category-create">
         <div class="create-header">
-            <img src="{{ asset('img/icons/datos.png') }}" width="43px" class="providers-create-space">
-            <h1>Datos de categoría</h1>
+            <img src="{{ asset('img/icons/datos.png') }}" width="38px" class="providers-create-space">
+            <h1 class="p-2">Editar datos de categoría</h1>
         </div>
-        {{ $data}}
+        {{ $data }}
         <form action="{{ route('category.update', $data) }}" method="post">
             @csrf
             @method('put')
