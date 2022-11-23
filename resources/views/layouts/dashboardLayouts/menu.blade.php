@@ -17,15 +17,17 @@
                         <span></span>
                         <span></span>
                     </div>
-                    
+
                     <div class="">
                         <a class="navbar-brand" href="{{ route('dashboard.index') }}"> Administrador <img
                                 src="{{ asset('img/icons/asistencia-social.gif') }}" width="35px">
                         </a>
-
-                        <a class="navbar-brand" href="{{ route('logout') }}"> Cerrar <img
-                                src="{{ asset('img/icons/logout.png') }}" width="30px">
-                        </a>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <a class="navbar-brand" href="{{ route('logout') }}"> Cerrar Sesión <img
+                                    src="{{ asset('img/icons/logout.png') }}" width="30px">
+                            </a>
+                        </form>
                     </div>
 
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
@@ -139,11 +141,13 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link" href="{{ route('logout') }}" role="button"
-                                            aria-expanded="false"><img src="{{ asset('img/icons/cerrar-sesion.png') }}"
-                                                width="20px">
-                                            Cerrar sesión
-                                        </a>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <a class="nav-link" role="button" aria-expanded="false">
+                                                <img src="{{ asset('img/icons/cerrar-sesion.png') }}" width="20px">
+                                                Cerrar sesión
+                                            </a>
+                                        </form>
                                     </li>
                                     <div class="menu--logo">
                                         <img src="{{ asset('img/logo.png') }}" width="45px">

@@ -13,7 +13,7 @@ class SessionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except(['logout']);
     }
     
     public function index()
@@ -50,5 +50,14 @@ class SessionController extends Controller
             $res = 'Error - El campo password debe ser mayor a 6 caracteres';
             return view('login.login', ['msgErr' => $res]);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        $request->session()->forget('authenticated');
+        return redirect()->route('preloader');
     }
 }
