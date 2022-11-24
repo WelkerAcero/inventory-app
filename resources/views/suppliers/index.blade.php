@@ -61,7 +61,7 @@
                                 @csrf
                                 @method('delete')
                                 <a type="button" id="btn-AlertDelete">
-                                    <abbr title="Editar información" style="cursor: pointer;">   
+                                    <abbr title="Eliminar información" style="cursor: pointer;">   
                                         <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
                                     </abbr>
                                 </a>

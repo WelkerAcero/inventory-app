@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUser;
@@ -35,7 +36,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $data = new User();
+        $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
+        $countries = DB::table('countries')->select('id', 'cou_name')->get();
+        $departments = DB::table('departments')->select('id', 'dep_name')->get();
+        $roles= DB::table('roles')->select('id', 'rol_name')->get();
+        return view('users.create', compact('data','documentType','countries','departments','roles'));
+        /* return $documentType; */
     }
 
     /**

@@ -101,13 +101,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('user', 'index')->name('user.index');
-        /*
-        Route::get('customer/create', 'create')->name('customer.create');
-        Route::post('customer', 'store')->name('customer.store');
+        Route::get('user/create', 'create')->name('user.create');
+        Route::post('user', 'store')->name('user.store');
 
-        Route::get('customer/{id}/edit', 'edit')->name('customer.edit');
-        Route::put('customer/{id}', 'update')->name('customer.update');
-        Route::delete('customer/{id}', 'destroy')->name('customer.destroy'); 
-        */
+        Route::get('user/{id}/edit', 'edit')->name('user.edit');
+        Route::put('user/{id}', 'update')->name('user.update');
+        Route::delete('user/{id}', 'destroy')->name('user.destroy'); 
     });
 });
