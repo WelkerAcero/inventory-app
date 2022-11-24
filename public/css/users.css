@@ -1,5 +1,6 @@
 .user-content {
     width: 60%;
+    /* border: 2px solid red; */
 }
 
 .lista_programas{
@@ -8,12 +9,21 @@
     border-radius: 10px; 
     box-shadow: 2px 2px 15px -2px #000000;
     background-color: aliceblue;
+    width: 70%;
 }
 
 .user-img-hover img:hover {
     background-image: url('https://lledogrupo.com/wp-content/uploads/2018/04/user-img-1.png');
 }
 
-.buttons-edit-delete a{
+.buttons-edit-delete{
     width: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.container--user{
+    margin: auto;
+    width: 90%;
+    flex-wrap: wrap;
 }
