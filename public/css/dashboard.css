@@ -65,3 +65,9 @@
     padding: 5px; 
     margin-left:180px;
 }
+
+.button_session{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+}
