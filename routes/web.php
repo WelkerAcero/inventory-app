@@ -33,7 +33,7 @@ Route::controller(SessionController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
     Route::post('/validating', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
-    Route::get('/logout', 'logout')->name('logout');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
 Route::group(['middleware' => ['auth']], function () {
