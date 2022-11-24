@@ -44,10 +44,11 @@
                         <p>*El Campo precio de compra es obligatorio*</p>
                     @enderror
 
-                    {{-- Oculto por ahora hasta tener el módulo Ventas --}}
+                    {{-- Oculto por ahora hasta tener el módulo Ventas 
                     <input type="text" id="sold" name="sold" class="form-control" value="0" readonly
                         hidden /><br>
-                    {{--  --}}
+                    --}}
+
                     <label for="wholesalePrice"><b>Precio de venta al mayoreo (IVA)</b> </label>
                     <input type="text" id="wholesalePrice" name="wholesalePrice" class="form-control"
                         value="{{ old('wholesalePrice') }}" placeholder="" required="true" /><br>
@@ -128,12 +129,8 @@
                     <select id="category" name="category" class="form-control" value="{{ old('category') }}"
                         required="true">
                         <option value="">Seleccione una opción</option>
-                        @foreach ($categories as $key => $item)
-                            @if ($key !== 'error')
-                                <option value="{{ $key }}">{{ ucfirst($item['name']) }}</option>
-                            @else
-                                <option>{{ ucfirst($item) }}</option>
-                            @endif
+                        @foreach ($categories as $item)
+                            <option value="{{$item->id}}">{{ ucfirst($item->cat_name) }}</option>
                         @endforeach
                     </select>
                     @error('category')

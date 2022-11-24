@@ -31,8 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $data = Category::paginate();
-        return view('categories.create', compact('data'));
+        return view('categories.create');
     }
 
     /**

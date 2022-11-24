@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('pro_stock');
             $table->float('pro_cost', 8, 2);
             $table->integer('pro_iva');
+            $table->foreignId('presentation_id')->nullable()->constrained('product_presentations')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('category_id')->nullable()->constrained('categories')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use NunoMaduro\Collision\Contracts\Provider;
 
 class ProductController extends Controller
 {
@@ -20,8 +21,11 @@ class ProductController extends Controller
             ->join('products', 'products.category_id', '=', 'categories.id')
             ->select('categories.cat_name', 'categories.id')
             ->get();
-
-        return view('products.index', ['products' => $data, 'categories' => $categories]);
+        if (count($data) > 0) {
+            return view('products.index', ['products' => $data, 'categories' => $categories]);
+        }
+        $error = "No hay datos para mostrar";
+        return view('products.index', ['error' => $error]);
     }
 
     /**
@@ -31,7 +35,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.index');
+        $providers = DB::table('suppliers')->select('id','sup_code','sup_name')->get();
+        $categories = DB::table('categories')->select('id','cat_name')->get();
+        $presentations = DB::table('product_presentations')->select('id','pres_name')->get();
+        return view('products.create', compact('providers','categories','presentations'));
     }
 
     /**

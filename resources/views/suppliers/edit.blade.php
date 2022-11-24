@@ -19,9 +19,7 @@
         <form action="{{ route('supplier.update', $data->id) }}" method="post">
             @csrf
             @method('put')
-
             @include('suppliers.form-fields')
-
         </form>
     </div>
 
