@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-
 Route::controller(SessionController::class)->group(function () {
     //These routes have authenticate verification on Controller
     Route::get('/preloader', 'loader')->name('preloader');
