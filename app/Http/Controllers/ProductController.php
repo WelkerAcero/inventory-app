@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use NunoMaduro\Collision\Contracts\Provider;
+use App\Http\Requests\ProductRequest;
+use stdClass;
 
 class ProductController extends Controller
 {
@@ -35,10 +36,22 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $providers = DB::table('suppliers')->select('id','sup_code','sup_name')->get();
-        $categories = DB::table('categories')->select('id','cat_name')->get();
-        $presentations = DB::table('product_presentations')->select('id','pres_name')->get();
-        return view('products.create', compact('providers','categories','presentations'));
+        $data = new Product();
+        $obj = new stdClass();
+        $presentation = new stdClass();
+        $arrayData = array();
+
+        //proceso para lista de presentación del producto
+        $obj->name = ['unidad', 'libra', 'kilogramo', 'caja', 'paquete', 'lata', 'galon', 'botella', 'tira', 'sobre', 'bolsa', 'saco', 'tarjeta', 'otro'];
+        foreach ($obj as $key => $value) {
+            array_push($arrayData, $presentation->data = ['name' => $value]);
+        }
+        //convertir un array asociativo a un objeto
+        $presentation = json_decode(json_encode($presentation));
+        
+        $suppliers = DB::table('suppliers')->select('id', 'sup_code', 'sup_name')->get();
+        $categories = DB::table('categories')->select('id', 'cat_name')->get();
+        return view('products.create', compact('suppliers', 'categories', 'presentation', 'data'));
     }
 
     /**
@@ -47,10 +60,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $data = Product::create($request->all());
-        return redirect()->route('products.index');
+        return $request->all();
+        /* $data = Product::create($request->validated()); */
+        /* return redirect()->route('products.index'); */
     }
 
     /**

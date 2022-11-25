@@ -14,7 +14,7 @@ class AddProStateToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean('pro_state')->after('pro_description');
+            $table->boolean('pro_state')->after('pro_iva');
         });
     }
 
