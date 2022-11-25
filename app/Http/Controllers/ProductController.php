@@ -63,8 +63,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         return $request->all();
-        /* $data = Product::create($request->validated()); */
-        /* return redirect()->route('products.index'); */
+/*         $data = Product::create($request->validated());
+        return redirect()->route('products.index'); */
     }
 
     /**

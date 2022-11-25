@@ -30,7 +30,7 @@ class CreateProductsTable extends Migration
             $table->float('pro_cost', 8, 2);
             $table->float('pro_wholesale_cost', 8, 2);
             $table->integer('pro_iva');
-            $table->integer('pro_discount');
+            $table->integer('pro_discount')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('categories')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
