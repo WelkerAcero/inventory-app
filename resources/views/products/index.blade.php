@@ -39,8 +39,8 @@
 
             <div style="width: 100%;">
                 <h2 style="text-align:center;">PRODUCTOS EN CATEGORÍA
-                    @if (!empty($onCategoryName))
-                        <p class="text-success">"{{ strtoupper($onCategoryName->cat_name) }}"</p>
+                    @if (isset($onCategoryName))
+                        <p class="text-success">"{{ strtoupper($onCategoryName[0]->cat_name) }}"</p>
                     @else
                         <p class="text-success">"TODOS"</p>
                     @endif
@@ -62,18 +62,14 @@
                                     <div style="display: flex;flex-direction:row; justify-content:space-evenly;">
                                         <div>
                                             <h3><b>Código: </b><span>{{ $item->pro_code }}</span></h3>
-                                            <h3><b>Precio: </b><span> ${{ $item->pro_cost }}</span></h3>
+                                            <h3><b>Precio: </b><span> ${{ $item->pro_cost }},00</span></h3>
                                             <h3><b>Disponibilidad: </b><span>{{ $item->pro_stock }}</span></h3>
                                         </div>
                                         <div>
-                                            <h3><b>Estado: </b>
+                                            <h3><b>Estado público: </b>
                                                 <span>
-                                                    @if ($item->pro_state)
-                                                        Habilitado
-                                                    @else
-                                                        Deshabilitado
-                                                    @endif
-                                                </span>
+                                                    {{$item->pro_state ? 'Habilitado': 'Deshabilitado'}}
+                                                </span> 
                                             </h3>
                                             <h3><b>Vendidos: </b><span>{{ $item->pro_sold }}</span></h3>
                                         </div>

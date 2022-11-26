@@ -16,7 +16,7 @@
             <h1>Información del producto a editar</h1>
         </div>
         <br>
-        <form method="post" action="{{ route('product.update', $data->id) }}">
+        <form method="post" action="{{ route('product.update', $data) }}">
             @csrf
             @method('put')
             @include('products.form-fields')

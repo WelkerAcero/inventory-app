@@ -15,15 +15,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getCategories()
+    {
+        $categories = DB::table('categories')
+        ->join('products', 'products.category_id', '=', 'categories.id')
+        ->select('categories.cat_name', 'categories.id')
+        ->get();
+        return $categories;
+    }
+
     public function index()
     {
         $data = Product::paginate();
-        $categories = DB::table('categories')
-            ->join('products', 'products.category_id', '=', 'categories.id')
-            ->select('categories.cat_name', 'categories.id')
-            ->get();
         if (count($data) > 0) {
-            return view('products.index', ['products' => $data, 'categories' => $categories]);
+            return view('products.index', ['products' => $data, 'categories' => $this->getCategories()]);
         }
         $error = "No hay datos para mostrar";
         return view('products.index', ['error' => $error]);
@@ -62,9 +67,9 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        return $request->all();
-/*         $data = Product::create($request->validated());
-        return redirect()->route('products.index'); */
+        /* return $request->all(); */
+        $data = Product::create($request->validated());
+        return redirect()->route('product.index');
     }
 
     /**
@@ -90,18 +95,20 @@ class ProductController extends Controller
             ->get();
 
         $byCategoryId = Product::where('category_id', '=', $product)->get();
-        return view('products.index', ['products' => $byCategoryId, 'categories' => $categories, $onCategoryName]);
+        return view('products.index', ['products' => $byCategoryId, 'categories' => $categories, 'onCategoryName' => $onCategoryName]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $products)
+    public function edit(Product $id)
     {
-        return view('products.edit', ['data' => $products::find($products)]);
+        $data = Product::find($id);
+        /* return $data; */
+        return view('products.edit', compact('data'));
     }
 
     /**

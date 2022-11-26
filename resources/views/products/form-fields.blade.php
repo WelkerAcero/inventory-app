@@ -26,12 +26,8 @@
         @enderror
 
         <label for="pro_description"><b>Descripción del producto</b> </label>
-        <input type="text" class="form-control mb-3  values" id="pro_description" name="pro_description"
-            placeholder="Escriba el nombre del producto"
-            value="{{ old('pro_description', $data->pro_description) }}" />
-        @error('pro_description')
-            <p style="color:red">{{ $message }}</p>
-        @enderror
+        <input type="text" class="form-control mb-3 values" id="pro_description" name="pro_description"
+            placeholder="Escriba el nombre del producto" value="{{ old('pro_description', $data->pro_description) }}" />
 
         <label for="pro_presentation"><b>Presentación del producto</b></label>
         <select class="form-control mb-3 values" id="pro_presentation" name="pro_presentation"
@@ -65,11 +61,8 @@
 
         <label for="pro_purchased_price"><b>Precio de compra (IVA)</b> </label>
         <input type="text" class="form-control mb-3 values" id="pro_purchased_price" name="pro_purchased_price"
-            value="{{ old('pro_purchased_price' . $data->pro_purchased_price) }}"
+            value="{{ old('pro_purchased_price', $data->pro_purchased_price) }}"
             placeholder="Indique el precio que costo el item" />
-        @error('pro_purchased_price', $data->pro_purchased_price)
-            <p style="color:red">{{ $message }}</p>
-        @enderror
 
         <label for="pro_cost"><b>Precio de venta Unidad (IVA)</b> </label>
         <input type="number" class="form-control mb-3 values" id="pro_cost" name="pro_cost"
@@ -82,9 +75,6 @@
         <label for="pro_wholesale_cost"><b>Precio de venta al mayoreo (IVA)</b> </label>
         <input type="number" class="form-control mb-3 values" id="pro_wholesale_cost" name="pro_wholesale_cost"
             value="{{ old('pro_wholesale', $data->pro_wholesale) }}" placeholder="Precio de venta al mayor" />
-        @error('pro_wholesale_cost')
-            <p style="color:red">{{ $message }}</p>
-        @enderror
 
         <label for="pro_stock"><b>Stock actual</b> </label>
         <input type="number" class="form-control mb-3 values" id="pro_stock" name="pro_stock"
@@ -135,8 +125,8 @@
         <select class="form-control mb-3 values" id="pro_state" name="pro_state"
             value="{{ old('pro_state', $data->pro_state) }}" required="true">
             <option value="">Seleccione una opción</option>
-            <option value="True">Habilitado para publicar</option>
-            <option value="False">Deshabilitado para publicar</option>
+            <option value="1">Habilitado para publicar</option>
+            <option value="0">Deshabilitado para publicar</option>
         </select>
         @error('pro_state')
             <p style="color:red">{{ $message }}</p>
