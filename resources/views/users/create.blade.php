@@ -23,16 +23,8 @@
         </form>
     </div>
 
-
-    {{-- <form action="{{route('user.store')}}" method="post">
-        
-        @include('suppliers.form-fields')
-        <label for="password">password</label>
-        <input type="text" placeholder="Write your pass">
-    </form> --}}
-
 @endsection
 
 @push('script-suppliers-event')
-<script src="{{ asset('js/form-event-supplier.js') }}"></script>
+    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
 @endpush

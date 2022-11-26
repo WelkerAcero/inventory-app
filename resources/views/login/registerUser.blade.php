@@ -1,4 +1,4 @@
-<form method="post" class="row g-3 needs-validation">
+<form method="post" action="{{ route('register') }}" class="row g-3 needs-validation">
     <div>
         <label for="name"><b>Nombre</b> </label>
         <input type="text" id="name" name="name" class="form-control mb-3 values" value="{{ old('name') }}"

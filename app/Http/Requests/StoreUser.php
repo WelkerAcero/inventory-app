@@ -15,7 +15,7 @@ class StoreUser extends FormRequest
     {
 
         return true;
-/*         if (session('authenticated')) {
+        /*         if (session('authenticated')) {
             return true;
         }else{
             return false;
@@ -37,10 +37,12 @@ class StoreUser extends FormRequest
         ];
     }
 
-    
+
     public function attributes()
     {
         return [
+            'name' => '"Nombre" es requerido"',
+            'lastname' => '"Apellido" es requerido"',
             'email' => '"Email" es requerido"',
             'password' => '"password" es requerido'
         ];
@@ -49,6 +51,8 @@ class StoreUser extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => 'El campo "Nombre es requerido"',
+            'lastname.required' => 'El campo "Apellido es requerido"',
             'email.required' => 'El campo "Email es requerido"',
             'password.required' => 'El campo "password" es requerido'
         ];

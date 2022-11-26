@@ -11,6 +11,10 @@
     </x-button>
 
     {{-- @dump($instance) --}}
+
+
+    <h1 class="bg-warning d-flex justify-content-center">{{ $message = isset($message) ? $message : '' }}</h1>
+
     <div class="user-content container--user">
         @foreach ($users as $data)
             <div class="col-4">

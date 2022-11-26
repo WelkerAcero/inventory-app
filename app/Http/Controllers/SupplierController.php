@@ -49,7 +49,7 @@ class SupplierController extends Controller
         $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
         $countries = DB::table('countries')->select('id', 'cou_name')->get();
         $departments = DB::table('departments')->select('id', 'dep_name')->get();
-        return view('suppliers.create', compact('data','documentType','countries','departments'));
+        return view('suppliers.create', compact('data', 'documentType', 'countries', 'departments'));
         /* return $documentType; */
     }
 

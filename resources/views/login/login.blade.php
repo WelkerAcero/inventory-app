@@ -12,7 +12,7 @@
             <div class="text--center">
                 <img class="text--center" src="img/logo.png" width="50px" style="margin: auto;">
             </div>
-           
+
             <form action="{{ route('login.validate') }}" method="post">
                 @csrf {{-- Cross side request forgery --}}
 
@@ -38,12 +38,12 @@
                     @enderror
                 </div>
 
-                <div class="text--center button--login">
-                    <button type="button" class="btn btn-success" id="alert-Login">Iniciar sesión</button>
+                <div class="text--center button--login w-100">
+                    <button type="button" class="btn btn-success me-3" id="alert-Login">Iniciar sesión</button>
 
-                
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    {{--   <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
                         Registrarse
                     </button>
 
@@ -65,8 +65,8 @@
 
                             </div>
                         </div>
-                    </div>
-               
+                    </div> --}}
+
                 </div>
 
             </form>
@@ -84,7 +84,7 @@
         </div>
 
     </div>
-    
+
 @endsection
 
 @push('script-suppliers-event')

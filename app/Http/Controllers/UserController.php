@@ -23,10 +23,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','!=', Auth::id())->get();
-/*         $instance = User::; */
-/*         dd($instance); */
-        return view('users.index', compact('users'));
+        $data = new User();
+        $users = User::where('id', '!=', Auth::id())->get();
+        /*         $instance = User::; */
+        /*         dd($instance); */
+        return view('users.index', compact('data', 'users'));
     }
 
     /**
@@ -41,8 +42,7 @@ class UserController extends Controller
         $countries = DB::table('countries')->select('id', 'cou_name')->get();
         $departments = DB::table('departments')->select('id', 'dep_name')->get();
         $roles = DB::table('roles')->select('id', 'rol_name')->get();
-        return view('users.create', compact('data','documentType','countries','departments','roles'));
-        /* return $documentType; */
+        return view('users.create', compact('data', 'documentType', 'countries', 'departments', 'roles'));
     }
 
     /**
@@ -53,7 +53,12 @@ class UserController extends Controller
      */
     public function store(StoreUser $request)
     {
-        //
+        try {
+            $user = User::create($request->validated());
+            return redirect()->route('user.index');
+        } catch (\Throwable $th) {
+            return redirect('user.create')->withErrors($th, 'error');
+        }
     }
 
     /**
@@ -75,7 +80,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -96,8 +100,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user, $id)
     {
-        //
+        $user->delete($id);
+        return redirect()->route('user.index');
     }
 }
