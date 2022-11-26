@@ -68,8 +68,8 @@
                                         <div>
                                             <h3><b>Estado público: </b>
                                                 <span>
-                                                    {{$item->pro_state ? 'Habilitado': 'Deshabilitado'}}
-                                                </span> 
+                                                    {{ $item->pro_state ? 'Habilitado' : 'Deshabilitado' }}
+                                                </span>
                                             </h3>
                                             <h3><b>Vendidos: </b><span>{{ $item->pro_sold }}</span></h3>
                                         </div>
@@ -97,8 +97,8 @@
                                         <form method="post" action="{{ route('product.destroy', $item->id) }}">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit"><img src="{{ asset('img/icons/borrar.png') }}"
-                                                    width="40px">
+                                            <button type="button" id="btn-AlertDelete"><img
+                                                    src="{{ asset('img/icons/borrar.png') }}" width="40px">
                                             </button>
                                         </form>
                                     </div>
