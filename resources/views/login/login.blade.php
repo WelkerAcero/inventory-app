@@ -3,6 +3,7 @@
 @section('title', 'login')
 
 @section('content')
+
     <div class="contenedor">
         <div class="section--izq">
             <h1>Bienvenido!</h1><br>
@@ -11,7 +12,7 @@
             <div class="text--center">
                 <img class="text--center" src="img/logo.png" width="50px" style="margin: auto;">
             </div>
-
+           
             <form action="{{ route('login.validate') }}" method="post">
                 @csrf {{-- Cross side request forgery --}}
 
@@ -31,7 +32,7 @@
                     <img src="img/icons/pass.png" alt="user" width="20px">
                     <label for="password">Password: </label><br />
                     <input class="input--login form-control" type="password" id="password" name="password"
-                        placeholder="Escriba su contraseña"/>
+                        placeholder="Escriba su contraseña" />
                     @error('password')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -39,6 +40,33 @@
 
                 <div class="text--center button--login">
                     <button type="button" class="btn btn-success" id="alert-Login">Iniciar sesión</button>
+
+                
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Registrarse
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="text-align: left;">
+
+                                    @include('login.registerUser')
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+               
                 </div>
 
             </form>
@@ -56,4 +84,9 @@
         </div>
 
     </div>
+    
 @endsection
+
+@push('script-suppliers-event')
+    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
+@endpush

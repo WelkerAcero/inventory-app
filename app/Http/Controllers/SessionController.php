@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequireSession;
 use App\http\Controllers\AuthController;
@@ -18,7 +19,11 @@ class SessionController extends Controller
     
     public function index()
     {
-        return view('login.login');
+        $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
+        $countries = DB::table('countries')->select('id', 'cou_name')->get();
+        $departments = DB::table('departments')->select('id', 'dep_name')->get();
+        $roles = DB::table('roles')->select('id', 'rol_name')->get();
+        return view('login.login',compact('documentType','countries','departments','roles'));
     }
 
     public function loader()
@@ -27,8 +32,8 @@ class SessionController extends Controller
     }
 
     public function register()
-    {
-        return view('login.register');
+    {        
+        
     }
 
     public function auth(RequireSession $request)
