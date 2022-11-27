@@ -32,12 +32,6 @@ class SessionController extends Controller
         return view('preloader');
     }
 
-    public function register(Request $request)
-    {
-        $data = User::create($request->all());
-        return redirect()->route('login');
-    }
-
     public function auth(RequireSession $request)
     {
         if (strlen($request->input('password')) >= 6) {

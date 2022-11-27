@@ -16,10 +16,7 @@ class ProductController extends Controller
      */
     public function getCategoriesOnProducts()
     {
-        $categories = DB::table('categories')
-            ->join('products', 'products.category_id', '=', 'categories.id')
-            ->select('categories.cat_name', 'categories.id')
-            ->get();
+        $categories = DB::table('categories')->select('id', 'cat_name')->get();
         return $categories;
     }
 

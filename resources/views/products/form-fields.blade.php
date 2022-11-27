@@ -1,14 +1,14 @@
 <div class="contenedor-create-form">
 
     <div class="create-form-bloque">
-        <label for="pro_img"><b> Ingresa la url de la imagen del item</b></label>
-        <input type="text" class="form-control mb-3 values" name="pro_img" value="{{ old('pro_img', $data->pro_img) }}"
-            placeholder="Copie y pegue la URL de la imagen" required="true" />
+        <label for="pro_img"><b> * Ingresa la url de la imagen del item</b></label>
+        <textarea class="form-control mb-3 values" name="pro_img" value="{{ old('pro_img', $data->pro_img) }}" cols="30"
+            rows="10" required="true" placeholder="Copie y pegue la URL de la imagen"></textarea>
         @error('pro_img')
             <p style="color:red">{{ $message }}</p>
         @enderror
 
-        <label for="pro_code"><b>Código producto</b> </label>
+        <label for="pro_code"><b>* Código producto</b> </label>
         <input type="text" class="form-control mb-3 values" id="pro_code" name="pro_code"
             value="{{ old('pro_code', $data->pro_code) }}" placeholder="Establezca el código del producto"
             required="true" />
@@ -16,7 +16,7 @@
             <p style="color:red">{{ $message }}</p>
         @enderror
 
-        <label for="pro_name"><b>Nombre del producto</b> </label>
+        <label for="pro_name"><b>* Nombre del producto</b> </label>
         <input type="text" class="form-control mb-3  values" id="pro_name" name="pro_name"
             placeholder="Escriba el nombre del producto" required="true"
             value="{{ old('pro_name', $data->pro_name) }}" />
@@ -28,7 +28,7 @@
         <input type="text" class="form-control mb-3 values" id="pro_description" name="pro_description"
             placeholder="Escriba el nombre del producto" value="{{ old('pro_description', $data->pro_description) }}" />
 
-        <label for="pro_presentation"><b>Presentación del producto</b></label>
+        <label for="pro_presentation"><b>* Presentación del producto</b></label>
         <select class="form-control form-select mb-3 values" id="pro_presentation" name="pro_presentation"
             value="{{ old('pro_presentation', $data->pro_presentation) }}" required="true">
             <option value="">Seleccione una opción</option>
@@ -44,7 +44,7 @@
             <p style="color:red">{{ $message }}</p>
         @enderror
 
-        <label for="supplier_id"><b>Proveedor del producto</b></label>
+        <label for="supplier_id"><b>* Proveedor del producto</b></label>
         <select class="form-control form-select mb-3 values" id="supplier_id" name="supplier_id"
             value="{{ old('supplier_id', $data->supplier_id) }}" required="true">
             <option value="">Seleccione el proveedor del producto</option>
@@ -69,7 +69,7 @@
             value="{{ old('pro_purchased_price', $data->pro_purchased_price) }}"
             placeholder="Indique el precio que costo el item" />
 
-        <label for="pro_cost"><b>Precio de venta Unidad (IVA)</b> </label>
+        <label for="pro_cost"><b>* Precio de venta Unidad (IVA)</b> </label>
         <input type="number" class="form-control mb-3 values" id="pro_cost" name="pro_cost"
             value="{{ old('pro_cost', $data->pro_cost) }}" placeholder="Precio de venta del producto"
             required="true" />
@@ -81,7 +81,7 @@
         <input type="number" class="form-control mb-3 values" id="pro_wholesale_cost" name="pro_wholesale_cost"
             value="{{ old('pro_wholesale', $data->pro_wholesale) }}" placeholder="Precio de venta al mayor" />
 
-        <label for="pro_stock"><b>Stock actual</b> </label>
+        <label for="pro_stock"><b>* Stock actual</b> </label>
         <input type="number" class="form-control mb-3 values" id="pro_stock" name="pro_stock"
             value="{{ old('pro_stock', $data->pro_stock) }}" placeholder="Indique la cantidad actual del item"
             required="true" />
@@ -89,7 +89,7 @@
             <p style="color:red">{{ $message }}</p>
         @enderror
 
-        <label for="category_id"><b>Categoría de producto</b></label>
+        <label for="category_id"><b>* Categoría de producto</b></label>
         <select class="form-control form-select mb-3 values" id="category_id" name="category_id"
             value="{{ old('category_id') }}" required="true">
             <option value="">Seleccione la categoría</option>
@@ -130,7 +130,7 @@
         <input type="text" class="form-control mb-3 values" id="pro_model" name="pro_model"
             placeholder="Escriba el modelo del item" value="{{ old('pro_model', $data->pro_model) }}" />
 
-        <label for="pro_state"><b>Estado del producto para públicar</b></label>
+        <label for="pro_state"><b>* Estado del producto para públicar</b></label>
         <select class="form-control form-select mb-3 values" id="pro_state" name="pro_state"
             value="{{ old('pro_state', $data->pro_state) }}" required="true">
             @if ($data->pro_state)

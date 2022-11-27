@@ -9,8 +9,7 @@
 
         <label for="lastname"><b>Apellido</b> </label>
         <input type="text" id="lastname" name="lastname" class="form-control mb-3 values"
-            value="{{ old('lastname', $data->lastname) }}" placeholder="Escriba el apellido del usuario"
-            required="true" />
+            placeholder="Escriba el apellido del usuario" required="true" />
         @error('lastname')
             <p style="color: red">*{{ $message }}</p>
         @enderror

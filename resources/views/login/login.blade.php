@@ -20,7 +20,7 @@
 
                 <div class="mb-3">
                     <img src="img/icons/user.png" alt="user" width="20px">
-                    <label for="correo">Usuario: </label><br />
+                    <label for="email">Usuario: </label><br />
                     <input class="input--login form-control" type="email" id="email" name="email"
                         placeholder="Escriba su correo" />
                     @error('email')
@@ -31,7 +31,7 @@
                 <div class="mb-3">
                     <img src="img/icons/pass.png" alt="user" width="20px">
                     <label for="password">Password: </label><br />
-                    <input class="input--login form-control" type="password" id="password" name="password"
+                    <input type="password" class="input--login form-control" id="password" name="password"
                         placeholder="Escriba su contraseña" />
                     @error('password')
                         <p class="text-danger">{{ $message }}</p>
@@ -41,14 +41,14 @@
                 <div class="text--center button--login w-100">
                     <button type="button" class="btn btn-success me-3" id="alert-Login">Iniciar sesión</button>
 
-                    {{--   <!-- Button trigger modal -->
+                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         Registrarse
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -57,9 +57,10 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
+
                                 <div class="modal-body" style="text-align: left;">
 
-                                    @include('login.registerUser')
+                                    @include('login.register_user_form')
 
                                 </div>
 
@@ -87,6 +88,7 @@
 
 @endsection
 
-@push('script-suppliers-event')
+{{-- @push('script-suppliers-event')
     <script src="{{ asset('js/form-event-supplier.js') }}"></script>
 @endpush
+ --}}

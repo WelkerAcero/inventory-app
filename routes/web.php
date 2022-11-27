@@ -10,7 +10,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\KardexController;
-
+use App\Http\Controllers\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +33,12 @@ Route::controller(SessionController::class)->group(function () {
     Route::post('/validating', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
     Route::post('/logout', 'logout')->name('logout');
-    Route::post('/register', 'register')->name('register');
+    /* Route::post('/register', 'register')->name('register'); */
+});
+
+Route::controller(RegisterUserController::class)->group(function () {
+    //These routes have authenticate verification on Controller
+    Route::post('/register', 'register')->name('register.store');
 });
 
 Route::group(['middleware' => ['auth']], function () {

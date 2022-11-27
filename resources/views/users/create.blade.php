@@ -12,6 +12,10 @@
 
     <div class="contenedor-provider-create">
 
+        @if (isset($errr))
+            <p style="color: red"></p>
+        @endif
+
         <div class="create-header">
             <img src="{{ asset('img/icons/datos.png') }}" width="38px">
             <h1>Datos del usuario</h1>
