@@ -31,11 +31,11 @@ $('document').ready(function () {
     }
 
     const idTag = document.getElementById('country_id');
-    idTag.addEventListener('change', () => {
-        const COUNTRY_VAL = $('#country_id').val();
-        getData(COUNTRY_VAL);
-    })
-
+    if (idTag != undefined) {
+        idTag.addEventListener('change', () => {
+            const COUNTRY_VAL = $('#country_id').val();
+            getData(COUNTRY_VAL);
+        })
+    }
     getData(countryValue);
-
-})
+});

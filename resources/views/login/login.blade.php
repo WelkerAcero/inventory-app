@@ -39,37 +39,35 @@
                 </div>
 
                 <div class="text--center button--login w-100">
-                    <button type="button" class="btn btn-success me-3" id="alert-Login">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-success me-3" id="alert-Login">Iniciar sesión</button>
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        Registrarse
+                    <button type="button" class="btn btn-primary me-3" id="register" data-bs-toggle="modal"
+                        data-bs-target="#modalRegister">Registrarse
                     </button>
 
                     <!-- Modal -->
-                    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar cuenta</h1>
+                                    <button type="button" class="btn-close close-register-button" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                    </button>
                                 </div>
-
                                 <div class="modal-body" style="text-align: left;">
-
-                                    @include('login.register_user_form')
-
+                                    <form method="post" action="{{ route('register.store') }}"
+                                        class="row g-3 needs-validation">
+                                        @csrf
+                                        @include('login.register_user_form')
+                                    </form>
                                 </div>
-
                             </div>
                         </div>
-                    </div> --}}
-
+                    </div>
                 </div>
-
             </form>
 
             <div class="contenedor--redes">
@@ -88,7 +86,6 @@
 
 @endsection
 
-{{-- @push('script-suppliers-event')
-    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
+@push('script-modal-event')
+    <script src="{{ asset('js/modal-register-event.js') }}"></script>
 @endpush
- --}}
