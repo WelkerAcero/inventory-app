@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequireSession;
-use App\http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 use Exception;
 
@@ -34,18 +34,25 @@ class SessionController extends Controller
     public function auth(RequireSession $request)
     {
         if (strlen($request->input('password')) >= 6) {
-            $res = AuthController::createSession($request->only('email', 'password'));
-            if (!empty(AuthController::showDisplayName())) {
-                if (Auth::user()->role_id === 1) {
-                    $request->session()->put('authenticated', $res->showDisplayName());
-                    return redirect()->intended('dashboard');
+            try {
+                if (Auth::attempt($request->only('email', 'password'))) {
+                    // Authentication passed..
+                    $requestName = User::select('name')->where('email', '=', $request->input('email'))->first();
+                    if (!empty($requestName)) {
+                        if (Auth::user()->role_id === 1) {
+                            $request->session()->put('authenticated', $requestName->name);
+                            return redirect()->intended('dashboard');
+                        } else {
+                            $request->session()->put('authenticated_customer', $requestName->name);
+                            return redirect()->intended('home/ecommerce');
+                        }
+                    }
                 } else {
-                    $request->session()->put('authenticated_customer', $res->showDisplayName());
-                    return redirect()->intended('home/ecommerce');
+                    $res = 'Error - credenciales incorrectas';
+                    return view('login.login', ['msgErr' => $res]);
                 }
-            } else {
-                $res = 'Error - credenciales incorrectas';
-                return view('login.login', ['msgErr' => $res]);
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
         } else {
             $res = 'Error - El campo password debe ser mayor a 6 caracteres';
