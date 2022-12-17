@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['register']]);
     }
 
     /**
@@ -37,7 +37,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() // route to create admin user
     {
         $data = new User();
         $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
@@ -54,7 +54,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request) // store admin users
     {
         try {
             $user = User::create($request->validated());
@@ -70,7 +70,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // specific admin user information
     {
         //
     }
@@ -81,7 +81,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) // edit admin user information
     {
     }
 

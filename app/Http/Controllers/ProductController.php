@@ -14,11 +14,6 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCategoriesOnProducts()
-    {
-        $categories = DB::table('categories')->select('id', 'cat_name')->get();
-        return $categories;
-    }
 
     public function getCategories()
     {
@@ -53,12 +48,13 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::paginate();
+        $data = Product::all();
         if (count($data) > 0) {
-            return view('products.index', ['products' => $data, 'categories' => $this->getCategoriesOnProducts()]);
+            return response()->json($data);
+            /* return view('products.index', ['products' => $data, 'categories' => $this->getCategories()]); */
         }
-        $error = "No hay datos para mostrar";
-        return view('products.index', ['error' => $error]);
+        /* $error = "No hay datos para mostrar"; */
+        /* return view('products.index', ['error' => $error]); */
     }
 
     /**
@@ -101,13 +97,23 @@ class ProductController extends Controller
 
     public function productByCategory($product)
     {
-        $categories = $this->getCategoriesOnProducts();
         $onCategoryName = DB::table('categories')->select('cat_name')
             ->where('id', '=', $product)
             ->get();
-        $byCategoryId = Product::where('category_id', '=', $product)->get();
+        $byCategoryId = Product::where('category_id', $product)->get();
 
-        return view('products.index', ['products' => $byCategoryId, 'categories' => $categories, 'onCategoryName' => $onCategoryName]);
+        return view('products.index', ['products' => $byCategoryId, 'categories' => $this->getCategories(), 'onCategoryName' => $onCategoryName]);
+    }
+
+    public function productByBrand($brand)
+    {
+        try {
+            return DB::table('products')->select('pro_brand')
+                ->where('pro_brand', $brand)
+                ->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

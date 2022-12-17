@@ -52,7 +52,7 @@
                         <td style="text-align: center">
                             <a href="{{ route('supplier.edit', [$item->id, $item->department_id]) }}">
                                 <abbr title="Editar información" style="cursor: pointer">
-                                    <img src="{{ asset('img/icons/editar.png') }}" width="25px">
+                                    <img src="{{ asset('img/icons/editar.png') }}" width="40px">
                                 </abbr>
                             </a>
                         </td>
@@ -61,7 +61,7 @@
                                 @csrf
                                 @method('delete')
                                 <a type="button" id="btn-AlertDelete">
-                                    <abbr title="Eliminar información" style="cursor: pointer;">   
+                                    <abbr title="Eliminar información" style="cursor: pointer;">
                                         <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
                                     </abbr>
                                 </a>

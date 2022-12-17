@@ -1,14 +1,11 @@
 $('document').ready(function () {
-    $('#department-section').hide();
 
-    let countryValue = $('#country_id').val();
-
-    const getData = async (country_id) => {
+    const getData = async (brand) => {
         if (country_id) {
-            const response = await fetch(`/country/${country_id}/departments`);
+            const response = await fetch(`/product/brand/${brand}`);
             const data = await response.json();
             console.log(data);
-            return displaySection(data);
+            /* return displaySection(data); */
         }
     }
 
@@ -28,13 +25,12 @@ $('document').ready(function () {
         }
     }
 
-    const idTag = document.getElementById('country_id');
-    if (idTag != undefined) {
-        idTag.addEventListener('change', async () => {
-            const COUNTRY_VAL = await $('#country_id').val();
+    const brand = $('#brand_filter');
+    if (brand != undefined) {
+        brand.addEventListener('input', async (e) => {
+            const BRAND_VAL = await $('#brand_filter').val();
+            console.log(BRAND_VAL);
             return getData(COUNTRY_VAL);
         })
     }
-
-    getData(countryValue);
 });

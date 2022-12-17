@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -22,6 +21,9 @@ class AuthController extends Controller
 
     public static function createSession($credentials = array())
     {
+
+        /* $user = USer::where('email', $credentials['email'])->select('role_id')->get();
+        $guardType = $user[0]->role_id === 1 ? 'admin' : 'customer'; */
         try {
             if (Auth::attempt($credentials)) {
                 // Authentication passed..

@@ -20,15 +20,17 @@
     width: 100%;
 }
 
-.product-options{
+.product-options {
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     flex-direction: row;
 }
 
-
-.product-options div{
+.product-options div {
     margin-inline: 15%;
 }
 
-
+.button-sections {
+    display: flex;
+    flex-direction: row;
+}

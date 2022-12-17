@@ -53,7 +53,7 @@
 
         <div id="country-section" class="w-100">
             <label for="country_id"><b>Seleccione el pais del proveedor</b> </label>
-            <select id="country_id" class="form-control mb-3 w-50 values" required="true">
+            <select id="country_id" class="form-control form-select mb-3 w-50 values" required="true">
                 <option value="">Click para seleccionar el pais</option>
                 @foreach ($countries as $item)
                     @if (isset($defaultCountry[0]->id))
@@ -68,10 +68,11 @@
                 @endforeach
             </select>
 
-            <div id="department-section" class="department-section w-100">
-                <div class="w-50  m-2">
-                    <label for="department_id"><b>Seleccione el departamento</b> </label>
-                    <select id="department_id" name="department_id" class="form-control mb-3 values" required="true">
+            <div id="department-section" class="department-section">
+                <div class="w-50 m-2">
+                    <label for="department_id"><b>Departamento</b> </label>
+                    <select id="department_id" name="department_id" class="form-control form-select mb-3 values"
+                        required="true">
                         {{-- Se llena desde JS con JQuery --}}
                     </select>
                     @error('department_id')

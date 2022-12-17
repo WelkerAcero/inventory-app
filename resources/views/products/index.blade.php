@@ -3,15 +3,36 @@
 @section('title', 'Products')
 
 @section('content')
-    <x-button>
-        <x-slot name="type">product</x-slot>
-        <x-slot name="add">Agregar producto</x-slot>
-        <x-slot name="list">Listar todos los productos</x-slot>
-    </x-button>
+
+    <div>
+        <x-button>
+            <x-slot name="type">product</x-slot>
+            <x-slot name="add">Agregar producto</x-slot>
+            <x-slot name="list">Listar todos los productos</x-slot>
+        </x-button>
+    </div>
 
     <div class="contenedor--products">
-        <div class="section--products">
+        <div class="button-sections p-2 ms-2">
+            <div>
+                <label for="brand_filter">Brand filter
+                    <input type="text" class="m-2" id="brand_filter" placeholder="Buscar por marca" value="">
+                </label>
+            </div>
 
+            <div class="">
+                <label for="color_filter">Color filter
+                    <input type="text" class="m-2" id="color_filter" placeholder="Buscar por color" value="">
+                </label>
+            </div>
+
+            <div class="">
+                <label for="price_filter">Price filter
+                    <input type="text" class="m-2" id="price_filter" placeholder="Buscar por precio" value="">
+                </label>
+            </div>
+        </div>
+        <div class="section--products">
             {{-- Sección categorías desplegadas --}}
             <div style="width: 25%;">
                 <h2><img src="{{ asset('img/icons/category.png') }}" width="35px">Categorías</h2>

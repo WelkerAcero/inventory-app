@@ -7,11 +7,13 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\KardexController;
-use App\Http\Controllers\RegisterUserController;
+//Ecommerce Controllers
+use App\Http\Controllers\EcommerceController;
+
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::controller(EcommerceController::class)->group(function () {
+    Route::get('home/ecommerce', 'index')->name('ecommerce');
+    Route::post('home/logout', 'logout')->name('customer.logout');
+});
 
 Route::controller(SessionController::class)->group(function () {
     //These routes have authenticate verification on Controller
@@ -33,17 +38,18 @@ Route::controller(SessionController::class)->group(function () {
     Route::post('/validating', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
     Route::post('/logout', 'logout')->name('logout');
-    /* Route::post('/register', 'register')->name('register'); */
 });
 
-Route::controller(RegisterUserController::class)->group(function () {
+Route::controller(CustomerController::class)->group(function () {
     //These routes have authenticate verification on Controller
-    Route::post('/register', 'register')->name('register.store');
+    Route::post('/register', 'register')->name('customer.register');
 });
 
 Route::group(['middleware' => ['auth']], function () {
 
+    //JS async response
     Route::get('/country/{id}/departments', [SupplierController::class, 'jsFormEvent']);
+    Route::get('/product/brand/{brand}', [ProductController::class, 'productByBrand']);
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard.index');

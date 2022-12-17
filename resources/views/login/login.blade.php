@@ -45,42 +45,39 @@
                     <button type="button" class="btn btn-primary me-3" id="register" data-bs-toggle="modal"
                         data-bs-target="#modalRegister">Registrarse
                     </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar cuenta</h1>
-                                    <button type="button" class="btn-close close-register-button" data-bs-dismiss="modal"
-                                        aria-label="Close">
-                                    </button>
-                                </div>
-                                <div class="modal-body" style="text-align: left;">
-                                    <form method="post" action="{{ route('register.store') }}"
-                                        class="row g-3 needs-validation">
-                                        @csrf
-                                        @include('login.register_user_form')
-                                    </form>
-                                </div>
-                            </div>
+            </form>
+            <!-- Modal -->
+            <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar cuenta</h1>
+                            <button type="button" class="btn-close close-register-button" data-bs-dismiss="modal"
+                                aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body" style="text-align: left;">
+                            <form method="post" action="{{ route('customer.register') }}" class="row g-3 needs-validation">
+                                @csrf
+                                @include('login.register_user_form')
+                            </form>
                         </div>
                     </div>
                 </div>
-            </form>
-
-            <div class="contenedor--redes">
-                <div> <a href="#"><img class="redes" src="img/icons/facebook.png"></a></div>
-                <div><a href="#"><img class="redes" src="img/icons/instagram.png"></a></div>
-                <div><a href="#"><img class="redes" src="img/icons/linkedin.png"></a></div>
             </div>
+        </div>
+        <div class="contenedor--redes">
+            <div> <a href="#"><img class="redes" src="img/icons/facebook.png"></a></div>
+            <div><a href="#"><img class="redes" src="img/icons/instagram.png"></a></div>
+            <div><a href="#"><img class="redes" src="img/icons/linkedin.png"></a></div>
+        </div>
 
-        </div>
-        <hr style="box-shadow: 1px 2px 2px 1px;">
-        <div class="section--der">
-            <img class="img--der" src="img/inventario.jpg">
-        </div>
+    </div>
+    <hr style="box-shadow: 1px 2px 2px 1px;">
+    <div class="section--der">
+        <img class="img--der" src="img/inventario.jpg">
+    </div>
 
     </div>
 
@@ -88,4 +85,8 @@
 
 @push('script-modal-event')
     <script src="{{ asset('js/modal-register-event.js') }}"></script>
+@endpush
+
+@push('script-suppliers-event')
+    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
 @endpush

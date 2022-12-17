@@ -35,8 +35,8 @@ class RegisterRequest extends FormRequest
             'department_id' => [],
             'city' => [],
             'street' => [],
-            'email' => [],
-            'role_id' => ['required'],
+            'email' => ['required', 'unique:users'],
+            'role_id' => [],
             'password' => [
                 'required',
                 'string',

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequireSession;
 use App\http\Controllers\AuthController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 use Exception;
@@ -37,9 +36,12 @@ class SessionController extends Controller
         if (strlen($request->input('password')) >= 6) {
             $res = AuthController::createSession($request->only('email', 'password'));
             if (!empty(AuthController::showDisplayName())) {
-                $request->session()->put('authenticated', $res->showDisplayName());
-                if (Auth::check()) {
+                if (Auth::user()->role_id === 1) {
+                    $request->session()->put('authenticated', $res->showDisplayName());
                     return redirect()->intended('dashboard');
+                } else {
+                    $request->session()->put('authenticated_customer', $res->showDisplayName());
+                    return redirect()->intended('home/ecommerce');
                 }
             } else {
                 $res = 'Error - credenciales incorrectas';
