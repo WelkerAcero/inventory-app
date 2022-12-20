@@ -33,30 +33,30 @@ class SessionController extends Controller
 
     public function auth(RequireSession $request)
     {
-        if (strlen($request->input('password')) >= 6) {
-            try {
+        try {
+            if (strlen($request->input('password')) >= 6) {
+
                 if (Auth::attempt($request->only('email', 'password'))) {
                     // Authentication passed..
                     $requestName = User::select('name')->where('email', '=', $request->input('email'))->first();
-                    if (!empty($requestName)) {
-                        if (Auth::user()->role_id === 1) {
-                            $request->session()->put('authenticated', $requestName->name);
-                            return redirect()->intended('dashboard');
-                        } else {
-                            $request->session()->put('authenticated_customer', $requestName->name);
-                            return redirect()->intended('home/ecommerce');
-                        }
+
+                    if (Auth::user()->role_id === 1) {
+                        $request->session()->put('authenticated', $requestName->name);
+                        return redirect()->intended('dashboard');
+                    } else {
+                        $request->session()->put('authenticated_customer', $requestName->name);
+                        return redirect()->intended('home/ecommerce');
                     }
                 } else {
                     $res = 'Error - credenciales incorrectas';
                     return view('login.login', ['msgErr' => $res]);
                 }
-            } catch (Exception $e) {
-                return $e->getMessage();
+            } else {
+                $res = 'Error - El campo password debe ser mayor a 6 caracteres';
+                return view('login.login', ['msgErr' => $res]);
             }
-        } else {
-            $res = 'Error - El campo password debe ser mayor a 6 caracteres';
-            return view('login.login', ['msgErr' => $res]);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
