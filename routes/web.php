@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('supplier', 'store')->name('supplier.store');
 
         Route::get('supplier/{id}/department/{dep_id}/edit', 'edit')->name('supplier.edit');
-        Route::put('supplier/{data}', 'update')->name('supplier.update');
+        Route::put('supplier/{supplier}', 'update')->name('supplier.update');
         Route::delete('supplier/{id}', 'destroy')->name('supplier.destroy');
 
         /*         Route::resource('supplier', SupplierController::class, [

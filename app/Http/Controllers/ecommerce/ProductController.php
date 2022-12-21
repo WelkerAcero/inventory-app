@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ecommerce;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
@@ -50,10 +50,11 @@ class ProductController extends Controller
     {
         $data = Product::all();
         if (count($data) > 0) {
-            return view('products.index', ['products' => $data, 'categories' => $this->getCategories()]);
+            return response()->json($data);
+            /* return view('products.index', ['products' => $data, 'categories' => $this->getCategories()]); */
         }
-        $error = "No hay datos para mostrar";
-        return view('products.index', ['error' => $error]);
+        /* $error = "No hay datos para mostrar"; */
+        /* return view('products.index', ['error' => $error]); */
     }
 
     /**

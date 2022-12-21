@@ -16,15 +16,27 @@ $('document').ready(function () {
         const getData = await data;
         if (getData.length > 0) {
             $('#department-section').show();
-            html_select = "<option value=''>Seleccione el departamento</option>";
-            for (let i = 0; i < data.length; i++) {
-                html_select += `<option value="${data[i].id}">${data[i].dep_name}</option>`;
-                await $('#department_id').html(html_select);
+
+            if ($('#opt').val()) {
+                html_select = '';
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].id === $('#opt').val()) {
+                        console.log('iguales');
+                        html_select = `<option value="${data[i].id}" selected>${data[i].dep_name}</option>`;
+                    } else {
+                        html_select += `<option value="${data[i].id}">${data[i].dep_name}</option>`;
+                    }
+                    await $('#department_id').html(html_select);
+                }
+
+            } else {
+                html_select = "<option value=''>Seleccione el departamento</option>";
+                for (let i = 0; i < data.length; i++) {
+                    html_select += `<option value="${data[i].id}">${data[i].dep_name}</option>`;
+                    await $('#department_id').html(html_select);
+                }
             }
-        } else {
-            html_select = '';
-            html_select += `<option value="null">No hay departamento o estado</option>`;
-            await $('#department_id').html(html_select);
+
         }
     }
 

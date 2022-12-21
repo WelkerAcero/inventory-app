@@ -11,12 +11,12 @@ use Exception;
 class AuthController extends Controller
 {
     private $email;
-    private static $displayName;
+    private $displayName;
 
     public function __construct($emailParam, $displayNameParam)
     {
         $this->email = $emailParam;
-        self::$displayName = $displayNameParam;
+        $this->displayName = $displayNameParam;
     }
 
     public static function createSession($credentials = array())
@@ -38,9 +38,9 @@ class AuthController extends Controller
         }
     }
 
-    public static function showDisplayName()
+    public function showDisplayName()
     {
-        return self::$displayName;
+        return $this->displayName;
     }
 
     public function showEmail()

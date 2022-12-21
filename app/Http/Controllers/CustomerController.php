@@ -16,7 +16,6 @@ class CustomerController extends Controller
         return redirect()->route('login');
     }
 
-
     public function index()
     {
         $data = User::where('role_id', '!=', 1)->get();
@@ -24,10 +23,15 @@ class CustomerController extends Controller
     }
 
 
-    /* 
     public function store(RegisterRequest $request)
     {
         $data = User::create($request->validated());
         return redirect()->route('login');
-    } */
+    }
+
+    public function destroy(User $id)
+    {
+        $id->delete();
+        return redirect()->route('customer.index');
+    }
 }

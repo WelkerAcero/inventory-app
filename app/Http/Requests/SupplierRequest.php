@@ -4,7 +4,10 @@ namespace App\Http\Requests;
 
 use App\Models\Supplier;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
+use Illuminate\Http\Request;
 
 class SupplierRequest extends FormRequest
 {
@@ -15,12 +18,11 @@ class SupplierRequest extends FormRequest
      */
     public function authorize()
     {
-/*         if (!empty(session('authenticated'))) {
+        /*         if (!empty(session('authenticated'))) {
             return false;
         } */
 
         return true;
-        
     }
 
     /**
@@ -30,25 +32,34 @@ class SupplierRequest extends FormRequest
      */
     public function rules()
     {
-
         if ($this->isMethod('PUT')) {
             return [
-                'sup_code' => "required|unique:suppliers",
-                'sup_email' => 'required|unique:suppliers',
+                'sup_code' => 'required', Rule::unique('suppliers')->ignore($this->supplier->id),
+                'sup_email' => 'required', Rule::unique('suppliers')->ignore($this->supplier->id),
+                'document_type_id' => [],
+                'document_number' => [],
+                'sup_cellphone' => [],
+                'sup_name' => 'required',
+                'sup_lastname' => [],
+                'department_id' => 'required',
+                'sup_city' => 'required',
+                'sup_street' => 'required'
             ];
         }
-        return [
-            'sup_code' => 'required|unique:suppliers',
-            'document_type_id' => [],
-            'document_number' => [],
-            'sup_email' => 'unique:suppliers',
-            'sup_cellphone' => [],
-            'sup_name' => 'required',
-            'sup_lastname' => [],
-            'department_id' => 'required',
-            'sup_city' => 'required',
-            'sup_street' => 'required'
-        ];
+        if ($this->isMethod('POST')) {
+            return [
+                'sup_code' => 'required|unique:suppliers',
+                'document_type_id' => [],
+                'document_number' => [],
+                'sup_email' => 'unique:suppliers',
+                'sup_cellphone' => [],
+                'sup_name' => 'required',
+                'sup_lastname' => [],
+                'department_id' => 'required',
+                'sup_city' => 'required',
+                'sup_street' => 'required'
+            ];
+        }
     }
 
     public function attributes()
@@ -74,5 +85,4 @@ class SupplierRequest extends FormRequest
             'sup_street.required' => '"Dirección de calle o nro de local requerido"'
         ];
     }
-
 }

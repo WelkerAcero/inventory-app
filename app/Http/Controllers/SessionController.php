@@ -34,6 +34,7 @@ class SessionController extends Controller
     public function auth(RequireSession $request)
     {
         try {
+
             if (strlen($request->input('password')) >= 6) {
 
                 if (Auth::attempt($request->only('email', 'password'))) {
