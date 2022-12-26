@@ -22,7 +22,7 @@
 - Delete the default public_html
 - Rename the 'public' project folder to 'public_html'
 - Open App/providers then edit AppServiceProvider.php file and edit it to:
-    public function register()
+    - public function register()
     {      
         $this->app->bind('path.public', function () {
             return base_path('public_html');
