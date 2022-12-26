@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
@@ -11,23 +11,26 @@ use Exception;
 class AuthController extends Controller
 {
     private $email;
-    private static $displayName;
+    private $displayName;
 
     public function __construct($emailParam, $displayNameParam)
     {
         $this->email = $emailParam;
-        self::$displayName = $displayNameParam;
+        $this->displayName = $displayNameParam;
     }
 
     public static function createSession($credentials = array())
     {
+
+        /* $user = USer::where('email', $credentials['email'])->select('role_id')->get();
+        $guardType = $user[0]->role_id === 1 ? 'admin' : 'customer'; */
         try {
             if (Auth::attempt($credentials)) {
                 // Authentication passed..
-                $requestName = User::select('name')->where('email', '=', $credentials['email'])->first();//query
-                 // initialize the construct and give arguments
+                $requestName = User::select('name')->where('email', '=', $credentials['email'])->first(); //query
+                // initialize the construct and give arguments
                 return new AuthController($credentials['email'], $requestName->name);
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception $e) {
@@ -35,19 +38,9 @@ class AuthController extends Controller
         }
     }
 
-/*     public function createNewUser($emailParam, $passwordParam, $displayNameParam)
+    public function showDisplayName()
     {
-        try {
-            $service->addUser($emailParam, $passwordParam, $displayNameParam);
-            return new AuthUser($emailParam, $displayNameParam);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    } */
-
-    public static function showDisplayName()
-    {
-        return self::$displayName;
+        return $this->displayName;
     }
 
     public function showEmail()

@@ -59,7 +59,7 @@
                                 <abbr title="Eliminar información" style="cursor: pointer">
                                     <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
                                 </abbr>
-                                </a>
+                            </a>
                         </form>
                     </td>
                 </tr>

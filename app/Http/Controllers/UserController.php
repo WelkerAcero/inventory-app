@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreUser;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Throwable;
 
 class UserController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['register']]);
     }
 
     /**
@@ -23,10 +25,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','!=', Auth::id())->get();
-/*         $instance = User::; */
-/*         dd($instance); */
-        return view('users.index', compact('users'));
+        $data = new User();
+        $users = User::where('id', '!=', Auth::id())->get();
+        /*         $instance = User::; */
+        /*         dd($instance); */
+        return view('users.index', compact('data', 'users'));
     }
 
     /**
@@ -34,15 +37,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() // route to create admin user
     {
         $data = new User();
         $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
         $countries = DB::table('countries')->select('id', 'cou_name')->get();
         $departments = DB::table('departments')->select('id', 'dep_name')->get();
-        $roles= DB::table('roles')->select('id', 'rol_name')->get();
-        return view('users.create', compact('data','documentType','countries','departments','roles'));
-        /* return $documentType; */
+        $roles = DB::table('roles')->select('id', 'rol_name')->get();
+
+        return view('users.create', compact('data', 'documentType', 'countries', 'departments', 'roles'));
     }
 
     /**
@@ -51,9 +54,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUser $request)
+    public function store(UserRequest $request) // store admin users
     {
-        //
+        try {
+            $user = User::create($request->validated());
+            return redirect()->route('user.index');
+        } catch (\Throwable $err) {
+            return redirect('user.index')->withException($err);
+        }
     }
 
     /**
@@ -62,7 +70,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // specific admin user information
     {
         //
     }
@@ -73,9 +81,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) // edit admin user information
     {
-        //
     }
 
     /**
@@ -96,8 +103,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('user.index');
     }
 }

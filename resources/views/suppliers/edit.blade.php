@@ -16,12 +16,10 @@
             <h1>Editat datos del proveedor</h1>
         </div>
 
-        <form action="{{ route('supplier.update', $data->id) }}" method="post">
+        <form action="{{ route('supplier.update', $data) }}" method="post">
             @csrf
             @method('put')
-
             @include('suppliers.form-fields')
-
         </form>
     </div>
 

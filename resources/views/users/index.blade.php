@@ -11,6 +11,10 @@
     </x-button>
 
     {{-- @dump($instance) --}}
+
+
+    <h1 class="bg-warning d-flex justify-content-center">{{ $message = isset($message) ? $message : '' }}</h1>
+
     <div class="user-content container--user">
         @foreach ($users as $data)
             <div class="col-4">
@@ -48,14 +52,18 @@
                             </a>
                         </div>
                         <div class="buttons-edit-delete">
-                            <a href="" type="button" class="btn btn-info m-2">
-                                Editar
+                            <a class="me-3" href="{{ route('user.edit', $data->id) }}">
+                                <abbr title="Editar información" style="cursor: pointer">
+                                    <img src="{{ asset('img/icons/editar.png') }}" width="40px">
+                                </abbr>
                             </a>
                             <form method="post" action="{{ route('user.destroy', $data->id) }}">
                                 @csrf
                                 @method('delete')
-                                <a type="button" class="btn btn-danger m-2" id="btn-AlertDelete">
-                                    Eliminar
+                                <a type="button" id="btn-AlertDelete">
+                                    <abbr title="Eliminar información" style="cursor: pointer;">
+                                        <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
+                                    </abbr>
                                 </a>
                             </form>
 

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /*      
+        $this->app->bind('path.public', function () {
+            return base_path('public_html');
+        }); 
+        */
     }
 
     /**
@@ -23,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //resolve(\Illuminate\Routing\UrlGenerator::class)-**texto en negrita**>forceScheme('https');
     }
 }

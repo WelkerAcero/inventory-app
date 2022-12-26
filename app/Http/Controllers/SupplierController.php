@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Requests\SupplierRequest;
+use Illuminate\Support\Facades\Auth;
 /* use App\Http\Requests\UpdateSupplierRequest; */
 
 class SupplierController extends Controller
@@ -49,7 +50,7 @@ class SupplierController extends Controller
         $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
         $countries = DB::table('countries')->select('id', 'cou_name')->get();
         $departments = DB::table('departments')->select('id', 'dep_name')->get();
-        return view('suppliers.create', compact('data','documentType','countries','departments'));
+        return view('suppliers.create', compact('data', 'documentType', 'countries', 'departments'));
         /* return $documentType; */
     }
 
@@ -110,12 +111,8 @@ class SupplierController extends Controller
      */
     public function update(SupplierRequest $request, Supplier $supplier)
     {
-        try {
-            $supplier->update($request->validated());
-            return redirect()->route('suppliers.index');
-        } catch (\Throwable $th) {
-            return redirect('supplier.edit')->withErrors($th, 'error');
-        }
+        $supplier->update($request->validated());
+        return redirect()->route('supplier.index');
     }
 
     /**

@@ -26,9 +26,7 @@
 
         <form method="post" action="{{ route('supplier.store') }}">
             @csrf
-
             @include('suppliers.form-fields')
-
         </form>
     </div>
 @endsection

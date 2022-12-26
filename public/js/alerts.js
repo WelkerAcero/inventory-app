@@ -2,8 +2,6 @@ $(document).ready(function () {
     $("form #btn-Alert").click(function (e) {
 
         let $form = $(this).closest("form"); // para transformar el button a submit
-
-
         //for each .values as className Get 
         const ATTR_NAMES = [];
         $('.values').each(function () {
@@ -83,8 +81,6 @@ $(document).ready(function () {
                         );
                     }
                 });
-
-
         } else {
             console.log('no son equivalentes');
             Swal.fire({
