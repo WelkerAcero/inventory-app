@@ -9,6 +9,8 @@ class Supplier extends Model
 {
     use HasFactory;
 
+    protected $guarded = []; 
+
     public function documentType()
     {
         return $this->belongsTo(DocumentType::class);

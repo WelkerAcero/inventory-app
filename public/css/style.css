@@ -76,6 +76,10 @@ body {
     margin: 12%;
 }
 
+.navbar-brand{
+    padding-top: 0 !important;
+}
+
 .redes {
     width: 50%;
     transition: transform 0.7s ease-in-out;

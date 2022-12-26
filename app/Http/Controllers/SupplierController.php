@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Http\Requests\SupplierRequest;
+use Illuminate\Support\Facades\Auth;
+/* use App\Http\Requests\UpdateSupplierRequest; */
 
 class SupplierController extends Controller
 {
@@ -20,11 +23,20 @@ class SupplierController extends Controller
         $cities = array();
         foreach ($data as $key => $value) {
             array_push($cities_id, $value['department_id']);
-            $city_name = DB::table('departments')->select('dep_name')->where('id','=', $value['department_id'])->get();
+            $city_name = DB::table('departments')->select('dep_name')->where('id', '=', $value['department_id'])->get();
             array_push($cities, $city_name);
         }
         return view('suppliers.index', compact('data'), compact('cities'));
         /* return response()->json($suppliers); */
+    }
+
+    public function jsFormEvent($countryId)
+    {
+        try {
+            return DB::table('departments')->where('country_id', $countryId)->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -34,10 +46,11 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $documentType = DB::table('document_types')->select('id','doc_name')->get();
-        $countries = DB::table('countries')->select('id','cou_name')->get();
-        $departments = DB::table('departments')->select('id','dep_name')->get();
-        return view('suppliers.create', compact('documentType'), compact('countries','departments'));
+        $data = new Supplier();
+        $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
+        $countries = DB::table('countries')->select('id', 'cou_name')->get();
+        $departments = DB::table('departments')->select('id', 'dep_name')->get();
+        return view('suppliers.create', compact('data', 'documentType', 'countries', 'departments'));
         /* return $documentType; */
     }
 
@@ -47,16 +60,21 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SupplierRequest $request)
     {
-        $supplier = Supplier::create($request->all());
-        return redirect()->route('suppliers.show', $supplier->id);
+
+        try {
+            $supplier = Supplier::create($request->validated());
+            return redirect()->route('supplier.index');
+        } catch (\Throwable $th) {
+            return redirect('supplier.create')->withErrors($th, 'error');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
     public function show(Supplier $supplier)
@@ -68,38 +86,44 @@ class SupplierController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
-    public function edit($supplier)
+    public function edit($supplier, $dep_id)
     {
+        $documentType = DB::table('document_types')->get();
+        $countries = DB::table('countries')->get();
+        $defaultCountry = DB::table('countries')
+            ->join('departments', 'departments.country_id', '=', 'countries.id')
+            ->where('departments.id', '=', $dep_id)
+            ->select('countries.id', 'countries.cou_name')
+            ->get();
         $data = Supplier::find($supplier);
-        return view('suppliers.edit', ['data' => $data]);
+        return view('suppliers.edit', compact('data', 'documentType', 'countries', 'defaultCountry'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(SupplierRequest $request, Supplier $supplier)
     {
-
-        $supplier->update($request->all());
-        return redirect()->route('suppliers.show', $supplier->id);
+        $supplier->update($request->validated());
+        return redirect()->route('supplier.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\Supplier  $provider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy(Supplier $id)
     {
-        $supplier->delete();
-        return redirect()->route('suppliers.index');
+        $id->delete();
+        return redirect()->route('supplier.index');
     }
 }

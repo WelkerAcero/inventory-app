@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Categories')
 
@@ -40,12 +40,14 @@
                     </td>
 
                     <td class="providers-index-center">{{ $item->created_at }}</td>
-    
+
                     <td class="providers-index-center">{{ $item->updated_at }}</td>
 
                     <td style="text-align: center">
                         <a href="{{ route('category.edit', $item->id) }}">
-                            <img src="{{ asset('img/icons/editar.png') }}" width="40px">
+                            <abbr title="Editar información" style="cursor: pointer">
+                                <img src="{{ asset('img/icons/editar.png') }}" width="40px">
+                            </abbr>
                         </a>
                     </td>
 
@@ -53,7 +55,11 @@
                         <form method="post" action="{{ route('category.destroy', $item->id) }}">
                             @csrf
                             @method('delete')
-                            <button type="submit"><img src="{{ asset('img/icons/borrar.png') }}" width="40px"> </button>
+                            <a type="button" id="btn-AlertDelete">
+                                <abbr title="Eliminar información" style="cursor: pointer">
+                                    <img src="{{ asset('img/icons/borrar.png') }}" width="40px">
+                                </abbr>
+                            </a>
                         </form>
                     </td>
                 </tr>

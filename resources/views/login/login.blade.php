@@ -3,6 +3,7 @@
 @section('title', 'login')
 
 @section('content')
+
     <div class="contenedor">
         <div class="section--izq">
             <h1>Bienvenido!</h1><br>
@@ -19,7 +20,7 @@
 
                 <div class="mb-3">
                     <img src="img/icons/user.png" alt="user" width="20px">
-                    <label for="correo">Usuario: </label><br />
+                    <label for="email">Usuario: </label><br />
                     <input class="input--login form-control" type="email" id="email" name="email"
                         placeholder="Escriba su correo" />
                     @error('email')
@@ -30,15 +31,15 @@
                 <div class="mb-3">
                     <img src="img/icons/pass.png" alt="user" width="20px">
                     <label for="password">Password: </label><br />
-                    <input class="input--login form-control" type="password" id="password" name="password"
-                        placeholder="Escriba su contraseña"/>
+                    <input type="password" class="input--login form-control" id="password" name="password"
+                        placeholder="Escriba su contraseña" />
                     @error('password')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div class="text--center button--login">
-                    <button submit="submit" class="btn btn-success">Iniciar sesión</button>
+                <div class="text--center button--login w-100">
+                    <button type="submit" class="btn btn-success me-3" id="alert-Login">Iniciar sesión</button>
                 </div>
 
             </form>
@@ -56,4 +57,9 @@
         </div>
 
     </div>
+
 @endsection
+
+@push('script-modal-event')
+    <script src="{{ asset('js/modal-register-event.js') }}"></script>
+@endpush

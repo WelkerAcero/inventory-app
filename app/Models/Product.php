@@ -9,6 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
+    /* protected $primaryKey = 'data'; */
+    protected $guarded = [];
+
     public function categories()
     {
         return $this->belongsTo(Category::class);

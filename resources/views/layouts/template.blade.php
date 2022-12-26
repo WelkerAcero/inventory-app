@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
-    <link rel="icon" href="{{asset('img/logo.png')}}">
+    <link rel="icon" href="{{ asset('img/logo.png') }}">
     {{-- Css styles --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/providers.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
@@ -30,10 +31,10 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
     <!--ALERTIFY Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
-    
+
     {{-- SWEET ALERT2 --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+
     {{-- ALERTIFY Script --}}
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
@@ -43,11 +44,14 @@
     {{-- Here all Js files --}}
     <script src="{{ asset('js/buttons.js') }}"></script>
     <script src="{{ asset('js/alerts.js') }}"></script>
-
+    <script src="{{ asset('js/alertLogin.js') }}"></script>
+    <script src="{{ asset('js/alertDelete.js') }}"></script>
+    @stack('script-suppliers-event')
+    @stack('script-users-event')
+    @stack('script-modal-event')
 </head>
 
 <body>
-
     @yield('dashboard-header')
     <br>
     @yield('content')

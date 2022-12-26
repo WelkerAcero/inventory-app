@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Providers')
 
@@ -17,87 +17,20 @@
             <h1>Datos del proveedor</h1>
         </div>
 
+        {{--         @error('sup_code')
+            <x-alert>
+                <x-slot name="type">error</x-slot>
+                ERROR: {{ $message }}
+            </x-alert>
+        @enderror --}}
+
         <form method="post" action="{{ route('supplier.store') }}">
             @csrf
-
-            <div class="contenedor-create-form">
-                <div class="create-form-bloque">
-                    <label for="sup_code"><b>Código del proveedor</b></label>
-                    <input type="text" id="sup_code" name="sup_code" class="form-control mb-3" required="true"
-                        value="{{ old('sup_code') }}" />
-                    @error('sup_code')
-                        <p>* El código del proveedor es requerido</p>
-                    @enderror
-
-                    <label for="document_type_id"><b>Tipo de documento</b></label>
-                    <select id="document_type_id" name="document_type_id" class="form-control mb-3"
-                        value="{{ old('document_type_id') }}" required="true">
-                        <option value="">Seleccione una opción</option>
-                        @foreach ($documentType as $item)
-                            <option value="{{ $item->id }}">{{ $item->doc_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('document_type_id')
-                        <p>* El tipo de documento es requerido</p>
-                    @enderror
-
-                    <label for="document_number"><b>Número de documento</b> </label>
-                    <input type="number" id="document_number" name="document_number" class="form-control mb-3"
-                        required="true" value="{{ old('document_number') }}" />
-
-                    @error('document_number')
-                        <p>* Número de documento es requerido</p>
-                    @enderror
-
-                    <label for="sup_email"><b>E-mail </b></label>
-                    <input type="email" id="sup_email" name="sup_email" class="form-control mb-3"
-                        placeholder="Escriba su correo" value="{{ old('sup_email') }}" />
-
-
-                    <label for="sup_cellphone"><b>Teléfono</b> </label>
-                    <input type="number" id="sup_cellphone" name="sup_cellphone" class="form-control mb-3"
-                        value="{{ old('sup_cellphone') }}" placeholder="Escriba su teléfono" required="true"
-                        maxlength="10" />
-                </div>
-
-                <div class="create-form-bloque">
-                    <label for="sup_name"><b>Nombre</b> </label>
-                    <input type="text" id="sup_name" name="sup_name" class="form-control mb-3"
-                        value="{{ old('sup_name') }}" placeholder="Escriba su nombre" required="true" />
-                    @error('sup_name')
-                        <p>* Nombre es requerido</p>
-                    @enderror
-
-                    <label for="sup_lastname"><b>Apellido</b> </label>
-                    <input type="text" id="sup_lastname" name="sup_lastname" class="form-control mb-3"
-                        value="{{ old('sup_lastname') }}" placeholder="Escriba su apellido" required="true" />
-
-                    <label for="country_id"><b>Pais</b> </label>
-
-                    <select id="country_id" name="country_id" class="form-control mb-3">
-                        <option value="">Seleccione el pais</option>
-                        @foreach ($countries as $item)
-                            <option value="{{ $item->id }}">{{ $item->cou_name }}</option>
-                        @endforeach
-                    </select>
-
-                    <label for="sup_street"><b>Dirección</b> </label>
-                    <input type="text" id="sup_street" name="sup_street" class="form-control mb-3"
-                        value="{{ old('sup_street') }}" placeholder="Escriba su dirección" required="true" />
-                    @error('sup_street')
-                        <p>* La dirección es requerida</p>
-                    @enderror
-
-                </div>
-            </div>
-
-            <div style="text-align: center; padding-bottom:20px;">
-                <input class="btn btn-primary boton-create" type="reset" value="Limpiar" />
-                <input class="btn btn-success boton-create" class="btn-Alert" type="submit" value="Guardar" />
-            </div>
-
+            @include('suppliers.form-fields')
         </form>
     </div>
 @endsection
 
-<script src="{{ asset('js/formSupplier.js') }}"></script>
+@push('script-suppliers-event')
+    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
+@endpush

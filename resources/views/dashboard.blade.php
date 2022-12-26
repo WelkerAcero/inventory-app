@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.dashboardLayouts.menu')
 
 @section('title', 'Dashboard')
 
@@ -6,7 +6,8 @@
     <!-- SECCIÓN DASHBOARD - CONTENT -->
 
     <x-alert>
-        Bienvenido al Dashboard {{ session('authenticated') }}
+        <x-slot name="type">success</x-slot>
+        Bienvenido al Dashboard {{ session('authenticated')}}
     </x-alert>
 
     <div class="contenedor--dashboard">

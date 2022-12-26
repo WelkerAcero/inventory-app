@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProCodeToProductsTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddProCodeToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('pro_code', 15)->nullable()->after('id');
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('per_name', 40)->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AddProCodeToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('pro_code');
-        });
+        Schema::dropIfExists('permissions');
     }
 }

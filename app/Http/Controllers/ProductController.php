@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -13,15 +14,46 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getCategories()
+    {
+        $categories = DB::table('categories')->select('id', 'cat_name')->get();
+        return $categories;
+    }
+
+    public function getSuppliers()
+    {
+        $suppliers = DB::table('suppliers')->select('id', 'sup_name')->get();
+        return $suppliers;
+    }
+
+    public function getProdPresentation()
+    {
+        $obj = new \stdClass();
+        $arrayData = array(['unidad', 'libra', 'kilogramo', 'caja', 'paquete', 'lata', 'galon', 'botella', 'tira', 'sobre', 'bolsa', 'saco', 'tarjeta', 'otro']);
+        $presentation = array();
+        foreach ($arrayData as $value1) {
+            [
+                $presentation +=
+                    [
+                        'name' => $value1,
+                    ],
+            ];
+        }
+
+        //convertir un array asociativo a un objeto
+        $presentation = json_decode(json_encode($presentation));
+        return $presentation;
+    }
+
     public function index()
     {
-        $data = Product::paginate();
-        $categories = DB::table('categories')
-            ->join('products', 'products.category_id', '=', 'categories.id')
-            ->select('categories.cat_name', 'categories.id')
-            ->get();
-
-        return view('products.index', ['products' => $data, 'categories' => $categories]);
+        $data = Product::all();
+        if (count($data) > 0) {
+            return view('products.index', ['products' => $data, 'categories' => $this->getCategories()]);
+        }
+        $error = "No hay datos para mostrar";
+        return view('products.index', ['error' => $error]);
     }
 
     /**
@@ -31,7 +63,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.index');
+        $data = new Product();
+        $presentation = $this->getProdPresentation();
+        $categories = $this->getCategories();
+        $suppliers = $this->getSuppliers();
+        return view('products.create', compact('suppliers', 'categories', 'presentation', 'data'));
     }
 
     /**
@@ -40,10 +76,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $data = Product::create($request->all());
-        return redirect()->route('products.index');
+        /* return $request->all(); */
+        $data = Product::create($request->validated());
+        return redirect()->route('product.index');
     }
 
     /**
@@ -59,28 +96,39 @@ class ProductController extends Controller
 
     public function productByCategory($product)
     {
-        $categories = DB::table('categories')
-            ->join('products', 'products.category_id', '=', 'categories.id')
-            ->select('categories.id', 'categories.cat_name')
-            ->get();
-
         $onCategoryName = DB::table('categories')->select('cat_name')
             ->where('id', '=', $product)
             ->get();
+        $byCategoryId = Product::where('category_id', $product)->get();
 
-        $byCategoryId = Product::where('category_id', '=', $product)->get();
-        return view('products.index', ['products' => $byCategoryId, 'categories' => $categories, $onCategoryName]);
+        return view('products.index', ['products' => $byCategoryId, 'categories' => $this->getCategories(), 'onCategoryName' => $onCategoryName]);
+    }
+
+    public function productByBrand($brand)
+    {
+        try {
+            return DB::table('products')->select('pro_brand')
+                ->where('pro_brand', $brand)
+                ->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $products)
+    public function edit($id)
     {
-        return view('products.edit', ['data' => $products::find($products)]);
+        $data = Product::find($id);
+        $presentation = $this->getProdPresentation();
+        $categories = $this->getCategories();
+        $suppliers = $this->getSuppliers();
+        /* return $data; */
+        return view('products.edit', compact('data', 'suppliers', 'presentation', 'categories'));
     }
 
     /**
@@ -90,10 +138,10 @@ class ProductController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $products)
+    public function update(ProductRequest $request, Product $data)
     {
-        $products->update($request->all());
-        return redirect()->route('products.index');
+        $data->update($request->validated());
+        return redirect()->route('product.index');
     }
 
     /**
@@ -102,9 +150,9 @@ class ProductController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $products)
+    public function destroy(Product $id)
     {
-        $products->delete();
+        $id->delete();
         return redirect()->route('product.index');
     }
 }

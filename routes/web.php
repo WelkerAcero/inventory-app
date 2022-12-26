@@ -1,13 +1,19 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\KardexController;
+//Ecommerce Controllers
+use App\Http\Controllers\EcommerceController;
+
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,27 +26,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('home');
+Route::controller(EcommerceController::class)->group(function () {
+    Route::get('home/ecommerce', 'index')->name('ecommerce');
+    Route::post('home/logout', 'logout')->name('customer.logout');
 });
 
 Route::controller(SessionController::class)->group(function () {
+    //These routes have authenticate verification on Controller
     Route::get('/preloader', 'loader')->name('preloader');
     Route::get('/login', 'index')->name('login');
-    Route::post('/dashboard', 'auth')->name('login.validate');
+    Route::post('/validating', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
-    Route::get('signup', 'logout')->name('logout');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
+Route::controller(CustomerController::class)->group(function () {
+    //These routes have authenticate verification on Controller
+    Route::post('/register', 'register')->name('customer.register');
+});
 
 Route::group(['middleware' => ['auth']], function () {
-    
-    Route::get('/', function () {
-        return view('dashboard');
-    });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    //JS async response
+    Route::get('/country/{id}/departments', [SupplierController::class, 'jsFormEvent']);
+    Route::get('/product/brand/{brand}', [ProductController::class, 'productByBrand']);
+
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('dashboard', 'index')->name('dashboard.index');
+        Route::get('/', 'index')->name('dashboard.index');
     });
 
     Route::controller(SupplierController::class)->group(function () {
@@ -48,9 +61,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('supplier/create', 'create')->name('supplier.create');
         Route::post('supplier', 'store')->name('supplier.store');
 
-        Route::get('supplier/{id}/edit', 'edit')->name('supplier.edit');
-        Route::put('supplier/{data}', 'update')->name('supplier.update');
+        Route::get('supplier/{supplier}/department/{dep_id}/edit', 'edit')->name('supplier.edit');
+        Route::put('supplier/{supplier}', 'update')->name('supplier.update');
         Route::delete('supplier/{id}', 'destroy')->name('supplier.destroy');
+
+        /*         Route::resource('supplier', SupplierController::class, [
+            'names' => 'supplier',
+            'parameters' => ['blog', 'post']
+        ]); */
     });
 
     Route::controller(CategoryController::class)->group(function () {
@@ -58,8 +76,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('category/create', 'create')->name('category.create');
         Route::post('category', 'store')->name('category.store');
 
-        Route::get('category/{id}/edit', 'edit')->name('category.edit');
-        Route::put('category/{data}', 'update')->name('category.update');
+        Route::get('category/{category}/edit', 'edit')->name('category.edit');
+        Route::put('category/{category}', 'update')->name('category.update');
         Route::delete('category/{id}', 'destroy')->name('category.destroy');
     });
 
@@ -78,7 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('purchase', 'index')->name('purchase.index');
         Route::get('purchase/create', 'create')->name('purchase.create');
     });
-    
+
     Route::controller(KardexController::class)->group(function () {
         Route::get('kardex', 'index')->name('kardex.index');
     });
@@ -92,5 +110,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('customer/{id}', 'update')->name('customer.update');
         Route::delete('customer/{id}', 'destroy')->name('customer.destroy');
     });
-});
 
+    Route::controller(UserController::class)->group(function () {
+        Route::get('user', 'index')->name('user.index');
+        Route::get('user/create', 'create')->name('user.create');
+        Route::post('user', 'store')->name('user.store');
+
+        Route::get('user/{id}/edit', 'edit')->name('user.edit');
+        Route::put('user/{id}', 'update')->name('user.update');
+        Route::delete('user/{id}', 'destroy')->name('user.destroy');
+    });
+});

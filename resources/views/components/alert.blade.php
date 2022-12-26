@@ -12,6 +12,6 @@
     y guardado en la variable.
 --}}
 @php
-    printf('<script>alertify.success("%s");</script>', $slot);
+    printf("<script>alertify.$type('%s');</script>", $slot);
     /* printf('cadena de palabras o script a ejecutar %s => variable especial llenado con el segundo parametro', $slot => llena %s) */
 @endphp
