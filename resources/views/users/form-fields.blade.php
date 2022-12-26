@@ -17,12 +17,12 @@
             value="{{ old('cellphone', $data->cellphone) }}" placeholder="Escriba el teléfono del proveedor"
             maxlength="10" />
 
-        <label for="role_id"><b>Tipo de documento</b></label>
-        <select id="role_id" name="role_id" class="form-control mb-3 values"
-            value="{{ old('role_id', $data->role_id) }}">
+        <label for="documentType"><b>Tipo de documento</b></label>
+        <select id="documentType" name="documentType" class="form-control mb-3 values"
+            value="{{ old('documentType', $data->documentType) }}">
             <option value="">Seleccione el tipo de documento</option>
             @foreach ($documentType as $item)
-                @if ($item->id === $data->role_id)
+                @if ($item->id === $data->documentType)
                     <option value="{{ $item->id }}" selected>{{ $item->doc_name }}</option>
                 @else
                     <option value="{{ $item->id }}">{{ $item->doc_name }}</option>
@@ -72,7 +72,7 @@
             <div id="department-section" class="department-section w-100">
                 <div class="w-50  m-2">
                     <label for="department_id"><b>Seleccione el departamento</b> </label>
-                    <select id="department_id" name="department_id" class="form-control mb-3 values" required="true">
+                    <select id="department_id" name="department_id" class="form-control mb-3 values" >
                         {{-- Se llena desde JS con JQuery --}}
                     </select>
                     @error('department_id')

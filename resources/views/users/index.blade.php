@@ -31,12 +31,12 @@
                             {{ $data->lastname }}
                         </label>
 
-                        <label for="lastname" class="p-2">
+                        <label for="cellphone" class="p-2">
                             <b>Teléfono:</b>
                             {{ $data->cellphone }}
                         </label>
 
-                        <label for="lastname" class="p-2"><b>N:</b>
+                        <label for="document_number" class="p-2"><b>N:</b>
                             {{ $data->document_number }}
                         </label>
                     </p>
