@@ -15,17 +15,15 @@
             <img src="{{ asset('img/icons/datos.png') }}" width="38px" class="providers-create-space">
             <h1 class="p-2">Editar datos de categoría</h1>
         </div>
-        {{ $data }}
-        <form action="{{ route('category.update', $data) }}" method="post">
+        <form action="{{ route('category.update', $category) }}" method="post">
             @csrf
             @method('put')
 
             <div class="contenedor-create-form">
-
                 <div class="create-form-bloque">
                     <label for="name"><b>Nombre categoría</b> </label>
-                    <input type="text" id="name" name="name" value="" class="form-control"
-                        placeholder="Escriba su nombre" required="true" /><br>
+                    <input type="text" id="name" name="cat_name" value="{{ $category->cat_name }}"
+                        class="form-control" placeholder="Escriba su nombre" required="true" /><br>
                 </div>
 
             </div>

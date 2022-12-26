@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('supplier/create', 'create')->name('supplier.create');
         Route::post('supplier', 'store')->name('supplier.store');
 
-        Route::get('supplier/{id}/department/{dep_id}/edit', 'edit')->name('supplier.edit');
+        Route::get('supplier/{supplier}/department/{dep_id}/edit', 'edit')->name('supplier.edit');
         Route::put('supplier/{supplier}', 'update')->name('supplier.update');
         Route::delete('supplier/{id}', 'destroy')->name('supplier.destroy');
 
@@ -76,8 +76,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('category/create', 'create')->name('category.create');
         Route::post('category', 'store')->name('category.store');
 
-        Route::get('category/{id}/edit', 'edit')->name('category.edit');
-        Route::put('category/{data}', 'update')->name('category.update');
+        Route::get('category/{category}/edit', 'edit')->name('category.edit');
+        Route::put('category/{category}', 'update')->name('category.update');
         Route::delete('category/{id}', 'destroy')->name('category.destroy');
     });
 

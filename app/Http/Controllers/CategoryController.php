@@ -42,7 +42,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $category = Category::create($request->all());
         return redirect()->route('category.index');
     }
@@ -65,10 +65,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
-    {   
-        $data = Category::find($category);
-        /* return $data; */
-        return view('categories.edit', ['data' => $data]);
+    {
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -81,7 +79,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
-        return redirect()->route('categories.index');
+        return redirect()->route('category.index');
     }
 
     /**
