@@ -13,7 +13,22 @@
 
 ## STEPS TO DEPLOY A LARAVEL APP ON PRODUCTION - 000WebHosting Server:
 
-- **[Vehikl](https://vehikl.com/)**
+- Open file manager 000webhost
+- Go to laravel project and copy "unzipper.php" which is in unzipper-master folder
+- Paste unzipper.php on public_html folder on the 000WebHosting Server manager
+- Zip the App or the local project and upload it on public_html also
+- Go to your domain: our case is = claudia-shopping-store.000webhostapp.com/unzipper.php
+- Now all project folders and files to '/' folder root
+- Delete the default public_html
+- Rename the 'public' project folder to 'public_html'
+- Open App/providers then edit AppServiceProvider.php file and edit it to:
+    public function register()
+    {      
+        $this->app->bind('path.public', function () {
+            return base_path('public_html');
+        });    
+    } 
+- 
 
 ## Contributing
 - Anggie Liseth Castellanos Camacho
