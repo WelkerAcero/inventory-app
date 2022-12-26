@@ -1,3 +1,26 @@
+@push('script-suppliers-event')
+    <script src="{{ asset('js/form-event-supplier.js') }}"></script>
+@endpush
+<!-- Modal -->
+<div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar cuenta</h1>
+                <button type="button" class="btn-close close-register-button" data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <form method="post" action="{{ route('customer.register') }}" class="row g-3 needs-validation">
+                    @csrf
+                    @include('login.register_user_form')
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     <div>
         <label for="name"><b>Nombre</b> </label>
