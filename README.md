@@ -28,7 +28,15 @@
             return base_path('public_html');
         });    
     } 
-- 
+- Open -env file and copy the app_key except(base64:)
+- Open folder /config/ and edit App.php
+    - 'key' => env('APP_KEY', base64_decode('APP_KEY_COPIED_BEFORE')),   
+- Create a new database on the following link: https://co.000webhost.com/members/website/claudia-shopping-store/database
+    - Stablish the parameters:
+        - database name    
+        - database username
+        - database password
+        
 
 ## Contributing
 - Anggie Liseth Castellanos Camacho
