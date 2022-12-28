@@ -13,25 +13,45 @@
     </div>
 
     <div class="contenedor--products">
-        <div class="button-sections p-2 ms-2">
-            <div>
-                <label for="brand_filter">Brand filter
-                    <input type="text" class="m-2" id="brand_filter" placeholder="Buscar por marca" value="">
-                </label>
-            </div>
+        <form action="{{ route('product.filter') }}" method="POST">
+            @csrf
+            <div class="button-sections p-2 ms-2">
+                <div>
+                    <label for="brand_filter"><b>Filtrar por marca</b></label>
+                    <select id="brand_filter" class="form-control form-select mb-3" name="brand_filter">
+                        <option value="">Despliega para ver marcas</option>
+                        @foreach ($brandList as $item)
+                            <option value="{{ $item->pro_brand }}">{{ $item->pro_brand }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="">
-                <label for="color_filter">Color filter
-                    <input type="text" class="m-2" id="color_filter" placeholder="Buscar por color" value="">
-                </label>
-            </div>
+                <div class="ms-3">
+                    <label for="color_filter"><b>Filtrar por color</b></label>
+                    <select id="color_filter" class="form-control form-select mb-3" name="color_filter">
+                        <option value="">Despliega para ver colores</option>
+                        {{--  @foreach ($colors as $item) --}}
+                        <option value="Azul">Azul</option>
+                        {{--  @endforeach --}}
+                    </select>
 
-            <div class="">
-                <label for="price_filter">Price filter
-                    <input type="text" class="m-2" id="price_filter" placeholder="Buscar por precio" value="">
-                </label>
+                </div>
+
+                <div class="ms-3">
+                    <label for="price_filter"><b>Filtrar por precios</b></label>
+                    <select id="price_filter" class="form-control form-select mb-3" name="price_filter">
+                        <option value="">Despliega para ver precios</option>
+                        {{--  @foreach ($colors as $item) --}}
+                        <option value="80000">$80.000</option>
+                        {{--  @endforeach --}}
+                    </select>
+
+                </div>
+                <div class="ms-3 mt-4">
+                    <button type="submit" class="btn btn-info me-3 mv-5 vh-5">Buscar</button>
+                </div>
             </div>
-        </div>
+        </form>
         <div class="section--products">
             {{-- Sección categorías desplegadas --}}
             <div style="width: 25%;">

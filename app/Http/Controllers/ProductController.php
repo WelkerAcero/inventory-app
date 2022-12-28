@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -27,6 +28,57 @@ class ProductController extends Controller
         return $suppliers;
     }
 
+    public function getProdByBrand($brand)
+    {
+        return Product::where('pro_brand', $brand)->get();
+    }
+
+    public function getProdByColor($color)
+    {
+        return Product::where('pro_color', $color)->get();
+    }
+
+    public function getProdByCost($cost)
+    {
+        return Product::where('pro_cost', '<=', $cost)->get();
+    }
+
+    public function getProdByBrandCost($brand, $cost)
+    {
+        return Product::where('pro_brand', $brand)->where('pro_cost', '<=', $cost)->get();
+    }
+
+    public function getProdByBrandColor($brand, $color)
+    {
+        return Product::where('pro_brand', $brand)->where('pro_cost', $color)->get();
+    }
+
+    public function getProdByColorCost($color, $cost)
+    {
+        return Product::where('pro_color', $color)->where('pro_cost', '<=', $cost)->get();
+    }
+
+    public function getProdByFilters($brand = null, $color = null, $cost = null)
+    {
+        if (isset($brand, $color, $cost)) {
+            $products_by_all_filters = Product::where('pro_brand', $brand)
+                ->where('pro_color', $color)
+                ->where('pro_cost', '<=', $cost)
+                ->get();
+            return $products_by_all_filters;
+        } elseif (isset($brand, $color)) {
+            return $this->getProdByBrandColor($brand, $color);
+        } elseif (isset($brand, $cost)) {
+            return $this->getProdByBrandCost($brand, $cost);
+        } elseif (isset($brand)) {
+            return $this->getProdByBrand($brand);
+        } elseif (isset($color)) {
+            return $this->getProdByColor($color);
+        } else {
+            return $this->getProdByCost($cost);
+        }
+    }
+
     public function getProdPresentation()
     {
         $obj = new \stdClass();
@@ -40,18 +92,44 @@ class ProductController extends Controller
                     ],
             ];
         }
-
         //convertir un array asociativo a un objeto
         $presentation = json_decode(json_encode($presentation));
         return $presentation;
     }
 
-    public function index()
+    public function getBandList()
     {
-        $data = Product::all();
-        if (count($data) > 0) {
-            return view('products.index', ['products' => $data, 'categories' => $this->getCategories()]);
+        try {
+            $brand = Product::select('pro_brand')->distinct()->where('pro_brand', '!=', 'null')->get();
+            return $brand;
+        } catch (\Throwable $th) {
+            throw $th;
         }
+    }
+
+    public function searchByFilter(Request $request)
+    {
+
+        $productsFiltered = $this->getProdByFilters($request->brand_filter, $request->color_filter, $request->price_filter);
+        return $this->index($productsFiltered);
+    }
+
+    public function index($dataFiltered = null)
+    {
+        $categories = $this->getCategories();
+        $brandList = $this->getBandList();
+        if ($dataFiltered) {
+            $products = $dataFiltered;
+            if (count($products) > 0) {
+                return view('products.index', compact('products', 'categories', 'brandList'));
+            }
+        }
+
+        $products = Product::paginate();
+        if (count($products) > 0) {
+            return view('products.index', compact('products', 'categories', 'brandList'));
+        }
+
         $error = "No hay datos para mostrar";
         return view('products.index', ['error' => $error]);
     }
@@ -96,20 +174,13 @@ class ProductController extends Controller
 
     public function productByCategory($product)
     {
-        $onCategoryName = DB::table('categories')->select('cat_name')
-            ->where('id', '=', $product)
-            ->get();
-        $byCategoryId = Product::where('category_id', $product)->get();
-
-        return view('products.index', ['products' => $byCategoryId, 'categories' => $this->getCategories(), 'onCategoryName' => $onCategoryName]);
-    }
-
-    public function productByBrand($brand)
-    {
         try {
-            return DB::table('products')->select('pro_brand')
-                ->where('pro_brand', $brand)
+            $brandList = $this->getBandList();
+            $onCategoryName = DB::table('categories')->select('cat_name')
+                ->where('id', '=', $product)
                 ->get();
+            $byCategoryId = Product::where('category_id', $product)->get();
+            return view('products.index', ['products' => $byCategoryId, 'categories' => $this->getCategories(), 'onCategoryName' => $onCategoryName, 'brandList' => $brandList]);
         } catch (\Throwable $th) {
             throw $th;
         }
