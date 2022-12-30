@@ -16,7 +16,28 @@
         <form action="{{ route('product.filter') }}" method="POST">
             @csrf
             <div class="button-sections p-2 ms-2">
+
                 <div>
+                    <label for="category_filter"><b>Filtrar por categorías</b></label>
+                    <select id="category_filter" class="form-control form-select mb-3" name="category_filter">
+                        <option value="">Despliega para ver categorías</option>
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->id }}">{{ ucfirst($item->cat_name) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="ms-3">
+                    <label for="supplier_filter"><b>Código de proveedor</b></label>
+                    <select id="supplier_filter" class="form-control form-select mb-3" name="supplier_filter">
+                        <option value="">Despliega para ver marcas</option>
+                        @foreach ($supplierCodes as $item)
+                            <option value="{{ $item->id }}">{{ $item->sup_name }} - {{ $item->sup_code }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="ms-3">
                     <label for="brand_filter"><b>Filtrar por marca</b></label>
                     <select id="brand_filter" class="form-control form-select mb-3" name="brand_filter">
                         <option value="">Despliega para ver marcas</option>
@@ -31,10 +52,10 @@
                     <select id="color_filter" class="form-control form-select mb-3" name="color_filter">
                         <option value="">Despliega para ver colores</option>
                         {{--  @foreach ($colors as $item) --}}
-                        <option value="Azul">Azul</option>
+                        <option value="azul">Azul</option>
+                        <option value="blanco">Blanco</option>
                         {{--  @endforeach --}}
                     </select>
-
                 </div>
 
                 <div class="ms-3">
@@ -42,7 +63,11 @@
                     <select id="price_filter" class="form-control form-select mb-3" name="price_filter">
                         <option value="">Despliega para ver precios</option>
                         {{--  @foreach ($colors as $item) --}}
-                        <option value="80000">$80.000</option>
+                        <option value="80000">De $0 a $80.000</option>
+                        <option value="100000">De $0 a $100.000</option>
+                        <option value="150000">De $0 a $150.000</option>
+                        <option value="200000">De $0 a $200.000</option>
+                        <option value="250000">De $0 a $250.000</option>
                         {{--  @endforeach --}}
                     </select>
 
@@ -50,44 +75,21 @@
                 <div class="ms-3 mt-4">
                     <button type="submit" class="btn btn-info me-3 mv-5 vh-5">Buscar</button>
                 </div>
+
             </div>
         </form>
-        <div class="section--products">
-            {{-- Sección categorías desplegadas --}}
-            <div style="width: 25%;">
-                <h2><img src="{{ asset('img/icons/category.png') }}" width="35px">Categorías</h2>
-                <div>
-                    @if (!empty($categories))
-                        @forelse ($categories as $item)
-                            <ul style="list-style: none">
-                                <li>
-                                    <a href="{{ route('product.showByCategory', $item->id) }}"
-                                        style="text-decoration: none;color:black;">
-                                        {{ ucfirst($item->cat_name) }}
-                                    </a>
-                                </li>
-                            </ul>
-                        @empty
-                        @endforelse ($categories as $item)
-                    @else
-                        <p>No hay categorías creadas</p>
-                    @endif
-                </div>
-            </div>
-            {{-- Fin sección categorías desplegadas --}}
+        @if (!isset($error))
+            <div class="section--products">
 
-            <hr style="border: 2px solid black;margin:15px;">
+                <div style="width: 100%;">
+                    <h2 style="text-align:center;">PRODUCTOS EN CATEGORÍA
+                        @if (isset($cat_name))
+                            <p class="text-success">"{{ strtoupper($cat_name[0]->cat_name) }}"</p>
+                        @else
+                            <p class="text-success">"TODOS"</p>
+                        @endif
+                    </h2>
 
-            <div style="width: 100%;">
-                <h2 style="text-align:center;">PRODUCTOS EN CATEGORÍA
-                    @if (isset($onCategoryName))
-                        <p class="text-success">"{{ strtoupper($onCategoryName[0]->cat_name) }}"</p>
-                    @else
-                        <p class="text-success">"TODOS"</p>
-                    @endif
-                </h2>
-
-                @if (!isset($error))
                     @foreach ($products as $item)
                         <div class="container-product">
                             <div
@@ -147,14 +149,13 @@
                                 </div>
                             </div>
                     @endforeach
-                @else
-                    <h1 class="bg-warning d-flex justify-content-center">{{ $error }}</h1>
-                @endif
+
+                </div>
 
             </div>
-
-        </div>
-
+        @else
+            <h1 class="bg-warning d-flex justify-content-center">{{ $error }}</h1>
+        @endif
     </div>
 
 @endsection
