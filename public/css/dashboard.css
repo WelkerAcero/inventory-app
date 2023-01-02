@@ -7,8 +7,12 @@
 
 /********************* MENÚ *******************/
 
+.offcanvas{
+    overflow-y: auto;
+}
+
 .menu--logo {
-    position: absolute;
+    /* position: absolute; */
     bottom: 0px;
     text-align: center;
     margin: 30px 150px;
@@ -21,7 +25,6 @@
 .nav-item{
     border-bottom: 1px solid black;
 }
-
 
 .contenedor--menu__up {
     background-image: url("../img/fondo-user.jpg");
@@ -59,15 +62,4 @@
     border: 1px solid #000000;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-radius: 10px;
-}
-
-.draw{
-    padding: 5px; 
-    margin-left:180px;
-}
-
-.button_session{
-    display: flex;
-    flex-direction: row;
-    width: 20%;
 }

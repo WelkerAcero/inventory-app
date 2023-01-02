@@ -6,12 +6,10 @@
 }
 
 body {
-    background: linear-gradient(
-            180deg,
+    background: linear-gradient(180deg,
             rgba(1, 0, 8, 0.7) 0%,
             rgba(166, 166, 186, 0.5) 50%,
-            rgba(1, 15, 18, 0.7) 100%
-        ),
+            rgba(1, 15, 18, 0.7) 100%),
         url("../img/fond.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -29,6 +27,13 @@ body {
     margin: 15px auto;
     max-width: 90%;
     border-radius: 35px;
+}
+
+.container-table {
+    background-color: rgba(255, 255, 255, 0.855);
+    /* margin: auto;
+    width: 95% !important; */
+    border: 2px solid black !important;
 }
 
 .section--izq {
@@ -76,7 +81,7 @@ body {
     margin: 12%;
 }
 
-.navbar-brand{
+.navbar-brand {
     padding-top: 0 !important;
 }
 
@@ -108,18 +113,17 @@ body {
     box-shadow: 1rem 1rem 4rem #808080;
     position: relative;
     overflow: hidden;
+    padding: 5px;
 }
 
 .draw span:nth-child(1) {
     position: absolute;
     height: 0.2rem;
     width: 100%;
-    background-image: linear-gradient(
-        to right,
-        rgb(0, 153, 255) 30%,
-        rgb(125, 193, 126) 40%,
-        rgb(57, 176, 255)
-    );
+    background-image: linear-gradient(to right,
+            rgb(0, 153, 255) 30%,
+            rgb(125, 193, 126) 40%,
+            rgb(57, 176, 255));
     top: 0;
     left: 0;
     animation: line1 1s linear infinite;
@@ -139,12 +143,10 @@ body {
     position: absolute;
     height: 100%;
     width: 0.2rem;
-    background-image: linear-gradient(
-        to bottom,
-        rgb(0, 153, 255) 30%,
-        rgb(125, 193, 126) 40%,
-        rgb(57, 176, 255)
-    );
+    background-image: linear-gradient(to bottom,
+            rgb(0, 153, 255) 30%,
+            rgb(125, 193, 126) 40%,
+            rgb(57, 176, 255));
     top: 0;
     right: 0;
     animation: line2 1s linear 1.5s infinite;
@@ -164,12 +166,10 @@ body {
     position: absolute;
     height: 0.2rem;
     width: 100%;
-    background-image: linear-gradient(
-        to right,
-        rgb(0, 153, 255) 30%,
-        rgb(125, 193, 126) 40%,
-        rgb(57, 176, 255)
-    );
+    background-image: linear-gradient(to right,
+            rgb(0, 153, 255) 30%,
+            rgb(125, 193, 126) 40%,
+            rgb(57, 176, 255));
     bottom: 0;
     left: 0;
     animation: line3 1s linear infinite;
@@ -189,12 +189,10 @@ body {
     position: absolute;
     height: 100%;
     width: 0.2rem;
-    background-image: linear-gradient(
-        to bottom,
-        rgb(0, 153, 255) 30%,
-        rgb(125, 193, 126) 40%,
-        rgb(57, 176, 255)
-    );
+    background-image: linear-gradient(to bottom,
+            rgb(0, 153, 255) 30%,
+            rgb(125, 193, 126) 40%,
+            rgb(57, 176, 255));
     top: 0;
     left: 0;
     animation: line4 1s linear 1.5s infinite;
@@ -240,4 +238,11 @@ form button {
 
 .contenedor--card:hover {
     font-size: 20px;
+}
+
+/* CONTENEDOR ESTÁNDAR DE LOS BOTONES  */
+
+.btn-rs {
+    width: 95%;
+    margin: auto;
 }

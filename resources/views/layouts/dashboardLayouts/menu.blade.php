@@ -20,19 +20,11 @@
 
                     <div class="button_session me-4">
                         <div>
-                            <a class="navbar-brand" href="{{ route('dashboard.index') }}">Administrador
+                            <a class="navbar-brand" href="{{ route('dashboard.index') }}">Inicio
                                 <img src="{{ asset('img/icons/asistencia-social.gif') }}" width="25px">
                             </a>
                         </div>
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button type="submit" class="navbar-brand logout">
-                                Cerrar Sesión
-                                <img src="{{ asset('img/icons/logout.png') }}" width="25px">
-                            </button>
-
-                        </form>
-
+                        
                     </div>
 
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
