@@ -86,6 +86,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('product/create', 'create')->name('product.create');
         Route::get('product/{id}/bycategory', 'productByCategory')->name('product.showByCategory');
 
+        Route::post('product/filtered', 'searchByFilter')->name('product.filter');
         Route::post('product', 'store')->name('product.store');
         Route::get('product/{id}/edit', 'edit')->name('product.edit');
         Route::put('product/{data}', 'update')->name('product.update');

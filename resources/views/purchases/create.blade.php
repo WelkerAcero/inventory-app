@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="btn-rs">
+    <div class="content-responsive">
         <div class="contenedor--providers mb-4">
             <a href="{{ route('sale.create') }}" class="boton-clear provider-boton-list"><img src="img/icons/add.png"
                     width="35px"><b>Agregar venta</b></a>

@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const ADMIN_DASHBOARD = '/dashboard';
-    public const CUSTOMER_DASHBOARD = '/home/ecommerce';
+    public const CUSTOMER_DASHBOARD = '/api/home/ecommerce';
 
     /**
      * The controller namespace for the application.

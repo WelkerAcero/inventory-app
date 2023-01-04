@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="btn-rs">
+    <div class="content-responsive">
         <!-- Table with colgroup -->
         <table class="container-table table table-striped table-hover">
 

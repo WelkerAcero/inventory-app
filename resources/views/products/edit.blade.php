@@ -3,7 +3,7 @@
 @section('title', 'Products')
 
 @section('content')
-    <div class="btn-rs">
+    <div class="content-responsive">
         <x-button>
             <x-slot name="type">product</x-slot>
             <x-slot name="add">Agregar Producto</x-slot>

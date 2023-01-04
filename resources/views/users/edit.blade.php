@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="btn-rs">
+    <div class="content-responsive">
         <x-button>
             <x-slot name="type">user</x-slot>
             <x-slot name="add">Agregar Usuario</x-slot>
