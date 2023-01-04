@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->longText('pro_img');
             $table->string('pro_name', 40);
             $table->string('pro_brand', 20)->nullable();
+            $table->string('pro_color', 10)->nullable();
             $table->string('pro_model', 20)->nullable();
             $table->string('pro_description', 200)->nullable();
             $table->string('pro_presentation', 20);

@@ -59,7 +59,3 @@
     </div>
 
 @endsection
-
-@push('script-modal-event')
-    <script src="{{ asset('js/modal-register-event.js') }}"></script>
-@endpush

@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::select('id')->get();
+        $roles = Role::select('id')->where('rol_name', 'Admin')->get();
 
         $obj = new User();
         $obj->name = 'Welker';
