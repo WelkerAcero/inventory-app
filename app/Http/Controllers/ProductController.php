@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
-use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -41,6 +40,11 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             return ['error' => 'Lo sentimos se produjo un error inesperado'];
         }
+    }
+
+    public function getCategoryName($cat_id)
+    {
+        return DB::table('categories')->select('id', 'cat_name')->where('id', $cat_id)->get();
     }
 
     public function getSupplierCodes()
@@ -85,7 +89,6 @@ class ProductController extends Controller
     {
         return Product::where('supplier_id', $supplier)->get();
     }
-
 
     public function get_by_category_supplier_brand_color($category_id, $supplier, $brand, $color)
     {
@@ -240,8 +243,6 @@ class ProductController extends Controller
             return $this->get_by_brand_color($brand, $color);
         } elseif (isset($brand, $cost)) {
             return $this->get_by_brand_cost($brand, $cost);
-        } elseif (isset($color, $cost)) {
-            return $this->get_by_color_cost($color, $cost);
         } elseif (isset($color, $supplier)) {
             return $this->get_by_color_supplier($color, $supplier);
         } elseif (isset($color, $category)) {
@@ -260,7 +261,6 @@ class ProductController extends Controller
             return $this->get_by_supplier($supplier);
         }
     }
-
 
     public function searchByFilter(Request $request)
     {
@@ -282,7 +282,7 @@ class ProductController extends Controller
         if ($dataFiltered) {
             $products = $dataFiltered;
             if (count($products) > 0) {
-                $cat_name = DB::table('categories')->select('id', 'cat_name')->where('id', $products[0]->category_id)->get();
+                $cat_name = $this->getCategoryName($products[0]->category_id);
                 return view('products.index', compact('products', 'categories', 'brandList', 'supplierCodes', 'cat_name'));
             } else {
                 $error = "No hay datos para mostrar";

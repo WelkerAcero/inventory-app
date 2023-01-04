@@ -30,7 +30,7 @@
     margin-inline: 15%;
 }
 
-.button-sections {
+.filter-section {
     display: flex;
     flex-direction: row;
 }
