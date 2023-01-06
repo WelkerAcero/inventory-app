@@ -24,6 +24,15 @@
                                 <img src="{{ asset('img/icons/asistencia-social.gif') }}" width="25px">
                             </a>
                         </div>
+
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button type="submit" class="navbar-brand logout">
+                                Cerrar Sesión
+                                <img src="{{ asset('img/icons/logout.png') }}" width="25px">
+                            </button>
+
+                        </form>
                         
                     </div>
 

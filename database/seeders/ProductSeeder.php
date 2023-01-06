@@ -34,5 +34,7 @@ class ProductSeeder extends Seeder
         $pro->pro_discount = null;
         $pro->category_id = 2;
         $pro->supplier_id = 1;
+
+        $pro->save();
     }
 }

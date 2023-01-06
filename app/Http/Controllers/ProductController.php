@@ -276,6 +276,7 @@ class ProductController extends Controller
 
     public function index($dataFiltered = null)
     {
+        $error = "No hay datos para mostrar";
         $categories = $this->getCategories();
         $brandList = $this->getBandList();
         $supplierCodes = $this->getSupplierCodes();
@@ -285,7 +286,6 @@ class ProductController extends Controller
                 $cat_name = $this->getCategoryName($products[0]->category_id);
                 return view('products.index', compact('products', 'categories', 'brandList', 'supplierCodes', 'cat_name'));
             } else {
-                $error = "No hay datos para mostrar";
                 return view('products.index', compact('error', 'categories', 'brandList', 'supplierCodes'));
             }
         }
@@ -294,9 +294,8 @@ class ProductController extends Controller
         if (count($products) > 0) {
             return view('products.index', compact('products', 'categories', 'brandList', 'supplierCodes'));
         }
-
-        $error = "No hay datos para mostrar";
-        return view('products.index', ['error' => $error]);
+        
+        return view('products.index', compact('error', 'categories', 'brandList', 'supplierCodes'));
     }
 
     /**
