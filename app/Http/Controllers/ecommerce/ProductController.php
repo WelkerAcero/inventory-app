@@ -10,24 +10,25 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
+    public $dbAttri = array(
+        'pro_img',
+        'pro_cost',
+        'pro_brand',
+        'pro_name',
+        'pro_color',
+        'pro_discount',
+        'pro_model',
+        'pro_state'
+    );
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * 
      */
 
-    public function getProducts()
+    public function getProducts(): \Illuminate\Http\JsonResponse
     {
-        return Product::select(
-            'pro_img',
-            'pro_cost',
-            'pro_brand',
-            'pro_name',
-            'pro_color',
-            'pro_discount',
-            'pro_model',
-            'pro_state'
-        )->paginate();
+        return response()->json(['products' => Product::select($this->dbAttri)->paginate(2)]);
     }
 
     public function getProdPresentation()
@@ -48,15 +49,6 @@ class ProductController extends Controller
         return $presentation;
     }
 
-    public function getCategories()
-    {
-        try {
-            return DB::table('categories')->select('id', 'cat_name')->get();
-        } catch (\Throwable $th) {
-            return ['error' => 'Lo sentimos se produjo un error inesperado'];
-        }
-    }
-
     public function getCategoryName($cat_id)
     {
         return DB::table('categories')->select('id', 'cat_name')->where('id', $cat_id)->get();
@@ -71,214 +63,214 @@ class ProductController extends Controller
         }
     }
 
-    public function getBandList()
+    public function getCategoryList(): \Illuminate\Http\JsonResponse
     {
         try {
-            return Product::select('pro_brand')->distinct()->where('pro_brand', '!=', 'null')->get();
+            $data = DB::table('categories')->select('id', 'cat_name')->get();
+            return response()->json(['categories' => $data]);
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json(['error' => $th->getMessage()], 400);
         }
     }
 
-    public function getColorList()
+    public function getBandList(): \Illuminate\Http\JsonResponse
     {
         try {
-            return Product::select('pro_color')->distinct()->where('pro_color', '!=', 'null')->get();
+            $data = Product::select('pro_brand')->distinct()->where('pro_brand', '!=', 'null')->get();
+            return response()->json(['brands' => $data]);
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json(['error' => $th->getMessage()], 400);
         }
     }
 
-    public function getSuppliers()
-    {
-        return DB::table('suppliers')->select('id', 'sup_name')->get();
-    }
-
-    public function get_by_brand($brand)
-    {
-        return Product::where('pro_brand', $brand)->paginate();
-    }
-
-    public function get_by_color($color)
-    {
-        return Product::where('pro_color', $color)->paginate();
-    }
-
-    public function get_by_cost($cost)
-    {
-        return Product::where('pro_cost', '<=', $cost)->get();
-    }
-
-    public function get_by_supplier($supplier)
-    {
-        return Product::where('supplier_id', $supplier)->get();
-    }
-
-    public function get_by_category_supplier_brand_color($category_id, $supplier, $brand, $color)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_brand', $brand)
-            ->where('pro_color', $color)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_category_supplier_brand_cost($category_id, $supplier, $brand, $cost)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_brand', $brand)
-            ->where('pro_cost', '<=', $cost)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_category_supplier_brand($category_id, $supplier, $brand)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_brand', $brand)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_category_supplier_color($category_id, $supplier, $color)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_color', $color)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_category_supplier_cost($category_id, $supplier, $cost)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_cost', '<=', $cost)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_category_brand_color($category_id, $brand, $color)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_color', $color)
-            ->where('pro_brand', $brand)
-            ->paginate();
-    }
-
-
-    public function get_by_category_supplier($category_id, $supplier)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_category_brand($category_id, $brand)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_brand', $brand)
-            ->paginate();
-    }
-
-    public function get_by_category_color($category_id, $color)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_color', $color)
-            ->paginate();
-    }
-
-    public function get_by_category_cost($category_id, $cost)
-    {
-        return Product::where('category_id', $category_id)
-            ->where('pro_cost', '<=', $cost)
-            ->get();
-    }
-
-    public function get_by_brand_supplier($brand, $supplier)
-    {
-        return Product::where('prod_brand', $brand)
-            ->where('supplier_id', $supplier)
-            ->get();
-    }
-
-    public function get_by_brand_cost($brand, $cost)
-    {
-        return Product::where('pro_brand', $brand)->where('pro_cost', '<=', $cost)->get();
-    }
-
-    public function get_by_brand_color($brand, $color)
-    {
-        return Product::where('pro_brand', $brand)->where('pro_color', $color)->paginate();
-    }
-
-    public function get_by_color_cost($color, $cost)
-    {
-        return Product::where('pro_color', $color)->where('pro_cost', '<=', $cost)->get();
-    }
-
-    public function get_by_color_supplier($color, $supplier)
-    {
-        return Product::where('pro_color', $color)->where('supplier_id', $supplier)->get();
-    }
-
-    public function get_by_color_category($color, $category)
-    {
-        return Product::where('pro_color', $color)->where('category_id', $category)->get();
-    }
-
-    public function get_by_cost_supplier($cost, $supplier)
-    {
-        return Product::where('pro_cost', '<=', $cost)->where('supplier_id', $supplier)->get();
-    }
-
-    public function get_by_category($category_id)
+    public function getColorList(): \Illuminate\Http\JsonResponse
     {
         try {
-            return Product::where('category_id', $category_id)->paginate();
+            $data = Product::select('pro_color')->distinct()->where('pro_color', '!=', 'null')->get();
+            return response()->json(['colors' => $data]);
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json(['error' => $th->getMessage()], 400);
         }
     }
 
-    public function getProdByFilters($category = null, $supplier = null, $brand = null, $color = null, $cost = null)
+    public function get_by_brand($brand): \Illuminate\Http\JsonResponse
     {
-        if (isset($category, $supplier, $brand, $color, $cost)) {
-            $products = Product::where('pro_brand', $brand)
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_brand', $brand)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_color($color): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_color', $color)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_cost($cost): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_cost', '<=', $cost)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_category_brand_color($category_id, $brand, $color): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('category_id', $category_id)
+                ->where('pro_color', $color)
+                ->where('pro_brand', $brand)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+
+    public function get_by_category_brand($category_id, $brand): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('category_id', $category_id)
+                ->where('pro_brand', $brand)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_category_color($category_id, $color): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('category_id', $category_id)
+                ->where('pro_color', $color)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_category_cost($category_id, $cost): \Illuminate\Http\JsonResponse
+    {
+
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('category_id', $category_id)
+                ->where('pro_cost', '<=', $cost)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+
+    public function get_by_brand_cost($brand, $cost): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_brand', $brand)
+                ->where('pro_cost', '<=', $cost)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_brand_color($brand, $color): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_brand', $brand)
+                ->where('pro_color', $color)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_color_cost($color, $cost): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_color', $color)
+                ->where('pro_cost', '<=', $cost)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function get_by_color_category($color, $category): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('pro_color', $color)
+                ->where('category_id', $category)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+
+    public function get_by_category($category_id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Product::select($this->dbAttri)
+                ->where('category_id', $category_id)
+                ->paginate(8);
+            return response()->json(['products' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function getProdByFilters($category = null, $brand = null, $color = null, $cost = null): \Illuminate\Http\JsonResponse
+    {
+        if (isset($category, $brand, $color, $cost)) {
+            $data = Product::where('pro_brand', $brand)
                 ->where('pro_color', $color)
                 ->where('pro_cost', '<=', $cost)
                 ->where('category_id', $category)
-                ->where('supplier_id', $supplier)
                 ->get();
-            return $products;
-        } elseif (isset($category, $supplier, $brand, $color)) {
-            return $this->get_by_category_supplier_brand_color($category, $supplier, $brand, $color);
-        } elseif (isset($category, $supplier, $brand, $cost)) {
-            return $this->get_by_category_supplier_brand_cost($category, $supplier, $brand, $cost);
-        } elseif (isset($category, $supplier, $brand)) {
-            return $this->get_by_category_supplier_brand($category, $supplier, $brand);
-        } elseif (isset($category, $supplier, $color)) {
-            return $this->get_by_category_supplier_color($category, $supplier, $color);
-        } elseif (isset($category, $supplier, $cost)) {
-            return $this->get_by_category_supplier_cost($category, $supplier, $cost);
-        } elseif (isset($category, $supplier)) {
-            return $this->get_by_category_supplier($category, $supplier);
+            return response()->json(['products' => $data]);
         } elseif (isset($category, $brand)) {
             return $this->get_by_category_brand($category, $brand);
         } elseif (isset($category, $color)) {
             return $this->get_by_category_color($category, $color);
         } elseif (isset($category, $cost)) {
             return $this->get_by_category_cost($category, $cost);
-        } elseif (isset($brand, $supplier)) {
-            return $this->get_by_brand_supplier($brand, $supplier);
         } elseif (isset($brand, $color)) {
             return $this->get_by_brand_color($brand, $color);
         } elseif (isset($brand, $cost)) {
             return $this->get_by_brand_cost($brand, $cost);
-        } elseif (isset($color, $supplier)) {
-            return $this->get_by_color_supplier($color, $supplier);
         } elseif (isset($color, $category)) {
             return $this->get_by_color_category($color, $category);
-        } elseif (isset($cost, $supplier)) {
-            return $this->get_by_cost_supplier($cost, $supplier);
         } elseif (isset($brand)) {
             return $this->get_by_brand($brand);
         } elseif (isset($color)) {
@@ -288,7 +280,7 @@ class ProductController extends Controller
         } elseif (isset($cost)) {
             return $this->get_by_cost($cost);
         } else {
-            return $this->get_by_supplier($supplier);
+            return "algo más";
         }
     }
 
@@ -296,7 +288,6 @@ class ProductController extends Controller
     {
         $productsFiltered = $this->getProdByFilters(
             $request->category_filter,
-            $request->supplier_filter,
             $request->brand_filter,
             $request->color_filter,
             $request->price_filter
