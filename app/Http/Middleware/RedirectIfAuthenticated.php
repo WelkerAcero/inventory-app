@@ -25,10 +25,6 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check() && Auth::user()->role_id === 1) {
                 return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
             }
-
-            if (Auth::guard($guard)->check() && Auth::user()->role_id === 2) {
-                return redirect(RouteServiceProvider::CUSTOMER_DASHBOARD);
-            }
         }
 
         return $next($request);

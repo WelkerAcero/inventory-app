@@ -22,12 +22,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(ProductController::class)->group(function () {
     // https://tutiendaonline.com/api/products => Así se debe consumir desde el front
-    Route::get('/products', 'index');
-    /*     Route::get('product/create', 'create')->name('product.create');
-    Route::get('product/{id}/bycategory', 'productByCategory')->name('product.showByCategory');
+    Route::get('/products', 'getProducts');
+    Route::get('/products/categories', 'getCategoryList');
+    Route::get('/products/brands', 'getBandList');
+    Route::get('/products/colors', 'getColorList');
+    /* Filter product by one*/
+    Route::get('/products/brand/{brand}', 'get_by_brand');
+    Route::get('/products/category/{category_id}', 'get_by_category');
+    Route::get('/products/color/{color}', 'get_by_color');
+    Route::get('/products/category/{category_id}/brand/{brand}/color/{color}', 'get_by_category_brand_color');
+    Route::get('/products/category/{category_id}/brand/{brand}', 'get_by_category_brand');
+    Route::get('/products/category/{category_id}/color/{color}', 'get_by_category_color');
+    Route::get('/products/brand/{brand}/color/{color}', 'get_by_brand_color');
+});
 
-    Route::post('product', 'store')->name('product.store');
-    Route::get('product/{id}/edit', 'edit')->name('product.edit');
-    Route::put('product/{data}', 'update')->name('product.update');
-    Route::delete('product/{id}/delete', 'destroy')->name('product.destroy'); */
+Route::controller(SessionController::class)->group(function () {
+    //These routes have authenticate verification on Controller
+    Route::get('/preloader', 'loader')->name('preloader');
+    Route::get('/login', 'index')->name('login');
+    Route::post('/validating', 'auth')->name('login.validate');
+    Route::get('signup', 'register')->name('register.form');
+    Route::post('/logout', 'logout')->name('logout');
 });

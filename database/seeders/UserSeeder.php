@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::select('id')->get();
+        $roles = Role::select('id')->where('rol_name', 'Admin')->get();
 
         $obj = new User();
         $obj->name = 'Welker';
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         $obj->street = 'Calle 63D';
         $obj->email = 'welkerperez97@gmail.com';
         $obj->email_verified_at = now();
-        $obj->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password
+        $obj->password = 'password'; //password
         $obj->role_id = $roles[0]->id;
         $obj->remember_token = Str::random(10);
         $obj->save();

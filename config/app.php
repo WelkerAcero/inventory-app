@@ -119,7 +119,11 @@ return [
     |
     */
 
+    // On local use this
     'key' => env('APP_KEY'),
+
+    // ON PRODUCTION USE THIS
+    //'key' => env('APP_KEY', base64_decode('HE9LgmXMJJH0IhT/OlmfIp8S1lHpx08GjmYaBQ7lDuM=')),
 
     'cipher' => 'AES-256-CBC',
 

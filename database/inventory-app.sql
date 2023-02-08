@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2022 a las 21:18:16
+-- Tiempo de generación: 04-01-2023 a las 23:57:47
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -39,8 +39,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `cat_name`, `created_at`, `updated_at`) VALUES
-(1, 'Zapato', '2022-11-27 05:53:37', '2022-11-27 05:53:37'),
-(2, 'Camisa', '2022-11-27 05:53:37', '2022-11-27 05:53:37');
+(1, 'Zapatos', '2022-11-27 05:53:37', '2022-12-22 04:03:13'),
+(2, 'Camisas', '2022-11-27 05:53:37', '2022-12-22 04:03:17');
 
 -- --------------------------------------------------------
 
@@ -226,6 +226,7 @@ CREATE TABLE `products` (
   `pro_img` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `pro_name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pro_brand` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pro_color` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pro_model` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pro_description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pro_presentation` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -248,10 +249,10 @@ CREATE TABLE `products` (
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id`, `pro_code`, `pro_img`, `pro_name`, `pro_brand`, `pro_model`, `pro_description`, `pro_presentation`, `pro_stock`, `pro_min_stock`, `pro_max_stock`, `pro_purchased_price`, `pro_cost`, `pro_wholesale_cost`, `pro_iva`, `pro_state`, `pro_discount`, `category_id`, `supplier_id`, `created_at`, `updated_at`) VALUES
-(1, 'SS-2', 'https://i.pinimg.com/550x/9e/f1/d8/9ef1d83080f0fc5691a44e11a333c000.jpg', 'Pininm', 'Pichi', NULL, NULL, 'unidad', 10, NULL, NULL, NULL, 80000.00, NULL, NULL, 1, NULL, 2, 1, '2022-11-27 07:32:33', '2022-11-27 08:17:08'),
-(2, 'SS-23', 'https://mimundodemoda.com/wp-content/uploads/2017/10/Camisa_de_hombre.jpg', 'Syle', NULL, NULL, NULL, 'unidad', 10, NULL, NULL, NULL, 80000.00, NULL, NULL, 0, NULL, 2, 1, '2022-11-27 08:19:12', '2022-11-27 08:19:12'),
-(3, 'SS-1we', 'https://http2.mlstatic.com/D_NQ_NP_958145-MCO50939074009_072022-W.jpg', 'Alamy', NULL, NULL, NULL, 'unidad', 10, NULL, NULL, NULL, 85000.00, NULL, NULL, 1, NULL, 1, 1, '2022-11-27 09:55:00', '2022-11-27 09:55:00');
+INSERT INTO `products` (`id`, `pro_code`, `pro_img`, `pro_name`, `pro_brand`, `pro_color`, `pro_model`, `pro_description`, `pro_presentation`, `pro_stock`, `pro_min_stock`, `pro_max_stock`, `pro_purchased_price`, `pro_cost`, `pro_wholesale_cost`, `pro_iva`, `pro_state`, `pro_discount`, `category_id`, `supplier_id`, `created_at`, `updated_at`) VALUES
+(1, 'SS-2', 'https://i.pinimg.com/550x/9e/f1/d8/9ef1d83080f0fc5691a44e11a333c000.jpg', 'Pininm', 'Pichi', 'Azul', NULL, NULL, 'unidad', 10, NULL, NULL, NULL, 80000.00, NULL, NULL, 1, NULL, 2, 2, '2022-11-27 07:32:33', '2022-11-27 08:17:08'),
+(2, 'SS-23', 'https://mimundodemoda.com/wp-content/uploads/2017/10/Camisa_de_hombre.jpg', 'Syle', 'Pichi', 'Azul', NULL, NULL, 'unidad', 10, NULL, NULL, NULL, 82000.00, NULL, NULL, 0, NULL, 2, 1, '2022-11-27 08:19:12', '2022-11-27 08:19:12'),
+(3, 'SS-1we', 'https://http2.mlstatic.com/D_NQ_NP_958145-MCO50939074009_072022-W.jpg', 'Alamy', 'Adidas', 'Blanco', NULL, NULL, 'unidad', 10, NULL, NULL, NULL, 85000.00, NULL, NULL, 1, NULL, 1, 1, '2022-11-27 09:55:00', '2022-11-27 09:55:00');
 
 -- --------------------------------------------------------
 
@@ -343,7 +344,8 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `sup_code`, `sup_name`, `sup_lastname`, `sup_cellphone`, `sup_email`, `document_type_id`, `document_number`, `department_id`, `sup_city`, `sup_street`, `created_at`, `updated_at`) VALUES
-(1, 'SS-PP-AA', 'José Luis', 'Acero', '3213655354', 'universityestudios@gmail.com', 1, '1232587055', 1, 'Bucaramanga', 'Calle 63D #30-67', '2022-11-27 05:53:37', '2022-11-27 05:53:37');
+(1, 'SS-PP-AA', 'José Luis', 'Acero', '3213655354', 'universityestudios@gmail.com', 1, '1232587077', 1, 'Bucaramanga', 'Calle 63D #30-67', '2022-11-27 05:53:37', '2022-12-22 00:51:50'),
+(2, 'SS-00', 'Welker José', 'Perez Acero', '3182985419', 'welkerperez@coex.com.co', 1, '1232589098', 1, 'Bucaramanga', 'Bucaramanga Conucos calle 63D #30-67', '2022-12-21 08:28:52', '2022-12-21 08:49:06');
 
 -- --------------------------------------------------------
 
@@ -375,9 +377,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `lastname`, `cellphone`, `document_type_id`, `document_number`, `department_id`, `city`, `street`, `email`, `email_verified_at`, `password`, `role_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Welker', 'Pérez Acero', '3213655354', 1, '1232589088', 1, 'Bucaramanga', 'Calle 63D', 'welkerperez97@gmail.com', '2022-11-27 05:53:37', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, '7EPu9Q4s4kzsCXzhayVe69IsWOGLmgTwEtMuzHdqhDA8O2s8lDADHdVZXVpV', '2022-11-27 05:53:37', '2022-11-27 05:53:37'),
+(1, 'Welker', 'Pérez Acero', '3213655354', 1, '1232589088', 1, 'Bucaramanga', 'Calle 63D', 'welkerperez97@gmail.com', '2022-11-27 05:53:37', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 'Vmk9qpfUsbgLY6PLxeSAWW2DwtcPyTLIQSf82hgjrUW5qa5HD6p82JMJRXgR', '2022-11-27 05:53:37', '2022-11-27 05:53:37'),
 (4, 'Anggie', 'Camacho', '3118245945', 1, '1232589088', 1, 'Piedecuesta', 'Crra. 23 #30-67 barrio las tres punalad', 'anggiel.c.c@hotmail.com', NULL, '$2y$10$OhmV3ne7HeWe7DvdDGj6..MulEXCxNGn0lU3xqu9oM88keYGiYX6O', 1, NULL, '2022-11-27 23:54:23', '2022-11-27 23:54:23'),
-(13, 'Jose José Pérez', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'joseacero007s@gmail.com', NULL, '$2y$10$/cqJOEUgcB.EyHnVx/dZtO7tIcOplmFCr9ZsV/QQV1vCcBx8eNYfG', 2, NULL, '2022-11-29 23:43:28', '2022-11-29 23:43:28');
+(14, 'Jose', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'joseacero007s@gmail.com', NULL, '$2y$10$tg3OVZ74gZ90oEDhaMLd1eRyqJhCxxgq5sQdj307FTzIzsRQTJIQy', 2, NULL, '2022-12-20 11:13:25', '2022-12-20 11:13:25');
 
 --
 -- Índices para tablas volcadas
@@ -585,13 +587,13 @@ ALTER TABLE `role_permissions`
 -- AUTO_INCREMENT de la tabla `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
