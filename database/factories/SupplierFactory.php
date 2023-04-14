@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
+use App\Models\DocumentType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SupplierFactory extends Factory
@@ -19,10 +21,10 @@ class SupplierFactory extends Factory
             'sup_lastname' => $this->faker->name(),
             'sup_cellphone' => $this->faker->numerify('#########'),
             'sup_email' => $this->faker->unique()->safeEmail(),
-            'department_id' => 1,
+            'department_id' => Department::factory(),
             'sup_city' => 'Bucaramanga',
             'sup_street' => 'Calle 63D #30-67',
-            'document_type_id' => 1,
+            'document_type_id' => DocumentType::factory(),
             'document_number' => $this->faker->numerify('#########'),
         ];
     }

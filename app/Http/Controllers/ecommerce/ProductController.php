@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -28,12 +30,16 @@ class ProductController extends Controller
 
     public function getProducts(): \Illuminate\Http\JsonResponse
     {
-        return response()->json(['products' => Product::select($this->dbAttri)->paginate(2)]);
+        return response()->json(['products' => Product::select($this->dbAttri)->paginate()]);
+    }
+
+    public function getProductsTest()
+    {
+        return ProductCollection::make(Product::all()->keyBy->id);
     }
 
     public function getProdPresentation()
     {
-        $obj = new \stdClass();
         $arrayData = array(['unidad', 'libra', 'kilogramo', 'caja', 'paquete', 'lata', 'galon', 'botella', 'tira', 'sobre', 'bolsa', 'saco', 'tarjeta', 'otro']);
         $presentation = array();
         foreach ($arrayData as $value1) {

@@ -13,11 +13,11 @@ class DocumentType extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function supplier()
     {
-        return $this->hasMany(Supplier::class);
+        return $this->hasOne(Supplier::class, 'document_type_id');
     }
 }

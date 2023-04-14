@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function getCategories()
     {
         try {
-            return DB::table('categories')->select('id', 'cat_name')->get();
+            return DB::table('categories')->select('id', 'cat_name')->paginate(15);
         } catch (\Throwable $th) {
             return ['error' => 'Lo sentimos se produjo un error inesperado'];
         }
@@ -44,13 +44,13 @@ class ProductController extends Controller
 
     public function getCategoryName($cat_id)
     {
-        return DB::table('categories')->select('id', 'cat_name')->where('id', $cat_id)->get();
+        return DB::table('categories')->select('id', 'cat_name')->where('id', $cat_id)->paginate(15);
     }
 
     public function getSupplierCodes()
     {
         try {
-            return DB::table('suppliers')->select('id', 'sup_code', 'sup_name')->distinct()->get();
+            return DB::table('suppliers')->select('id', 'sup_code', 'sup_name')->distinct()->paginate(15);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -59,7 +59,7 @@ class ProductController extends Controller
     public function getBandList()
     {
         try {
-            return Product::select('pro_brand')->distinct()->where('pro_brand', '!=', 'null')->get();
+            return Product::select('pro_brand')->distinct()->where('pro_brand', '!=', 'null')->paginate(15);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -67,27 +67,27 @@ class ProductController extends Controller
 
     public function getSuppliers()
     {
-        return DB::table('suppliers')->select('id', 'sup_name')->get();
+        return DB::table('suppliers')->select('id', 'sup_name')->paginate(15);
     }
 
     public function get_by_brand($brand)
     {
-        return Product::where('pro_brand', $brand)->get();
+        return Product::where('pro_brand', $brand)->paginate(15);
     }
 
     public function get_by_color($color)
     {
-        return Product::where('pro_color', $color)->get();
+        return Product::where('pro_color', $color)->paginate(15);
     }
 
     public function get_by_cost($cost)
     {
-        return Product::where('pro_cost', '<=', $cost)->get();
+        return Product::where('pro_cost', '<=', $cost)->paginate(15);
     }
 
     public function get_by_supplier($supplier)
     {
-        return Product::where('supplier_id', $supplier)->get();
+        return Product::where('supplier_id', $supplier)->paginate(15);
     }
 
     public function get_by_category_supplier_brand_color($category_id, $supplier, $brand, $color)
@@ -96,7 +96,7 @@ class ProductController extends Controller
             ->where('pro_brand', $brand)
             ->where('pro_color', $color)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_supplier_brand_cost($category_id, $supplier, $brand, $cost)
@@ -105,7 +105,7 @@ class ProductController extends Controller
             ->where('pro_brand', $brand)
             ->where('pro_cost', '<=', $cost)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_supplier_brand($category_id, $supplier, $brand)
@@ -113,7 +113,7 @@ class ProductController extends Controller
         return Product::where('category_id', $category_id)
             ->where('pro_brand', $brand)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_supplier_color($category_id, $supplier, $color)
@@ -121,7 +121,7 @@ class ProductController extends Controller
         return Product::where('category_id', $category_id)
             ->where('pro_color', $color)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_supplier_cost($category_id, $supplier, $cost)
@@ -129,72 +129,72 @@ class ProductController extends Controller
         return Product::where('category_id', $category_id)
             ->where('pro_cost', '<=', $cost)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_supplier($category_id, $supplier)
     {
         return Product::where('category_id', $category_id)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_brand($category_id, $brand)
     {
         return Product::where('category_id', $category_id)
             ->where('pro_brand', $brand)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_color($category_id, $color)
     {
         return Product::where('category_id', $category_id)
             ->where('pro_color', $color)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_category_cost($category_id, $cost)
     {
         return Product::where('category_id', $category_id)
             ->where('pro_cost', '<=', $cost)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_brand_supplier($brand, $supplier)
     {
         return Product::where('prod_brand', $brand)
             ->where('supplier_id', $supplier)
-            ->get();
+            ->paginate(15);
     }
 
     public function get_by_brand_cost($brand, $cost)
     {
-        return Product::where('pro_brand', $brand)->where('pro_cost', '<=', $cost)->get();
+        return Product::where('pro_brand', $brand)->where('pro_cost', '<=', $cost)->paginate(15);
     }
 
     public function get_by_brand_color($brand, $color)
     {
-        return Product::where('pro_brand', $brand)->where('pro_color', $color)->get();
+        return Product::where('pro_brand', $brand)->where('pro_color', $color)->paginate(15);
     }
 
     public function get_by_color_cost($color, $cost)
     {
-        return Product::where('pro_color', $color)->where('pro_cost', '<=', $cost)->get();
+        return Product::where('pro_color', $color)->where('pro_cost', '<=', $cost)->paginate(15);
     }
 
     public function get_by_color_supplier($color, $supplier)
     {
-        return Product::where('pro_color', $color)->where('supplier_id', $supplier)->get();
+        return Product::where('pro_color', $color)->where('supplier_id', $supplier)->paginate(15);
     }
 
     public function get_by_color_category($color, $category)
     {
-        return Product::where('pro_color', $color)->where('category_id', $category)->get();
+        return Product::where('pro_color', $color)->where('category_id', $category)->paginate(15);
     }
 
     public function get_by_cost_supplier($cost, $supplier)
     {
-        return Product::where('pro_cost', '<=', $cost)->where('supplier_id', $supplier)->get();
+        return Product::where('pro_cost', '<=', $cost)->where('supplier_id', $supplier)->paginate(15);
     }
 
     public function get_by_category($category_id)
@@ -203,7 +203,7 @@ class ProductController extends Controller
             $category = DB::table('categories')->select('cat_name')
                 ->where('id', '=', $category_id)
                 ->get();
-            return Product::where('category_id', $category_id)->paginate();
+            return Product::where('category_id', $category_id)->paginate(15);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -290,8 +290,8 @@ class ProductController extends Controller
             }
         }
 
-        $products = Product::paginate();
-        if (count($products) > 0) {
+        $products = Product::with('categories')->paginate(15);
+        if (!empty($products)) {
             return view('products.index', compact('products', 'categories', 'brandList', 'supplierCodes'));
         }
 

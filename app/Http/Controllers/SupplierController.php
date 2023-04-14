@@ -18,16 +18,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $data = Supplier::paginate();
-        $cities_id = array();
-        $cities = array();
-        foreach ($data as $key => $value) {
-            array_push($cities_id, $value['department_id']);
-            $city_name = DB::table('departments')->select('dep_name')->where('id', '=', $value['department_id'])->get();
-            array_push($cities, $city_name);
-        }
-        return view('suppliers.index', compact('data'), compact('cities'));
-        /* return response()->json($suppliers); */
+        $data = Supplier::with('document_type', 'department')->paginate();
+        return view('suppliers.index', compact('data'));
     }
 
     public function jsFormEvent($countryId)
@@ -62,7 +54,6 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-
         try {
             $supplier = Supplier::create($request->validated());
             return redirect()->route('supplier.index');

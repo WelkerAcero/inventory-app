@@ -13,7 +13,7 @@
     <div class="contenedor-provider-create">
         <div class="create-header">
             <img src="{{ asset('img/icons/datos.png') }}" width="43px" class="providers-create-space">
-            <h1>Editat datos del proveedor</h1>
+            <h1>Editar datos del proveedor</h1>
         </div>
 
         <form action="{{ route('supplier.update', $data) }}" method="post">

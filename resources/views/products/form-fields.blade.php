@@ -2,8 +2,8 @@
 
     <div class="create-form-bloque">
         <label for="pro_img"><b> * Ingresa la url de la imagen del item</b></label>
-        <textarea class="form-control mb-3 values" name="pro_img" value="{{ old('pro_img', $data->pro_img) }}" cols="30"
-            rows="10" required="true" placeholder="Copie y pegue la URL de la imagen"></textarea>
+        <textarea class="form-control mb-3 values" name="pro_img" cols="30" rows="10" required="true"
+            placeholder="Copie y pegue la URL de la imagen">{{ old('pro_img', $data->pro_img) }}</textarea>
         @error('pro_img')
             <p style="color:red">{{ $message }}</p>
         @enderror

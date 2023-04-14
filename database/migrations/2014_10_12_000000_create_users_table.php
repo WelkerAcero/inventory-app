@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('name', 40);
             $table->string('lastname', 40)->nullable();
             $table->string('cellphone', 13)->nullable();
-
             $table->foreignId('document_type_id')->nullable()->constrained('document_types')
                 ->onUpdate('cascade')->onDelete('set null');
+
             $table->string('document_number', 10)->nullable();
 
             $table->unsignedBigInteger('department_id')->nullable();

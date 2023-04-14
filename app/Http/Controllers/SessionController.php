@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Http\Requests\RequireSession;
+use App\Http\Requests\RequestSessionWeb;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -31,7 +31,7 @@ class SessionController extends Controller
         return view('preloader');
     }
 
-    public function auth(RequireSession $request)
+    public function auth(RequestSessionWeb $request)
     {
         try {
 

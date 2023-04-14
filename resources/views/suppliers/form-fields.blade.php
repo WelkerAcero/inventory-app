@@ -8,7 +8,7 @@
         @enderror
 
         <label for="document_type_id"><b>Tipo de documento</b></label>
-        <select id="document_type_id" name="document_type_id" class="form-control mb-3 values"
+        <select id="document_type_id" name="document_type_id" class="form-control form-select mb-3 values"
             value="{{ old('document_type_id', $data->document_type_id) }}">
             <option value="">Seleccione el tipo de documento</option>
             @foreach ($documentType as $item)

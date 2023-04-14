@@ -104,7 +104,7 @@
                                 <div style="display: flex;flex-direction:row; justify-content:space-evenly;">
                                     <div>
                                         <h3><b>Código: </b><span>{{ $item->pro_code }}</span></h3>
-                                        <h3><b>Precio: </b><span> ${{ $item->pro_cost }},00</span></h3>
+                                        <h3><b>Precio: </b><span> ${{ $item->pro_cost }}</span></h3>
                                         <h3><b>Disponibilidad: </b><span>{{ $item->pro_stock }}</span></h3>
                                     </div>
                                     <div>
@@ -147,7 +147,9 @@
                             </div>
                         </div>
                 @endforeach
-
+                <div class="d-flex justify-content-center mt-3 pagination">
+                    {{ $products->links() }}
+                </div>
             </div>
 
         </div>

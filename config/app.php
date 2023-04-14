@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC', //CAMBIAR FRANJA HORARIA
+    'timezone' => 'America/Bogota', //CAMBIAR FRANJA HORARIA
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
 
     ],
 

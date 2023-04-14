@@ -36,6 +36,11 @@ body {
     margin: 4%;
 }
 
+.section--izq > h1,
+h2 {
+    text-align: center;
+}
+
 .section--der {
     width: 100%;
     margin: 30px;
@@ -76,7 +81,7 @@ body {
     margin: 12%;
 }
 
-.navbar-brand{
+.navbar-brand {
     padding-top: 0 !important;
 }
 
@@ -221,8 +226,17 @@ body {
 }
 
 @media only screen and (max-width: 1200px) {
+    .contenedor {
+        width: 80%;
+    }
+
     .section--izq {
         width: 100%;
+        margin: 8%;
+    }
+
+    .section--izq > h2 {
+        text-align: center;
     }
 
     .section--der {

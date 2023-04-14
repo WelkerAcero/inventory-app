@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+
 
 class RegisterRequest extends FormRequest
 {
@@ -22,6 +24,27 @@ class RegisterRequest extends FormRequest
      *
      * @return array
      */
+
+    protected function prepareForValidation()
+    {
+        if (Auth::user() && Auth::user()->role_id === 1) {
+            $role_id = 1;
+        } else {
+            $role_id = 2;
+        }
+
+        if ($this->password === $this->password_confirmation) {
+            $pass = $this->password;
+        } else {
+            $pass = '';
+        }
+
+        $this->merge([
+            'role_id' => $role_id,
+            'password' => $pass
+        ]);
+    }
+
     public function rules()
     {
         return [
@@ -36,10 +59,10 @@ class RegisterRequest extends FormRequest
             'city' => [],
             'street' => [],
             'email' => ['required', 'unique:users'],
-            'role_id' => [],
+            'role_id' => 'required',
             'password' => [
                 'required',
-                'string',
+                'confirmed',
                 Password::min(6)
                     ->letters()
                     ->mixedCase()

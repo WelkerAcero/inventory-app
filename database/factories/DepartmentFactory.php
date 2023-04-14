@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DepartmentFactory extends Factory
@@ -15,7 +16,7 @@ class DepartmentFactory extends Factory
     {
         return [
             'dep_name' => $this->faker->name(),
-            'country_id' => 21,
+            'country_id' => Country::factory(),
         ];
     }
 }

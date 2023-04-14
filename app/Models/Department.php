@@ -11,11 +11,18 @@ class Department extends Model
 
     protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->hasMany(User::class);
     }
 
-    public function country(){
+    public function supplier()
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
+    public function country()
+    {
         return $this->belongsTo(Country::class);
     }
 }
