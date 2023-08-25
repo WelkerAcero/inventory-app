@@ -40,10 +40,10 @@ Route::controller(ProductController::class)->group(function () {
 });
 
 Route::controller(AuthController::class)->group(
-    function () {
+    function ($route) {
         Route::post('register', 'register')->name('api.register');
         Route::post('login', 'login')->name('api.login');
-        Route::get('profile', 'profile')->name('api.profile');
+        Route::post('profile', 'profile')->name('api.profile');
         Route::post('logout', 'logout')->name('api.logout');
         Route::post('refresh', 'refresh')->name('api.refresh');
     }

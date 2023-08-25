@@ -5,10 +5,8 @@ namespace App\Http\Controllers\ecommerce;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\RequestSessionApi;
-use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -18,9 +16,10 @@ class AuthController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]); //AQUI
+        $this->middleware('auth.customer:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -33,7 +32,7 @@ class AuthController extends Controller
         if ($user = User::create($request->validated())) {
             return response()->json(
                 [
-                    'message' => 'USUARIO CREADO EXITOSAMENTE!',
+                    'message' => 'CUENTA CREADA EXITOSAMENTE!',
                     'user' => $user
                 ],
                 201
@@ -41,30 +40,26 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(RequestSessionApi $request)
     {
+        $credentials = $request->only(['email', 'password']);
 
-        $validated = $request->validate([
-            'email' => 'required',
-            'password' => [
-                'required',
-                Password::min(6)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
-            ],
-        ]);
-        if ($validated) {
-            $credentials = $request->only(['email', 'password']);
+        if (!$token = JWTAuth::attempt($credentials)) { // if want Auth::attempt($credentials) but true is given
+            return response()->json(
+                [
+                    'errors' => [
+                        'Unauthorized' => ['Las credenciales son incorrectas']
+                    ]
+                ],
+                401
+            );
         }
-
-        if (!$token = JWTAuth::attempt($credentials)) { // if want JWTAuth::attempt($credentials)
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $this->respondWithToken($token);
+        return response()->json([
+            'user' => Auth::user(),
+            'token' => $token,
+            'token_type' => 'Bearer',
+            'expires_in' => 60 * 60
+        ], 200);
     }
 
     /**
@@ -74,8 +69,11 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        if (auth()->user()->role_id == 2) {
-            return response()->json(auth()->user());
+        try {
+            $user = User::find(Auth::id());
+            return response()->json(['user' => $user]);
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
@@ -87,7 +85,6 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
         return response()->json(['message' => 'Successfully logged out']);
     }
 

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /* Sanctum::ignoreMigrations(); */
         Paginator::useBootstrap();
         //resolve(\Illuminate\Routing\UrlGenerator::class)-**texto en negrita**>forceScheme('https');
     }

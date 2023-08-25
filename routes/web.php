@@ -11,7 +11,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\KardexController;
 //Ecommerce Controllers
 use App\Http\Controllers\EcommerceController;
-
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,8 +35,8 @@ Route::controller(SessionController::class)->group(function () {
     //These routes have authenticate verification on Controller
     Route::get('/preloader', 'loader')->name('preloader');
     Route::get('/login', 'index')->name('login');
-    Route::post('/validating', 'auth')->name('login.validate');
     Route::get('signup', 'register')->name('register.form');
+    Route::post('/processing', 'authenticateUser')->name('login.validate');
     Route::post('/logout', 'logout')->name('logout');
 });
 

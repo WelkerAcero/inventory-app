@@ -14,8 +14,7 @@
             </div>
 
             <form action="{{ route('login.validate') }}" method="post">
-                @csrf {{-- Cross side request forgery --}}
-
+                @csrf
                 <p style="color: red; text-align:center;">{{ $msgErr ?? '' }}</p>
 
                 <div class="mb-3">

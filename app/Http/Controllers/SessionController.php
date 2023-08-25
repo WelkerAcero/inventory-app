@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequestSessionWeb;
 use Illuminate\Support\Facades\Auth;
@@ -14,16 +13,12 @@ class SessionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout']);
+        $this->middleware('guest')->except('logout');
     }
 
     public function index()
     {
-        $documentType = DB::table('document_types')->select('id', 'doc_name')->get();
-        $countries = DB::table('countries')->select('id', 'cou_name')->get();
-        $departments = DB::table('departments')->select('id', 'dep_name')->get();
-        $roles = DB::table('roles')->select('id', 'rol_name')->get();
-        return view('login.login', compact('documentType', 'countries', 'departments', 'roles'));
+        return view('login.login');
     }
 
     public function loader()
@@ -31,7 +26,7 @@ class SessionController extends Controller
         return view('preloader');
     }
 
-    public function auth(RequestSessionWeb $request)
+    public function authenticateUser(RequestSessionWeb $request)
     {
         try {
 

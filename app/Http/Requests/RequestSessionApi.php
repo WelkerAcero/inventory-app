@@ -26,15 +26,7 @@ class RequestSessionApi extends FormRequest
     {
         return [
             'email' => 'required',
-            'password' => [
-                'required',
-                Password::min(6)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
-            ],
+            'password' => 'required'
         ];
     }
 
